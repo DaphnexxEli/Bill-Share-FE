@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./App.css";
 
-
 function App() {
   return (
     <>
@@ -15,7 +14,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
-        
         </Routes>
       </div>
     </>

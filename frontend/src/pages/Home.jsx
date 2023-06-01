@@ -1,8 +1,7 @@
 import React from 'react'
-import CardContainer from '../components/optionSelection';
 
 export const Home = () => {
   return (
-    <><div className='text-center text-2xl font-bold'>Let's figure out a fair way to divide the costs for expenses<div> <CardContainer /> </div></div></>
+    <><div className='text-center text-2xl font-bold'>Authentication System<div>Vite React + Django</div></div></>
   )
 }
