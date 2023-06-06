@@ -1,13 +1,19 @@
 import React from 'react';
 import CardContainer from '../components/optionSelection';
 
-const App = () => {
+export const TwoOption = () => {
   return (
     <div>
-      <h1>React Card Example</h1>
+      <h1></h1>
       <CardContainer />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+// import React from 'react'
+
+// export const TwoOption = () => {
+//   return (
+//     <div>twoOption</div>
+//   )
+// }

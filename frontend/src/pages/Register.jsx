@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import api from '../services/api';
+import api from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
+import Modal from "react-modal";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -8,16 +9,22 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+    navigate("/LoginPage");
+    window.location.reload();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsOpen(true);
 
     try {
       const response = await api.register(name, email, password, phone);
 
       console.log("Signed in successfully:", response);
-      navigate("/");
-      window.location.reload();
     } catch (error) {
       // Handle login error
       console.error("Sign in failed:", error.message);
@@ -50,6 +57,7 @@ export const Register = () => {
                 <input
                   type="text"
                   value={name}
+                  required
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -60,6 +68,7 @@ export const Register = () => {
                 <input
                   type="text"
                   value={email}
+                  required
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -70,6 +79,7 @@ export const Register = () => {
                 <input
                   type="text"
                   value={phone}
+                  required
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
@@ -80,6 +90,7 @@ export const Register = () => {
                 <input
                   type="password"
                   value={password}
+                  required
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
@@ -87,6 +98,23 @@ export const Register = () => {
                 <button type="submit" className="btn btn-primary">
                   Join us
                 </button>
+                <Modal
+                  isOpen={isOpen}
+                  onRequestClose={closeModal}
+                  className="flex justify-center items-center h-screen"
+                >
+                  <div class="card w-96 bg-neutral text-neutral-content">
+                    <div class="card-body items-center text-center">
+                      <h2 class="card-title">Successful</h2>
+                      <img src="../public/checked.png" alt="team" style={{ width: '100px', height: '100px' }}/>
+                      <div class="card-actions justify-end">
+                        <button className="btn btn-primary" onClick={closeModal}>
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </Modal>
               </div>
             </form>
           </div>
