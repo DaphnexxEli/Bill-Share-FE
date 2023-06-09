@@ -1,8 +1,16 @@
-import React from 'react'
-import CardContainer from '../components/optionSelection'
+import React from "react";
+import JoinByCodeOrQRCode from "./joinPartypage";
+import CreatePartyPage from "./createParty";
 
 export const Home = () => {
-  // return (
-  //   <><div className='text-center text-2xl font-bold'> <CardContainer></CardContainer></div></>
-  // )
-}
+  return (
+    <div>
+      <div>
+        <JoinByCodeOrQRCode />
+      </div>
+      <div classname="">
+        <CreatePartyPage />
+      </div>
+    </div>
+  );
+};
