@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 
-const createPartyPage = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [selectedOption1, setSelectedOption1] = useState("");
-  const [selectedOption2, setSelectedOption2] = useState("");
+export const CreateParty = () => {
+    const [inputValue, setInputValue] = useState("");
+    const [selectedOption1, setSelectedOption1] = useState("");
+    const [selectedOption2, setSelectedOption2] = useState("");
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
 
-  const handleSelect1Change = (event) => {
-    setSelectedOption1(event.target.value);
-  };
+    const handleSelect1Change = (event) => {
+        setSelectedOption1(event.target.value);
+    };
 
-  const handleSelect2Change = (event) => {
-    setSelectedOption2(event.target.value);
-  };
+    const handleSelect2Change = (event) => {
+        setSelectedOption2(event.target.value);
+    };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform submit logic using the input value and selected options
-    console.log("Input Value:", inputValue);
-    console.log("Selected Option 1:", selectedOption1);
-    console.log("Selected Option 2:", selectedOption2);
-    // Reset input and select values after submitting
-    setInputValue("");
-    setSelectedOption1("");
-    setSelectedOption2("");
-  };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Perform submit logic using the input value and selected options
+        console.log("Input Value:", inputValue);
+        console.log("Selected Option 1:", selectedOption1);
+        console.log("Selected Option 2:", selectedOption2);
+        // Reset input and select values after submitting
+        setInputValue("");
+        setSelectedOption1("");
+        setSelectedOption2("");
+    };
 
   return (
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -84,7 +84,5 @@ const createPartyPage = () => {
         </button>
       </form>
     </div>
-  );
-};
-
-export default createPartyPage;
+  )
+}

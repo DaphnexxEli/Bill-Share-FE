@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000'; // Replace with your Django backend URL
 
 //Login
-const login = async (email, password) => {
+const login = async(email, password) => {
     try {
         const response = await axios.post(`${API_URL}/users/login`, {
             email,
@@ -15,8 +15,9 @@ const login = async (email, password) => {
     }
 };
 
+
 //Logout
-const logout = async () => {
+const logout = async() => {
     try {
         const response = await axios.post(`${API_URL}/users/logout`);
         localStorage.removeItem('email')
@@ -32,7 +33,7 @@ const logout = async () => {
 };
 
 //Register
-const register = async (name, email, password, phone) => {
+const register = async(name, email, password, phone) => {
     try {
         const response = await axios.post(`${API_URL}/users/register`, {
             name,

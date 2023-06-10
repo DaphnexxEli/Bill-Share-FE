@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import { TwoOption } from "./pages/twoOption";
+import { JoinByCodeOrQRCode} from "./pages/JoinPartypage";
+import { CreateParty} from "./pages/CreateParty";
+
 
 
 function App() {
@@ -17,6 +20,8 @@ function App() {
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/TwoOption" element={<TwoOption />} />
+          <Route path="/createParty" element={<CreateParty />} /> 
+          <Route path="/joinByCodeOrQRCode" element={<JoinByCodeOrQRCode />} /> 
         </Routes>
       </div>
     </>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { QrReader } from 'react-qr-reader';
 
-const JoinByCodeOrQRCode = () => {
+ export const JoinByCodeOrQRCode = () => {
   const [code, setCode] = useState('');
   const [scannedCode, setScannedCode] = useState('');
   const [showQRScanner, setShowQRScanner] = useState(false);
@@ -71,7 +71,7 @@ const JoinByCodeOrQRCode = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default JoinByCodeOrQRCode;
+

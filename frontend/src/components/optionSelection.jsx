@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+
 
 const CardContainer = () => {
   return (
@@ -15,7 +18,9 @@ const CardContainer = () => {
                   <h2 class="card-title">Create a party</h2>
                         <img src="../public/team.png"alt="team" style={{ width: '100px', height: '100px' }}/>
                   <div class="card-actions justify-end">
+                  <Link to="/createParty">
                     <button class="btn btn-primary">Apply</button>
+                  </Link>
                   </div>
                 </div>
               </div>
@@ -31,7 +36,9 @@ const CardContainer = () => {
                   <h2 class="card-title">Join a group</h2>
                   <img src="../public/add-group.png" alt="team" style={{ width: '100px', height: '100px' }}/>
                   <div class="card-actions justify-end">
+                  <Link to="/joinByCodeOrQRCode ">
                     <button class="btn btn-primary">Apply</button>
+                  </Link>
                   </div>
                 </div>
               </div>
@@ -42,5 +49,6 @@ const CardContainer = () => {
     </div>
   );
 };
+
 
 export default CardContainer;
