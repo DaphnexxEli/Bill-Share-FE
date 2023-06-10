@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import { TwoOption } from "./pages/twoOption";
-import { JoinByCodeOrQRCode} from "./pages/JoinPartypage";
+import { JoinByCodeOrQRCode} from "./pages/joinPartypage";
 import { CreateParty} from "./pages/CreateParty";
 
 
