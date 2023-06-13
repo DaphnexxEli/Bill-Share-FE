@@ -30,6 +30,8 @@ export const CreateParty = () => {
     };
 
   return (
+    <div className="hero min-h-screen bg-base-200">
+    <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <h1 className="text-2xl font-bold card-body">Create Party Group</h1>
       <form onSubmit={handleSubmit}>
@@ -74,15 +76,19 @@ export const CreateParty = () => {
             className="block bg-white w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option value="">-- Select an option --</option>
-            <option value="optionA">Option A</option>
-            <option value="optionB">Option B</option>
-            <option value="optionC">Option C</option>
+            <option value="optionA">Jame Land</option>
+            <option value="optionB">Idea Land</option>
+            <option value="optionC">Happy restaurant</option>
           </select>
         </div>
-        <button type="submit" className="btn btn-primary mt-3">
-          Submit
+        <div className="form-control mt-6">
+        <button type="submit" className="btn btn-primary">
+        Submit
         </button>
+        </div>
       </form>
     </div>
-  )
-}
+    </div>
+    </div>
+  );
+};

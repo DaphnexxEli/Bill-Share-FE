@@ -38,6 +38,8 @@ import { QrReader } from 'react-qr-reader';
   };
 
   return (
+    <div className="hero min-h-screen bg-base-200">
+    <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
         <h1 className="text-2xl font-bold card-body">Join by Code or QR Code</h1>
         <div className="card-body">
@@ -71,7 +73,9 @@ import { QrReader } from 'react-qr-reader';
         </div>
       )}
     </div>
-  )
-}
+    </div></div>
+    
+  );
+};
 
 

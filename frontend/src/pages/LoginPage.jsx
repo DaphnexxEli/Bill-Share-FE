@@ -67,22 +67,25 @@ export const LoginPage = () => {
                   required
                   onChange={(e) => setPassword(e.target.value)}
                 />
-
                 <label className="label">
                   <Link to='/register' className="label-text-alt link link-hover">
                     Join us here
                   </Link>
                 </label>
-
               </div>
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
                   Login
                 </button>
               </div>
-            </form>
+            </form> 
           </div>
         </div>
+        <label className="label">
+                  <Link to='/reset' className="label-text-right">
+                    Forgot password
+                  </Link>
+                </label>
       </div>
     </div>
     
