@@ -7,7 +7,7 @@ import "./App.css";
 import { TwoOption } from "./pages/twoOption";
 import { JoinByCodeOrQRCode} from "./pages/joinPartypage";
 import { CreateParty} from "./pages/CreateParty";
-
+import { ResetPassword } from "./pages/Reset";
 
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/reset" element={<ResetPassword  />} />
           <Route path="/TwoOption" element={<TwoOption />} />
           <Route path="/createParty" element={<CreateParty />} /> 
           <Route path="/joinByCodeOrQRCode" element={<JoinByCodeOrQRCode />} /> 

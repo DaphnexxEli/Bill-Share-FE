@@ -47,6 +47,19 @@ const register = async(name, email, password, phone) => {
     }
 };
 
+const resetpass = async(email, new_password, confirm_password) => {
+    try {
+        const response = await axios.post(`${API_URL}/users/resetpass`, {
+            email,
+            new_password,
+            confirm_password
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
 
 export default {
     login,
