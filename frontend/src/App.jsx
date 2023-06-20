@@ -8,6 +8,7 @@ import { TwoOption } from "./pages/twoOption";
 import { JoinByCodeOrQRCode} from "./pages/joinPartypage";
 import { CreateParty} from "./pages/CreateParty";
 import { ResetPassword } from "./pages/Reset";
+import { ForAdmin } from "./pages/AdminPage";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/TwoOption" element={<TwoOption />} />
           <Route path="/createParty" element={<CreateParty />} /> 
           <Route path="/joinByCodeOrQRCode" element={<JoinByCodeOrQRCode />} /> 
+          <Route path="/forAdmin" element={<ForAdmin />} /> 
         </Routes>
       </div>
     </>
