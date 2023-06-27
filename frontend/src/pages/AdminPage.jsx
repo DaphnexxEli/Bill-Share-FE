@@ -18,7 +18,7 @@ export const ForAdmin = () => {
                   <h2 class="card-title">Add new menu</h2>
                         <img src="../public/add-menu.png"alt="add" style={{ width: '100px', height: '100px' }}/>
                   <div class="card-actions justify-end">
-                  <Link to="/createParty">
+                  <Link to="/newMenu">
                     <button class="btn btn-primary">Apply</button>
                   </Link>
                   </div>
@@ -33,10 +33,10 @@ export const ForAdmin = () => {
               <div class="card w-96 bg-base-100 shadow-xl image-full">
                 
                 <div class="card-body">
-                  <h2 class="card-title">Feedback and review</h2>
+                  <h2 class="card-title">All data</h2>
                   <img src="../public/opinion.png" alt="opinion" style={{ width: '100px', height: '100px' }}/>
                   <div class="card-actions justify-end">
-                  <Link to="/joinByCodeOrQRCode ">
+                  <Link to="/data ">
                     <button class="btn btn-primary">Apply</button>
                   </Link>
                   </div>
