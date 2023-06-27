@@ -4,11 +4,16 @@ import { Register } from "./pages/Register";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./App.css";
-import { TwoOption } from "./pages/twoOption";
+
+import { CardContainer } from "./pages/optionSelection";
+
 import { JoinByCodeOrQRCode} from "./pages/joinPartypage";
-import { CreateParty} from "./pages/CreateParty";
+import { CreateParty} from "./pages/createParty";
 import { ResetPassword } from "./pages/Reset";
 import { ForAdmin } from "./pages/AdminPage";
+import { NewMenu } from "./pages/AddMenu";
+import { Data } from "./pages/AllData";
+
 
 
 function App() {
@@ -21,10 +26,12 @@ function App() {
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<ResetPassword  />} />
-          <Route path="/TwoOption" element={<TwoOption />} />
+          <Route path="/cardcontainer" element={<CardContainer />} />
           <Route path="/createParty" element={<CreateParty />} /> 
           <Route path="/joinByCodeOrQRCode" element={<JoinByCodeOrQRCode />} /> 
           <Route path="/forAdmin" element={<ForAdmin />} /> 
+          <Route path="/newMenu" element={<NewMenu />} /> 
+          <Route path="/data" element={<Data />} /> 
         </Routes>
       </div>
     </>
