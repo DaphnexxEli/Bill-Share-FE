@@ -30,13 +30,13 @@ export const CreateParty = () => {
     };
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-Green">
     <div className="hero-content flex-col lg:flex-row-reverse">
-    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-      <h1 className="text-2xl font-bold card-body">Create Party Group</h1>
+    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
+      <h1 className="text-2xl font-bold card-body text-white">Create Party Group</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="inputField" className="block text-sm font-medium">
+          <label htmlFor="inputField" className="block text-sm font-medium text-white">
             Party Name
           </label>
           <input
@@ -52,7 +52,7 @@ export const CreateParty = () => {
           />
         </div>
         <div>
-          <label htmlFor="select1" className="block text-sm font-medium mt-3">
+          <label htmlFor="select1" className="block text-sm font-medium mt-3 text-white">
             Select bill type
           </label>
           <select
@@ -68,7 +68,7 @@ export const CreateParty = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="select2" className="block text-sm font-medium mt-3">Select Menu</label>
+          <label htmlFor="select2" className="block text-sm font-medium mt-3 text-white">Select Menu</label>
           <select
             id="select2"
             value={selectedOption2}

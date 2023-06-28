@@ -4,7 +4,7 @@ import api from '../services/api';
 export default function Navbar() {
   const token = localStorage.getItem('userToken')
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-Emerald2">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost normal-case text-xl">Bill share-Sharing Expenses</Link>
       </div>
@@ -28,7 +28,7 @@ export default function Navbar() {
                 <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
               </svg>
             </a>
-            <ul className="p-2 bg-base-100">
+            <ul className="p-2 bg-Emerald2">
               <li>
                 <a>On-going</a>
               </li>
