@@ -6,10 +6,10 @@ export default function Navbar() {
   return (
     <div className="navbar bg-Emerald2">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost normal-case text-xl">Bill share-Sharing Expenses</Link>
+        <Link to="/" className="btn btn-ghost normal-case text-xl text-white">Bill share-Sharing Expenses</Link>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 text-white">
           <li>
           <Link to="/forAdmin">
             <a>Admin</a>
