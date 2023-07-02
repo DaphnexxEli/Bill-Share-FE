@@ -60,11 +60,68 @@ const resetpass = async(email, new_password, confirm_password) => {
     }
 };
 
+const partyset = async(patyName, type, menu, host) => {
+    try {
+        const response = await axios.post(`${API_URL}/parties/partyset`, {
+            patyName,
+            type,
+            menu,
+            host
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+const memberset = async(name, cost) => {
+    try {
+        const response = await axios.post(`${API_URL}/parties/memberset`, {
+            name,
+            cost
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+const restaurantset = async(name) => {
+    try {
+        const response = await axios.post(`${API_URL}/menus/restaurantset`, {
+            name
+
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+const menuset = async(name, email, password, phone) => {
+    try {
+        const response = await axios.post(`${API_URL}/menus/menuset`, {
+            name,
+            restaurant,
+            price
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
 
 export default {
     login,
     logout,
-    register
+    register,
+    resetpass,
+    partyset,
+    memberset,
+    menuset,
+    restaurantset
+
 };
 
 
