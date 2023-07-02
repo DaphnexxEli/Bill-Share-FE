@@ -6,13 +6,13 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 
 import { CardContainer } from "./pages/optionSelection";
-
 import { JoinByCodeOrQRCode} from "./pages/joinPartypage";
 import { CreateParty} from "./pages/createParty";
 import { ResetPassword } from "./pages/Reset";
 import { ForAdmin } from "./pages/AdminPage";
 import { NewMenu } from "./pages/AddMenu";
 import { Data } from "./pages/AllData";
+import { PartyPage } from "./pages/PartyPage";
 
 
 
@@ -32,6 +32,7 @@ function App() {
           <Route path="/forAdmin" element={<ForAdmin />} /> 
           <Route path="/newMenu" element={<NewMenu />} /> 
           <Route path="/data" element={<Data />} /> 
+          <Route path="/partyPage" element={<PartyPage />} /> 
         </Routes>
       </div>
     </>
