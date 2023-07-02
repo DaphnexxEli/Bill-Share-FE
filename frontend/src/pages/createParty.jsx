@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import api from "../services/api";
+import { Link } from "react-router-dom";
+
 
 export const CreateParty = () => {
     const [inputValue, setInputValue] = useState("");
@@ -17,17 +20,22 @@ export const CreateParty = () => {
         setSelectedOption2(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+  
+    const handleSubmit = async (event) => {
         event.preventDefault();
         // Perform submit logic using the input value and selected options
         console.log("Input Value:", inputValue);
         console.log("Selected Option 1:", selectedOption1);
         console.log("Selected Option 2:", selectedOption2);
+      
+    
         // Reset input and select values after submitting
         setInputValue("");
         setSelectedOption1("");
         setSelectedOption2("");
     };
+
+    
 
   return (
     <div className="hero min-h-screen bg-Green">
@@ -82,10 +90,12 @@ export const CreateParty = () => {
           </select>
         </div>
         <div className="form-control mt-6">
+        <Link to='/partyPage'>
         <button type="submit" className="btn btn-primary">
         Submit
         </button>
-        </div>
+        </Link>
+        </div> 
       </form>
     </div>
     </div>
