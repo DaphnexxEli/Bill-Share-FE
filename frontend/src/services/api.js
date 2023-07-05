@@ -19,11 +19,11 @@ const login = async (email, password) => {
 const logout = async () => {
   try {
     const response = await axios.post(`${API_URL}/users/logout`);
-    localStorage.removeItem("email");
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("first_name");
-    localStorage.removeItem("phone");
-    localStorage.removeItem('is_superuser')
+    // localStorage.removeItem("email");
+    // localStorage.removeItem("userToken");
+    // localStorage.removeItem("first_name");
+    // localStorage.removeItem("phone");
+    // localStorage.removeItem('is_superuser')
     Store.currentUser = null;
     return response.data;
   } catch (error) {

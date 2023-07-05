@@ -13,13 +13,13 @@ export const CardContainer = () => {
 
           <div className="card">
             <div className="card-body">
-              <div class="card w-96 bg-base-100 shadow-xl image-full">
-                <div class="card-body">
-                  <h2 class="card-title">Create a party</h2>
+              <div className="card w-96 bg-base-100 shadow-xl image-full">
+                <div className="card-body">
+                  <h2 className="card-title">Create a party</h2>
                         <img src="../public/team.png"alt="team" style={{ width: '100px', height: '100px' }}/>
-                  <div class="card-actions justify-end">
+                  <div className="card-actions justify-end">
                   <Link to="/createParty">
-                    <button class="btn btn-primary bg-Emerald">Apply</button>
+                    <button className="btn btn-primary bg-Emerald">Apply</button>
                   </Link>
                   </div>
                 </div>
@@ -30,14 +30,14 @@ export const CardContainer = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <div class="card w-96 bg-base-100 shadow-xl image-full">
+              <div className="card w-96 bg-base-100 shadow-xl image-full">
                 
-                <div class="card-body">
-                  <h2 class="card-title">Join a group</h2>
+                <div className="card-body">
+                  <h2 className="card-title">Join a group</h2>
                   <img src="../public/add-group.png" alt="team" style={{ width: '100px', height: '100px' }}/>
-                  <div class="card-actions justify-end">
+                  <div className="card-actions justify-end">
                   <Link to="/joinByCodeOrQRCode ">
-                    <button class="btn btn-primary bg-Emerald">Apply</button>
+                    <button className="btn btn-primary bg-Emerald">Apply</button>
                   </Link>
                   </div>
                 </div>

@@ -13,13 +13,13 @@ export const ForAdmin = () => {
 
           <div className="card">
             <div className="card-body">
-              <div class="card w-96 bg-base-100 shadow-xl image-full">
-                <div class="card-body">
-                  <h2 class="card-title">Add new menu</h2>
+              <div className="card w-96 bg-base-100 shadow-xl image-full">
+                <div className="card-body">
+                  <h2 className="card-title">Add new menu</h2>
                         <img src="../public/add-menu.png"alt="add" style={{ width: '100px', height: '100px' }}/>
-                  <div class="card-actions justify-end">
+                  <div className="card-actions justify-end">
                   <Link to="/newMenu">
-                    <button class="btn btn-primary bg-Emerald">Apply</button>
+                    <button className="btn btn-primary bg-Emerald">Apply</button>
                   </Link>
                   </div>
                 </div>
@@ -30,14 +30,14 @@ export const ForAdmin = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <div class="card w-96 bg-base-100 shadow-xl image-full">
+              <div className="card w-96 bg-base-100 shadow-xl image-full">
                 
-                <div class="card-body">
-                  <h2 class="card-title">All data</h2>
+                <div className="card-body">
+                  <h2 className="card-title">All data</h2>
                   <img src="../public/opinion.png" alt="opinion" style={{ width: '100px', height: '100px' }}/>
-                  <div class="card-actions justify-end">
+                  <div className="card-actions justify-end">
                   <Link to="/data ">
-                    <button class="btn btn-primary bg-Emerald">Apply</button>
+                    <button className="btn btn-primary bg-Emerald">Apply</button>
                   </Link>
                   </div>
                 </div>

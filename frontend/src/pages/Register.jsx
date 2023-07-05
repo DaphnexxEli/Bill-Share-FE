@@ -103,11 +103,11 @@ export const Register = () => {
                   onRequestClose={closeModal}
                   className="flex justify-center items-center h-screen"
                 >
-                  <div class="card w-96 bg-neutral text-neutral-content">
-                    <div class="card-body items-center text-center">
-                      <h2 class="card-title">Successful</h2>
+                  <div className="card w-96 bg-neutral text-neutral-content">
+                    <div className="card-body items-center text-center">
+                      <h2 className="card-title">Successful</h2>
                       <img src="../public/checked.png" alt="team" style={{ width: '100px', height: '100px' }}/>
-                      <div class="card-actions justify-end">
+                      <div className="card-actions justify-end">
                         <button className="btn btn-primary" onClick={closeModal}>
                           Close
                         </button>
