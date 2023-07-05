@@ -6,7 +6,7 @@ import Modal from "react-modal";
 export const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [first_name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +22,7 @@ export const Register = () => {
     setIsOpen(true);
 
     try {
-      const response = await api.register(name, email, password, phone);
+      const response = await api.register(first_name, email, password, phone);
 
       console.log("Signed in successfully:", response);
     } catch (error) {
@@ -56,7 +56,7 @@ export const Register = () => {
                 </label>
                 <input
                   type="text"
-                  value={name}
+                  value={first_name}
                   required
                   onChange={(e) => setName(e.target.value)}
                 />

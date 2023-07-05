@@ -3,19 +3,20 @@ import api from '../services/api';
 
 export default function Navbar() {
   const token = localStorage.getItem('userToken')
+  const is_superuser = localStorage.getItem('is_superuser')
   return (
     <div className="navbar bg-Emerald2">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost normal-case text-xl text-white">Bill share-Sharing Expenses</Link>
+        <Link to="/" className="btn btn-ghost normal-case text-xs sm:text-xl text-white">Bill share-Sharing Expenses</Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 text-white">
           <li>
-          <Link to="/forAdmin">
+          {is_superuser && <Link to="/forAdmin">
             <a>Admin</a>
-            </Link>
+            </Link>}
           </li>
-          <li tabIndex={0}>
+          {/* <li tabIndex={0}>
             <a>
               Party
               <svg
@@ -36,7 +37,7 @@ export default function Navbar() {
                 <a>History</a>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li>
             {!token && <Link to='/loginpage'>Login</Link>}
             {token && <Link to='/' onClick={api.logout()}>Logout</Link>}

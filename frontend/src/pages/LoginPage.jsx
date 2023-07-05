@@ -15,10 +15,11 @@ export const LoginPage = () => {
       const response = await api.login(email, password);
 
       // store user token in local storage or state
-      localStorage.setItem('name', response.name)
+      localStorage.setItem('first_name', response.first_name)
       localStorage.setItem('email', response.email)
       localStorage.setItem('userToken', response.jwt);
-      localStorage.setItem('Phone', response.phone)
+      localStorage.setItem('phone', response.phone)
+      localStorage.setItem('is_superuser', response.is_superuser)
       setUserToken(response.jwt);
 
       console.log('Logged in successfully:', response);
