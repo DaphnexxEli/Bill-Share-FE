@@ -3,7 +3,7 @@ import api from '../services/api';
 
 export default function Navbar() {
   const token = localStorage.getItem('userToken')
-  const is_superuser = localStorage.getItem('is_superuser')
+  const is_staff = localStorage.getItem('is_staff')
   return (
     <div className="navbar bg-Emerald2">
       <div className="flex-1">
@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 text-white">
           <li>
-          {is_superuser && <Link to="/forAdmin">
+          {is_staff && <Link to="/forAdmin">
             <a>Admin</a>
             </Link>}
           </li>

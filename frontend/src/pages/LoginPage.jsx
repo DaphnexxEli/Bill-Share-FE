@@ -19,7 +19,7 @@ export const LoginPage = () => {
       localStorage.setItem("email", response.email);
       localStorage.setItem("userToken", response.jwt);
       localStorage.setItem("phone", response.phone);
-      localStorage.setItem("is_superuser", response.is_superuser);
+      localStorage.setItem("is_staff", response.is_staff);
       setUserToken(response.jwt);
 
       console.log("Logged in successfully:", response);

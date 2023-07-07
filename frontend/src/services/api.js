@@ -19,11 +19,11 @@ const login = async (email, password) => {
 const logout = async () => {
   try {
     const response = await axios.post(`${API_URL}/users/logout`);
-    // localStorage.removeItem("email");
-    // localStorage.removeItem("userToken");
-    // localStorage.removeItem("first_name");
-    // localStorage.removeItem("phone");
-    // localStorage.removeItem('is_superuser')
+    localStorage.removeItem("email");
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("phone");
+    localStorage.removeItem('is_staff')
     Store.currentUser = null;
     return response.data;
   } catch (error) {
@@ -32,10 +32,11 @@ const logout = async () => {
 };
 
 //Register
-const register = async (first_name, email, password, phone) => {
+const register = async (first_name, last_name, email, password, phone) => {
   try {
     const response = await axios.post(`${API_URL}/users/register`, {
       first_name,
+      last_name,
       email,
       password,
       phone,
