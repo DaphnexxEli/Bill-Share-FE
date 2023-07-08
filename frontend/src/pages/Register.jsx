@@ -14,7 +14,7 @@ export const Register = () => {
 
   const closeModal = () => {
     setIsOpen(false);
-    navigate("/LoginPage");
+    navigate("/");
     window.location.reload();
   };
 
