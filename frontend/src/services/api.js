@@ -16,12 +16,13 @@ const login = async (email, password) => {
 };
 
 //Logout
-const logout = async () => {
+const logout = () => {
   try {
-    const response = await axios.post(`${API_URL}/users/logout`);
+    const response = axios.post(`${API_URL}/users/logout`);
     localStorage.removeItem("email");
     localStorage.removeItem("userToken");
     localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name")
     localStorage.removeItem("phone");
     localStorage.removeItem('is_staff')
     Store.currentUser = null;

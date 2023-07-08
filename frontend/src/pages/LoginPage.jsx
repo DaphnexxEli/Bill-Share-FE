@@ -23,7 +23,7 @@ export const LoginPage = () => {
       setUserToken(response.jwt);
 
       console.log("Logged in successfully:", response);
-      navigate("/cardcontainer");
+      navigate("/");
       window.location.reload();
     } catch (error) {
       // Handle login error

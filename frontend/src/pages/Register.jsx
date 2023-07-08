@@ -28,7 +28,7 @@ export const Register = () => {
         last_name,
         email,
         password,
-        phone,
+        phone
       );
 
       console.log("Signed in successfully:", response);
