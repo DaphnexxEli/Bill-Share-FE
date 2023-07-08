@@ -1,12 +1,14 @@
 import React from "react";
-
 import { LoginPage } from "./LoginPage";
-// import CreatePartyPage from "./CreateParty";
+import { CardContainer } from "./optionSelection";
+import { ForAdmin } from "./AdminPage";
 
 export const Home = () => {
+  const token = localStorage.getItem("userToken");
+  const is_staff = JSON.parse(localStorage.getItem("is_staff"));
   return (
     <div>
-      <LoginPage />
+      {!token ? <LoginPage /> : is_staff ? <ForAdmin /> : <CardContainer />}
     </div>
   );
 };

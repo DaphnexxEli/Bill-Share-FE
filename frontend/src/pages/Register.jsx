@@ -6,7 +6,8 @@ import Modal from "react-modal";
 export const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [first_name, setName] = useState("");
+  const [last_name, setLast] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,13 @@ export const Register = () => {
     setIsOpen(true);
 
     try {
-      const response = await api.register(name, email, password, phone);
+      const response = await api.register(
+        first_name,
+        last_name,
+        email,
+        password,
+        phone
+      );
 
       console.log("Signed in successfully:", response);
     } catch (error) {
@@ -48,13 +55,24 @@ export const Register = () => {
             <form onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Name</span>
+                  <span className="label-text">First Name</span>
                 </label>
                 <input
                   type="text"
-                  value={name}
+                  value={first_name}
                   required
                   onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Last Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={last_name}
+                  required
+                  onChange={(e) => setLast(e.target.value)}
                 />
               </div>
               <div className="form-control">
@@ -99,12 +117,19 @@ export const Register = () => {
                   onRequestClose={closeModal}
                   className="flex justify-center items-center h-screen"
                 >
-                  <div class="card w-96 bg-neutral text-neutral-content">
-                    <div class="card-body items-center text-center">
-                      <h2 class="card-title">Successful</h2>
-                      <img src="../public/checked.png" alt="team" style={{ width: '100px', height: '100px' }}/>
-                      <div class="card-actions justify-end">
-                        <button className="btn btn-primary" onClick={closeModal}>
+                  <div className="card w-96 bg-neutral text-neutral-content">
+                    <div className="card-body items-center text-center">
+                      <h2 className="card-title">Successful</h2>
+                      <img
+                        src="../public/checked.png"
+                        alt="team"
+                        style={{ width: "100px", height: "100px" }}
+                      />
+                      <div className="card-actions justify-end">
+                        <button
+                          className="btn btn-primary"
+                          onClick={closeModal}
+                        >
                           Close
                         </button>
                       </div>
