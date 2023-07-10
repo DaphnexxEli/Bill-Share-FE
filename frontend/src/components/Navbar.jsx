@@ -23,9 +23,7 @@ export default function Navbar() {
         <ul className="menu menu-horizontal px-1 text-white">
           <li>
             {is_staff && (
-              <Link to="/forAdmin">
                 <a>Admin</a>
-              </Link>
             )}
           </li>
           <li>

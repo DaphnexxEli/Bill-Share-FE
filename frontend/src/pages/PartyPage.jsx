@@ -101,7 +101,6 @@ export const PartyPage = () => {
 
               <div className="form-control mt-6">
                 <button
-                  class="bg-Emerald2 "
                   type="submit"
                   className="btn btn-primary"
                 >

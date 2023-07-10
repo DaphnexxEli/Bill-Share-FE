@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const CardContainer = () => {
-  const token = localStorage.getItem("userToken");
-
   return (
     <div className="container bg-Green flex justify-center">
       <div className="row">
