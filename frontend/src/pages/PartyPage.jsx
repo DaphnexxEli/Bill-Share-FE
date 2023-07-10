@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import api from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
+// import SearchFilter from '..components/SearchFilter';
+// import SearchResults from '../components/SearchResults';
 
 export const PartyPage = () => {
   const navigate = useNavigate();
@@ -10,11 +12,19 @@ export const PartyPage = () => {
   const [host, setHost] = useState("");
   const [menu, setMenu] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  // const [results, setResults] = useState([]);
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
     onSearch(e.target.value);
   };
+  
+  // const handleSearch = (searchTerm) => {
+  //   // Call your backend API with the searchTerm
+  //   fetch(`/api/search?searchTerm=${searchTerm}`)
+  //     .then((response) => response.json())
+  //     .then((data) => setResults(data));
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,6 +86,8 @@ export const PartyPage = () => {
                 <label className="label">
                   <span className="label-text text-Stone"> Menu </span>
                 </label>
+                {/* <SearchFilter onSearch={handleSearch} />
+                <SearchResults results={results} /> */}
                 <div className="flex items-center">
                   <input
                     type="text"
@@ -91,6 +103,8 @@ export const PartyPage = () => {
                     Search
                   </button>
                 </div>
+
+                
                 <input
                   type="text"
                   value={menu}
