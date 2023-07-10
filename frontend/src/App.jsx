@@ -9,6 +9,7 @@ import { CreateParty } from "./pages/createParty";
 import { ResetPassword } from "./pages/Reset";
 import { Data } from "./pages/AllData";
 import { PartyPage } from "./pages/PartyPage";
+import { SplitBillPage } from "./pages/SplitBillPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/joinByCodeOrQRCode" element={<JoinByCodeOrQRCode />} />
             <Route path="/data" element={<Data />} />
             <Route path="/partyPage" element={<PartyPage />} />
+            <Route path="/SplitBillPage" element={<SplitBillPage />} />
           </Routes>
         </div>
       </div>
