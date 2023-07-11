@@ -2,30 +2,34 @@ import React, { useState } from "react";
 import api from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
+import TextField from "@mui/material/TextField";
+import List from "./filteredData";
+import "../App.css";
+
 
 export const PartyPage = () => {
   const navigate = useNavigate();
   const [partyName, setPartyName] = useState("");
   const [type, setType] = useState("");
-  const [host, setHost] = useState("");
+  // const [host, setHost] = useState("");
   const [menu, setMenu] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [clickedPicture, setClickedPicture] = useState(null);
   const [showDataBox, setShowDataBox] = useState(false);
-  const [userData, setUserData] = useState('');
-  // const [results, setResults] = useState([]);
+  const [inputText, setInputText] = useState("");
 
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-    onSearch(e.target.value);
-  };
-
+ 
   const handlePictureClick = (pictureId) => {
     console.log('Picture clicked!');
     setClickedPicture(pictureId);
     setShowDataBox(true);
     setMenu(input);
   
+  };
+
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
   };
 
 
@@ -39,7 +43,7 @@ export const PartyPage = () => {
       localStorage.setItem("partyname", response.partyName);
       localStorage.setItem("type", response.type);
       localStorage.setItem("menu", response.menu);
-      localStorage.setItem("host", response.host);
+      // localStorage.setItem("host", response.host);
 
       console.log("Process successfully:", response);
       navigate("/");
@@ -52,9 +56,9 @@ export const PartyPage = () => {
     // Reset the form
     setPartyName("");
     setType("");
-    setHost("");
+    // setHost("");
     setMenu("");
-    setSearchTerm("");
+    setInputText("");
   
   };
 
@@ -92,23 +96,20 @@ export const PartyPage = () => {
                 </label>
            
                 <div className="flex items-center">
-                  <input
-                    type="text"
-                    className="px-4 py-2 border border-gray-300 rounded"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={handleInputChange}
+                <div className="search">
+                  <TextField
+                    id="outlined-basic"
+                    onChange={inputHandler}
+                    variant="outlined"
+                    fullWidth
+                    label="Search"
                   />
-                  <button
-                    className="ml-2 bg-blue-500 text-white font-semibold py-2 px-4 rounded"
-                    onClick={() => onSearch(searchTerm)}
-                  >
-                    Search
-                  </button>
+                </div>
+                <List input={inputText} />
                   <img
                     src="./dist/add.png"
                     alt="add"
-                    className="h-5 w-10"
+                    className="h-5 w-10 " 
                     onClick={() => handlePictureClick('pictureId')}
                   />
        
