@@ -10,11 +10,24 @@ export const PartyPage = () => {
   const [host, setHost] = useState("");
   const [menu, setMenu] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [clickedPicture, setClickedPicture] = useState(null);
+  const [showDataBox, setShowDataBox] = useState(false);
+  const [userData, setUserData] = useState('');
+  // const [results, setResults] = useState([]);
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
     onSearch(e.target.value);
   };
+
+  const handlePictureClick = (pictureId) => {
+    console.log('Picture clicked!');
+    setClickedPicture(pictureId);
+    setShowDataBox(true);
+    setMenu(input);
+  
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +55,7 @@ export const PartyPage = () => {
     setHost("");
     setMenu("");
     setSearchTerm("");
+  
   };
 
   const token = localStorage.getItem("userToken");
@@ -76,6 +90,7 @@ export const PartyPage = () => {
                 <label className="label">
                   <span className="label-text text-Stone"> Menu </span>
                 </label>
+           
                 <div className="flex items-center">
                   <input
                     type="text"
@@ -90,15 +105,26 @@ export const PartyPage = () => {
                   >
                     Search
                   </button>
+                  <img
+                    src="./public/add.png"
+                    alt="Picture"
+                    className="h-5 w-10"
+                    onClick={() => handlePictureClick('pictureId')}
+                  />
+       
                 </div>
+
+                {showDataBox && (
+                  
                 <input
                   type="text"
                   value={menu}
                   required
                   onChange={(e) => setMenu(e.target.value)}
                 />
+                )}
               </div>
-
+              
               <div className="form-control mt-6">
                 <button
                   class="bg-Emerald2 "
