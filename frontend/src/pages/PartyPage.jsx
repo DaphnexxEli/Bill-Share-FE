@@ -106,8 +106,8 @@ export const PartyPage = () => {
                     Search
                   </button>
                   <img
-                    src="./public/add.png"
-                    alt="Picture"
+                    src="./dist/add.png"
+                    alt="add"
                     className="h-5 w-10"
                     onClick={() => handlePictureClick('pictureId')}
                   />
