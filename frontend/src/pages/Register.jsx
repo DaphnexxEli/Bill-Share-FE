@@ -35,14 +35,17 @@ export const Register = () => {
     } catch (error) {
       // Handle login error
       console.error("Sign in failed:", error.message);
+      setIsOpen(false);
       navigate("/");
     }
+    
 
     // Reset the form
     setEmail("");
     setPassword("");
     setName("");
     setPhone("");
+    setLast("");
   };
   return (
     <div className="hero min-h-screen bg-Green">
