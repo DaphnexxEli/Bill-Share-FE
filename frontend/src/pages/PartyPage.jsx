@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import api from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
-import TextField from "@mui/material/TextField";
-import List from "./filteredData";
 import "../App.css";
-
 
 export const PartyPage = () => {
   const navigate = useNavigate();
@@ -17,21 +14,42 @@ export const PartyPage = () => {
   const [showDataBox, setShowDataBox] = useState(false);
   const [inputText, setInputText] = useState("");
 
- 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedItem, setSelectedItem] = useState("");
+
+  const data = [
+    "Apple",
+    "Banana",
+    "Orange",
+    "Pineapple",
+    "Mango",
+    "Grapes",
+    "Watermelon",
+  ];
+
+  const handleSearch = (event) => {
+    const searchTerm = event.target.value;
+    setSearchTerm(searchTerm);
+
+    const filteredData = data.filter((item) =>
+      item.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(filteredData);
+  };
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    setSearchTerm("");
+    setFilteredData([]);
+  };
+
   const handlePictureClick = (pictureId) => {
-    console.log('Picture clicked!');
+    console.log("Picture clicked!");
     setClickedPicture(pictureId);
     setShowDataBox(true);
     setMenu(input);
-  
   };
-
-  let inputHandler = (e) => {
-    //convert input text to lower case
-    var lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +77,6 @@ export const PartyPage = () => {
     // setHost("");
     setMenu("");
     setInputText("");
-  
   };
 
   const token = localStorage.getItem("userToken");
@@ -94,38 +111,41 @@ export const PartyPage = () => {
                 <label className="label">
                   <span className="label-text text-Stone"> Menu </span>
                 </label>
-           
-                <div className="flex items-center">
-                <div className="search">
-                  <TextField
-                    id="outlined-basic"
-                    onChange={inputHandler}
-                    variant="outlined"
-                    fullWidth
-                    label="Search"
-                  />
-                </div>
-                <List input={inputText} />
-                  <img
-                    src="./dist/add.png"
-                    alt="add"
-                    className="h-5 w-10 " 
-                    onClick={() => handlePictureClick('pictureId')}
-                  />
-       
-                </div>
 
-                {showDataBox && (
-                  
-                <input
-                  type="text"
-                  value={menu}
-                  required
-                  onChange={(e) => setMenu(e.target.value)}
-                />
-                )}
+                <div class="grid grid-cols-4 gap-2">
+                  <div class="col-span-3">
+                    <input
+                      type="text"
+                      placeholder={selectedItem}
+                      value={searchTerm}
+                      onChange={handleSearch}
+                    />
+                    {filteredData.length > 0 && (
+                      <ul>
+                        {filteredData.map((item, index) => (
+                          <li
+                            key={index}
+                            onClick={() => handleSelectItem(item)}
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {selectedItem && <p>Selected Item: {selectedItem}</p>}
+                  </div>
+
+                  <div className="col-span-1">
+                    <img
+                      src="./dist/add.png"
+                      alt="add"
+                      className="h-6"
+                      onClick={() => handlePictureClick("pictureId")}
+                    />
+                  </div>
+                </div>
               </div>
-              
+
               <div className="form-control mt-6">
                 <button
                   class="bg-Emerald2 "
