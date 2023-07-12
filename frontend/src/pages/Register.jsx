@@ -44,40 +44,18 @@ export const Register = () => {
     setPhone("");
   };
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-Green">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Join us now!</h1>
     
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
-              <div className="form-control">
+            <div className="form-control">
                 <label className="label">
-                  <span className="label-text">First Name</span>
-                </label>
-                <input
-                  type="text"
-                  value={first_name}
-                  required
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Last Name</span>
-                </label>
-                <input
-                  type="text"
-                  value={last_name}
-                  required
-                  onChange={(e) => setLast(e.target.value)}
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text text-Stone">Email</span>
                 </label>
                 <input
                   type="text"
@@ -88,18 +66,7 @@ export const Register = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Phone</span>
-                </label>
-                <input
-                  type="text"
-                  value={phone}
-                  required
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text text-Stone">Password</span>
                 </label>
                 <input
                   type="password"
@@ -108,6 +75,41 @@ export const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-Stone">First Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={first_name}
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-Stone">Last Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={last_name}
+                  required
+                  onChange={(e) => setLast(e.target.value)}
+                />
+              </div>
+              
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-Stone">Phone</span>
+                </label>
+                <input
+                  type="text"
+                  value={phone}
+                  required
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
                   Join us
