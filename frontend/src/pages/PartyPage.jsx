@@ -8,7 +8,7 @@ export const PartyPage = () => {
   const navigate = useNavigate();
   const [partyName, setPartyName] = useState("");
   const [type, setType] = useState("");
-  // const [host, setHost] = useState("");
+  const [host, setHost] = useState("");
   const [menu, setMenu] = useState("");
   const [clickedPicture, setClickedPicture] = useState(null);
   const [showDataBox, setShowDataBox] = useState(false);
@@ -46,7 +46,10 @@ export const PartyPage = () => {
 
   const handlePictureClick = (pictureId) => {
     console.log("Picture clicked!");
+
     setClickedPicture(pictureId);
+                    
+
     setShowDataBox(true);
     setMenu(input);
   };

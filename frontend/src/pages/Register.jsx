@@ -14,7 +14,7 @@ export const Register = () => {
 
   const closeModal = () => {
     setIsOpen(false);
-    navigate("/LoginPage");
+    navigate("/");
     window.location.reload();
   };
 
@@ -35,6 +35,7 @@ export const Register = () => {
     } catch (error) {
       // Handle login error
       console.error("Sign in failed:", error.message);
+      navigate("/");
     }
 
     // Reset the form
