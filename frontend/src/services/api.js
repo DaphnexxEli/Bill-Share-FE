@@ -61,13 +61,13 @@ const resetpass = async(email, new_password, confirm_password) => {
     }
 };
 
-const partyset = async(patyName, type, menu) => {
+const partyset = async(patyName, type, menu, host) => {
     try {
         const response = await axios.post(`${API_URL}/parties/partyset`, {
             patyName,
             type,
-            menu
-            // host,
+            menu,
+            host
         });
         return response.data;
     } catch (error) {
