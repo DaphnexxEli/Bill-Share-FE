@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import { Link } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
@@ -7,6 +7,20 @@ export const CreateParty = () => {
   const [partyName, setPartyName] = useState("");
   const [billType, setBillType] = useState("");
   const [menu, setMenu] = useState("");
+  const [restaurantslist, setRestaurantslist] = useState([]);
+
+  useEffect(() => {
+    const fetchRestaurantsList = async () => {
+      try {
+        const data = await api.getRestaurantsList();
+        setRestaurantslist(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchRestaurantsList();
+  }, []);
 
   const handlePartyNameChange = (event) => {
     setPartyName(event.target.value);
@@ -14,6 +28,9 @@ export const CreateParty = () => {
 
   const handleBillTypeChange = (event) => {
     setBillType(event.target.value);
+    if(event.target.value !== "Food&Drink"){
+      setMenu("")
+    }
   };
 
   const handleMenuChange = (event) => {
@@ -23,9 +40,21 @@ export const CreateParty = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Perform submit logic using the input value and selected options
-    console.log("Party Name:", partyName);
-    console.log("Bill Type:", billType);
-    console.log("Menu:", menu);
+    const host = localStorage.getItem("email");
+
+    try {
+      const response = await api.createParty(
+        partyName,
+        billType,
+        menu,
+        host,
+      );
+
+      console.log("Create successfully:", response);
+    } catch (error) {
+      // Handle login error
+      console.error("Create failed:", error.message);
+    }
 
     // Reset input and select values after submitting
     setPartyName("");
@@ -67,14 +96,13 @@ export const CreateParty = () => {
               onChange={handleBillTypeChange}
               className="select-field rounded-md"
             >
-              <option value="">-- Select an option --</option>
-              <option value="option1">Food & Drink</option>
-              <option value="option2">Home & Hotel</option>
-              <option value="option3">Subscribe & Service</option>
+              <option value="">None</option>
+              <option value="Food&Drink">Food & Drink</option>
+              <option value="Home&Hotel">Home & Hotel</option>
+              <option value="Subscribe&Service">Subscribe & Service</option>
             </select>
           </div>
-          {billType === "option1" &&
-          (
+          {billType === "Food&Drink" && (
             <div className="mb-4">
               <label htmlFor="menu" className="block text-white mb-1">
                 Select Menu
@@ -86,9 +114,11 @@ export const CreateParty = () => {
                 className="select-field rounded-md"
               >
                 <option value="">-- Select an option --</option>
-                <option value="optionA">Jame Land</option>
-                <option value="optionB">Idea Land</option>
-                <option value="optionC">Happy restaurant</option>
+                {restaurantslist.map((restaurant) => (
+                  <option key={restaurant.id} value={restaurant.name}>
+                    {restaurant.name}
+                  </option>
+                ))}
               </select>
             </div>
           )}

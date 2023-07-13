@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export const SplitBillPage = () => {
   const [items, setItems] = useState([]);
-  const [itemName, setItemName] = useState('');
-  const [itemPrice, setItemPrice] = useState('');
+  const [itemName, setItemName] = useState("");
+  const [itemPrice, setItemPrice] = useState("");
   const [selectedMembers, setSelectedMembers] = useState([]);
 
-  const members = ['John', 'Jane', 'Mike', 'Emily', 'David']; // เพิ่ม Mock Member 5 คน
+  const members = ["John", "Jane", "Mike", "Emily", "David"]; // Mock Member
 
   const handleItemNameChange = (event) => {
     setItemName(event.target.value);
@@ -26,15 +26,19 @@ export const SplitBillPage = () => {
   };
 
   const handleAddItem = () => {
-    const newItem = {
-      name: itemName,
-      price: itemPrice,
-      members: selectedMembers,
-    };
-    setItems([...items, newItem]);
-    setItemName('');
-    setItemPrice('');
-    setSelectedMembers([]);
+    if (itemName === "" || itemPrice === "") {
+
+    } else {
+      const newItem = {
+        name: itemName,
+        price: itemPrice,
+        members: selectedMembers,
+      };
+      setItems([...items, newItem]);
+      setItemName("");
+      setItemPrice("");
+      setSelectedMembers([]);
+    }
   };
 
   const calculateTotal = () => {
@@ -92,14 +96,16 @@ export const SplitBillPage = () => {
           value={itemName}
           onChange={handleItemNameChange}
           placeholder="Item Name"
+          required
           className="mr-2 px-2 py-1 border border-gray-300 rounded focus:outline-none"
         />
         <input
           type="number"
-          step="0.01"
+          step="1"
           value={itemPrice}
           onChange={handleItemPriceChange}
           placeholder="Price"
+          required
           className="mr-2 px-2 py-1 border border-gray-300 rounded focus:outline-none"
         />
         <button
