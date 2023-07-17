@@ -4,7 +4,7 @@ import { CardContainer } from "./optionSelection";
 import { ForAdmin } from "./AdminPage";
 
 export const Home = () => {
-  const token = localStorage.getItem("userToken");
+  const token = localStorage.getItem("access_token");
   const is_staff = JSON.parse(localStorage.getItem("is_staff"));
   return (
     <div>

@@ -6,7 +6,6 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userToken, setUserToken] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,12 +14,8 @@ export const LoginPage = () => {
       const response = await api.login(email, password);
 
       // store user token in local storage or state
-      localStorage.setItem("first_name", response.first_name);
-      localStorage.setItem("email", response.email);
-      localStorage.setItem("userToken", response.jwt);
-      localStorage.setItem("phone", response.phone);
-      localStorage.setItem("is_staff", response.is_staff);
-      setUserToken(response.jwt);
+      localStorage.setItem("access_token", response.access);
+      localStorage.setItem("refresh_token", response.refresh);
 
       console.log("Logged in successfully:", response);
       navigate("/");

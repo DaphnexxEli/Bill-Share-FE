@@ -2,11 +2,11 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import api from "../services/api";
 
 export default function Navbar() {
-  const token = localStorage.getItem("userToken");
+  const token = localStorage.getItem("access_token");
   const is_staff = JSON.parse(localStorage.getItem("is_staff"));
 
   const handleLogout = () => {
-    api.logout();
+    api.logout(token);
   };
 
   return (

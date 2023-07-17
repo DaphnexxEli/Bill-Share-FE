@@ -54,7 +54,7 @@ export const PartyPage = () => {
     setSearchTerm("");
   };
 
-  const token = localStorage.getItem("userToken");
+  const token = localStorage.getItem("access_token");
   if (!token) {
     return <LoginPage />;
   }

@@ -62,7 +62,7 @@ export const CreateParty = () => {
     setMenu("");
   };
 
-  const token = localStorage.getItem("userToken");
+  const token = localStorage.getItem("access_token");
   if (!token) {
     return <LoginPage />;
   }

@@ -5,27 +5,54 @@ const API_URL = "http://localhost:8000"; // Replace with your Django backend URL
 //Login
 const login = async (email, password) => {
   try {
-    // const response = await axios.post(`${API_URL}/users/login`, {
-    const response = await axios.post(`${API_URL}/aute/token`, {
+    const response = await axios.post(`${API_URL}/api/token/`, {
       email,
       password,
     });
+
+    setUser(response.data.access);
     return response.data;
   } catch (error) {
     this.setState({ message: error.response.data.message });
   }
 };
 
-//Logout
-const logout = () => {
+//Set User Data
+const setUser = async (access_token) => {
   try {
-    const response = axios.post(`${API_URL}/users/logout`);
+    const response = await axios.get(`${API_URL}/users/getuser`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    // store user data in local storage
+    localStorage.setItem("first_name", response.data.first_name);
+    localStorage.setItem("last_name", response.data.last_name);
+    localStorage.setItem("email", response.data.email);
+    localStorage.setItem("phone", response.data.phone);
+    localStorage.setItem("is_staff", response.data.is_staff);
+  } catch (error) {
+    this.setState({ message: error.response.data.message });
+  }
+};
+
+//Logout
+const logout = async (access_token) => {
+  // access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.post(`${API_URL}/users/logout`, null, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     localStorage.removeItem("email");
-    localStorage.removeItem("userToken");
     localStorage.removeItem("first_name");
-    localStorage.removeItem("last_name")
+    localStorage.removeItem("last_name");
     localStorage.removeItem("phone");
-    localStorage.removeItem('is_staff')
+    localStorage.removeItem("is_staff");
     Store.currentUser = null;
     return response.data;
   } catch (error) {
@@ -63,17 +90,12 @@ const resetpass = async (email, new_password, confirm_password) => {
 };
 
 const createParty = async (partyName, type, menu, host) => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let code = '';
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let code = "";
   for (let i = 0; i < 5; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
     code += characters[randomIndex];
   }
-  console.log("Party Name:", partyName);
-  console.log("Bill Type:", type);
-  console.log("Menu:", menu);
-  console.log("host:", host);
-  console.log("code:", code);
   try {
     console.log("Party Name:", partyName);
     console.log("Bill Type:", type);
@@ -85,7 +107,7 @@ const createParty = async (partyName, type, menu, host) => {
       type,
       menu,
       host,
-      code
+      code,
     });
     return response.data;
   } catch (error) {
@@ -148,7 +170,7 @@ export default {
   memberset,
   menuset,
   restaurantset,
-  getRestaurantsList
+  getRestaurantsList,
 };
 
 // import axios from 'axios';
