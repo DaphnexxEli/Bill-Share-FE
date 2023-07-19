@@ -7,6 +7,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     api.logout(token);
+    window.location.reload();
   };
 
   return (

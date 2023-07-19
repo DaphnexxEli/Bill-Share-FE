@@ -39,7 +39,6 @@ const setUser = async (access_token) => {
 
 //Logout
 const logout = async (access_token) => {
-  // access_token = localStorage.getItem("access_token");
   try {
     const response = await axios.post(`${API_URL}/users/logout`, null, {
       headers: {
@@ -53,10 +52,9 @@ const logout = async (access_token) => {
     localStorage.removeItem("last_name");
     localStorage.removeItem("phone");
     localStorage.removeItem("is_staff");
-    Store.currentUser = null;
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    console.error(error);
   }
 };
 
