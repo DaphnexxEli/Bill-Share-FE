@@ -10,15 +10,18 @@ const login = async (email, password) => {
       password,
     });
 
-    setUser(response.data.access);
-    return response.data;
+    localStorage.setItem("access_token", response.data.access);
+    localStorage.setItem("refresh_token", response.data.refresh);
+    setUser();
+    return response;
   } catch (error) {
     this.setState({ message: error.response.data.message });
   }
 };
 
 //Set User Data
-const setUser = async (access_token) => {
+const setUser = async () => {
+  const access_token = localStorage.getItem("access_token");
   try {
     const response = await axios.get(`${API_URL}/users/getuser`, {
       headers: {
@@ -33,12 +36,50 @@ const setUser = async (access_token) => {
     localStorage.setItem("phone", response.data.phone);
     localStorage.setItem("is_staff", response.data.is_staff);
   } catch (error) {
-    this.setState({ message: error.response.data.message });
+    if (error.response.status === 401) {
+      // Access Token หมดอายุหรือไม่ถูกต้อง
+      refreshToken();
+      const response = await axios.get(`${API_URL}/users/getuser`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+
+      localStorage.setItem("first_name", response.data.first_name);
+      localStorage.setItem("last_name", response.data.last_name);
+      localStorage.setItem("email", response.data.email);
+      localStorage.setItem("phone", response.data.phone);
+      localStorage.setItem("is_staff", response.data.is_staff);
+    } else {
+      console.error(error);
+    }
+  }
+};
+
+//Refresh Token
+const refreshToken = async () => {
+  const refresh_token = localStorage.getItem("refresh_token");
+  try {
+    const response = await axios.post(`${API_URL}api/token/refresh/`, {
+      refresh: refresh_token,
+    });
+    localStorage.setItem("access_token", response.access);
+  } catch (refreshError) {
+    console.error(refreshError);
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
+    localStorage.removeItem("phone");
+    localStorage.removeItem("is_staff");
+    window.location.reload();
   }
 };
 
 //Logout
-const logout = async (access_token) => {
+const logout = async () => {
+  const access_token = localStorage.getItem("access_token");
   try {
     const response = await axios.post(`${API_URL}/users/logout`, null, {
       headers: {
@@ -54,7 +95,24 @@ const logout = async (access_token) => {
     localStorage.removeItem("is_staff");
     return response.data;
   } catch (error) {
-    console.error(error);
+    if (error.response.status === 401) {
+      refreshToken();
+      const response = await axios.post(`${API_URL}/users/logout`, null, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("email");
+      localStorage.removeItem("first_name");
+      localStorage.removeItem("last_name");
+      localStorage.removeItem("phone");
+      localStorage.removeItem("is_staff");
+      return response.data;
+    } else {
+      console.error(error);
+    }
   }
 };
 
@@ -88,6 +146,7 @@ const resetpass = async (email, new_password, confirm_password) => {
 };
 
 const createParty = async (partyName, type, menu, host) => {
+  const access_token = localStorage.getItem("access_token");
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let code = "";
   for (let i = 0; i < 5; i++) {
@@ -95,67 +154,196 @@ const createParty = async (partyName, type, menu, host) => {
     code += characters[randomIndex];
   }
   try {
+    const response = await axios.post(
+      `${API_URL}/api/partyset/`,
+      {
+        partyName,
+        type,
+        menu,
+        host,
+        code,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
     console.log("Party Name:", partyName);
     console.log("Bill Type:", type);
     console.log("Menu:", menu);
     console.log("host:", host);
     console.log("code:", code);
-    const response = await axios.post(`${API_URL}/api/partyset/`, {
-      partyName,
-      type,
-      menu,
-      host,
-      code,
-    });
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.response.status === 401) {
+      refreshToken();
+
+      const response = await axios.post(
+        `${API_URL}/api/partyset/`,
+        {
+          partyName,
+          type,
+          menu,
+          host,
+          code,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      console.log("Party Name:", partyName);
+      console.log("Bill Type:", type);
+      console.log("Menu:", menu);
+      console.log("host:", host);
+      console.log("code:", code);
+      return response.data;
+    } else {
+      console.error(error);
+    }
   }
 };
 
 const memberset = async (first_name, cost) => {
+  const access_token = localStorage.getItem("access_token");
   try {
-    const response = await axios.post(`${API_URL}/parties/memberset`, {
-      first_name,
-      cost,
-    });
+    const response = await axios.post(
+      `${API_URL}/parties/memberset`,
+      {
+        first_name,
+        cost,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.response.status === 401) {
+      refreshToken();
+
+      const response = await axios.post(
+        `${API_URL}/parties/memberset`,
+        {
+          first_name,
+          cost,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      return response.data;
+    } else {
+      console.error(error);
+    }
   }
 };
 
 const restaurantset = async (name) => {
+  const access_token = localStorage.getItem("access_token");
   try {
-    const response = await axios.post(`${API_URL}/menus/restaurantset`, {
-      name,
-    });
+    const response = await axios.post(
+      `${API_URL}/menus/restaurantset`,
+      {
+        name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.response.status === 401) {
+      refreshToken();
+
+      const response = await axios.post(
+        `${API_URL}/menus/restaurantset`,
+        {
+          name,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      return response.data;
+    } else {
+      console.error(error);
+    }
   }
 };
 
-const menuset = async (name, email, password, phone) => {
+const menuset = async (name, restaurant, price) => {
   try {
-    const response = await axios.post(`${API_URL}/menus/menuset`, {
-      name,
-      restaurant,
-      price,
-    });
+    const response = await axios.post(
+      `${API_URL}/menus/menuset`,
+      {
+        name,
+        restaurant,
+        price,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
-    throw error.response.data;
+    if (error.status === 401) {
+      refreshToken();
+
+      const response = await axios.post(
+        `${API_URL}/menus/menuset`,
+        {
+          name,
+          restaurant,
+          price,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      return response.data;
+    } else {
+      console.error(error);
+    }
   }
 };
 
 export const getRestaurantsList = async () => {
+  const access_token = localStorage.getItem("access_token");
   try {
-    const response = await axios.get(`${API_URL}/api/restaurants/`);
+    const response = await axios.get(`${API_URL}/api/restaurants/`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw error;
+    if (error.status === 401) {
+      refreshToken();
+
+      const response = await axios.get(`${API_URL}/api/restaurants/`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+      return response.data;
+    } else {
+      console.error(error);
+    }
   }
 };
 

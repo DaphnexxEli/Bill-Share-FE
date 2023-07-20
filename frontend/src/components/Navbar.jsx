@@ -6,7 +6,7 @@ export default function Navbar() {
   const is_staff = JSON.parse(localStorage.getItem("is_staff"));
 
   const handleLogout = () => {
-    api.logout(token);
+    api.logout();
     window.location.reload();
   };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { QrReader } from "react-qr-reader";
 import { useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
+import api from "../services/api";
 
 export const JoinByCodeOrQRCode = () => {
   const [code, setCode] = useState("");
@@ -35,6 +36,8 @@ export const JoinByCodeOrQRCode = () => {
     const joinCode = scannedCode || code;
     // Perform join logic using the joinCode
     console.log("Joining with code:", joinCode);
+    api.memberset(localStorage.getItem("first_name"), 0);
+
     // Reset code and scannedCode after joining
     setCode("");
     setScannedCode("");
@@ -56,6 +59,7 @@ export const JoinByCodeOrQRCode = () => {
             <input
               type="text"
               placeholder="Enter code"
+              maxLength={5}
               value={code}
               onChange={handleCodeChange}
               className="form-control"

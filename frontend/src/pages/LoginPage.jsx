@@ -6,23 +6,21 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [auth, setAuth] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await api.login(email, password);
-
-      // store user token in local storage or state
-      localStorage.setItem("access_token", response.access);
-      localStorage.setItem("refresh_token", response.refresh);
-
-      console.log("Logged in successfully:", response);
+      console.log("Logged in successfully:", response.status);
+      
       navigate("/");
       window.location.reload();
     } catch (error) {
       // Handle login error
       console.error("Login failed:", error.message);
+      setAuth(true);
     }
 
     // Reset the form
@@ -80,6 +78,7 @@ export const LoginPage = () => {
                 </button>
               </div>
             </form>
+            {auth && <label className="text-rose-500">Email or Password Wrong!!</label>}
           </div>
         </div>
         <label className="label">

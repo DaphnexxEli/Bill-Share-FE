@@ -81,6 +81,7 @@ export const CreateParty = () => {
             <input
               type="text"
               id="partyName"
+              required
               value={partyName}
               onChange={handlePartyNameChange}
               className="input-field rounded-md"
