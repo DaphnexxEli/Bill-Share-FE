@@ -7,13 +7,14 @@ export const CreateParty = () => {
   const [partyName, setPartyName] = useState("");
   const [billType, setBillType] = useState("");
   const [menu, setMenu] = useState("");
+  const [host, setHost] = useState("");
   const [restaurantslist, setRestaurantslist] = useState([]);
 
   useEffect(() => {
     const fetchRestaurantsList = async () => {
       try {
         const data = await api.getRestaurantsList();
-        setRestaurantslist(data);
+        setRestaurantslist(data);   
       } catch (error) {
         console.error(error);
       }
@@ -47,10 +48,12 @@ export const CreateParty = () => {
         partyName,
         billType,
         menu,
-        host,
+        host
       );
 
       console.log("Create successfully:", response);
+      navigate("/partyPage");
+      window.location.reload();
     } catch (error) {
       // Handle login error
       console.error("Create failed:", error.message);
@@ -60,6 +63,7 @@ export const CreateParty = () => {
     setPartyName("");
     setBillType("");
     setMenu("");
+    setHost("");
   };
 
   const token = localStorage.getItem("access_token");

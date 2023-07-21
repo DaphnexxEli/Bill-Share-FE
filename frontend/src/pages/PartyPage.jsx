@@ -48,12 +48,10 @@ export const PartyPage = () => {
     console.log("Picture clicked!");
 
     setClickedPicture(pictureId);
-                    
-
     setShowDataBox(true);
     setMenu(input);
   };
-  
+
   // const handleSearch = (searchTerm) => {
   //   // Call your backend API with the searchTerm
   //   fetch(`/api/search?searchTerm=${searchTerm}`)
@@ -84,9 +82,9 @@ export const PartyPage = () => {
     // Reset the form
     setPartyName("");
     setType("");
-    // setHost("");
     setMenu("");
     setInputText("");
+    setHost("");
   };
 
   const token = localStorage.getItem("access_token");
@@ -122,8 +120,8 @@ export const PartyPage = () => {
                   <span className="label-text text-Stone"> Menu </span>
                 </label>
 
-                <div class="grid grid-cols-4 gap-2">
-                  <div class="col-span-3">
+                <div className="grid grid-cols-4 gap-2">
+                  <div className="col-span-3">
                     <input
                       type="text"
                       placeholder={selectedItem}
@@ -157,10 +155,7 @@ export const PartyPage = () => {
               </div>
 
               <div className="form-control mt-6">
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                >
+                <button type="submit" className="btn btn-primary">
                   <Link
                     to="/"
                     className="label-text-alt link link-hover text-Stone"
@@ -168,6 +163,7 @@ export const PartyPage = () => {
                     Next
                   </Link>
                 </button>
+                <AddOrder />
               </div>
             </form>
           </div>
@@ -176,3 +172,81 @@ export const PartyPage = () => {
     </div>
   );
 };
+
+const mockPeople = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Jane" },
+  { id: 3, name: "Bob" },
+  { id: 4, name: "Alice" },
+  { id: 5, name: "Mark" },
+];
+
+function AddOrder({ index }) {
+  const [orderName, setOrderName] = useState("");
+  const [orderPrice, setOrderPrice] = useState("");
+  const [selectedPeople, setSelectedPeople] = useState([]);
+  const [count, setCount] = useState(0);
+
+  const handleNameChange = (event) => {
+    setOrderName(event.target.value);
+  };
+
+  const handlePriceChange = (event) => {
+    setOrderPrice(event.target.value);
+  };
+
+  const handlePersonToggle = (personId) => {
+    setSelectedPeople((prevSelectedPeople) => {
+      if (prevSelectedPeople.includes(personId)) {
+        return prevSelectedPeople.filter((id) => id !== personId);
+      } else {
+        return [...prevSelectedPeople, personId];
+      }
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // ทำอะไรก็ตามที่คุณต้องการเมื่อ Form ถูก Submit ตรงนี้
+    console.log("Submitted Order:", {
+      orderName,
+      orderPrice,
+      selectedPeople,
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>
+          Order Name:
+          <input type="text" value={orderName} onChange={handleNameChange} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Order Price:
+          <input
+            type="number"
+            value={orderPrice}
+            onChange={handlePriceChange}
+          />
+        </label>
+      </div>
+      <div>
+        <p>Select People to Pay:</p>
+        {mockPeople.map((person) => (
+          <label key={person.id}>
+            <input
+              type="checkbox"
+              checked={selectedPeople.includes(person.id)}
+              onChange={() => handlePersonToggle(person.id)}
+            />
+            {person.name}
+          </label>
+        ))}
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
