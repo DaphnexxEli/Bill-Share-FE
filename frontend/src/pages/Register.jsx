@@ -20,8 +20,8 @@ export const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsOpen(true);
-
+    
+    let is_success = false;
     try {
       const response = await api.register(
         first_name,
@@ -31,35 +31,38 @@ export const Register = () => {
         phone
       );
 
+      if(response["id"])
+      {
+        is_success = true;
+      }
       console.log("Signed in successfully:", response);
     } catch (error) {
       // Handle login error
+      is_success = false;
       console.error("Sign in failed:", error.message);
     }
+
+    setIsOpen(is_success);
 
     // Reset the form
     setEmail("");
     setPassword("");
+    setLast("");
     setName("");
     setPhone("");
   };
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-Emerald">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Join us now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">First Name</span>
+                  <span className="label-text ">First Name</span>
                 </label>
                 <input
                   type="text"
