@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import api from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
-// import SearchFilter from '..components/SearchFilter';
-// import SearchResults from '../components/SearchResults';
+import "../App.css";
 
 export const PartyPage = () => {
   const navigate = useNavigate();
@@ -11,12 +10,48 @@ export const PartyPage = () => {
   const [type, setType] = useState("");
   const [host, setHost] = useState("");
   const [menu, setMenu] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  // const [results, setResults] = useState([]);
+  const [clickedPicture, setClickedPicture] = useState(null);
+  const [showDataBox, setShowDataBox] = useState(false);
+  const [inputText, setInputText] = useState("");
 
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-    onSearch(e.target.value);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedItem, setSelectedItem] = useState("");
+
+  const data = [
+    "Apple",
+    "Banana",
+    "Orange",
+    "Pineapple",
+    "Mango",
+    "Grapes",
+    "Watermelon",
+  ];
+
+  const handleSearch = (event) => {
+    const searchTerm = event.target.value;
+    setSearchTerm(searchTerm);
+
+    const filteredData = data.filter((item) =>
+      item.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(filteredData);
+  };
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    setSearchTerm("");
+    setFilteredData([]);
+  };
+
+  const handlePictureClick = (pictureId) => {
+    console.log("Picture clicked!");
+
+    setClickedPicture(pictureId);
+                    
+
+    setShowDataBox(true);
+    setMenu(input);
   };
   
   // const handleSearch = (searchTerm) => {
@@ -36,7 +71,7 @@ export const PartyPage = () => {
       localStorage.setItem("partyname", response.partyName);
       localStorage.setItem("type", response.type);
       localStorage.setItem("menu", response.menu);
-      localStorage.setItem("host", response.host);
+      // localStorage.setItem("host", response.host);
 
       console.log("Process successfully:", response);
       navigate("/");
@@ -49,9 +84,9 @@ export const PartyPage = () => {
     // Reset the form
     setPartyName("");
     setType("");
-    setHost("");
+    // setHost("");
     setMenu("");
-    setSearchTerm("");
+    setInputText("");
   };
 
   const token = localStorage.getItem("access_token");
@@ -86,31 +121,39 @@ export const PartyPage = () => {
                 <label className="label">
                   <span className="label-text text-Stone"> Menu </span>
                 </label>
-                {/* <SearchFilter onSearch={handleSearch} />
-                <SearchResults results={results} /> */}
-                <div className="flex items-center">
-                  <input
-                    type="text"
-                    className="px-4 py-2 border border-gray-300 rounded"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={handleInputChange}
-                  />
-                  <button
-                    className="ml-2 bg-blue-500 text-white font-semibold py-2 px-4 rounded"
-                    onClick={() => onSearch(searchTerm)}
-                  >
-                    Search
-                  </button>
-                </div>
 
-                
-                <input
-                  type="text"
-                  value={menu}
-                  required
-                  onChange={(e) => setMenu(e.target.value)}
-                />
+                <div class="grid grid-cols-4 gap-2">
+                  <div class="col-span-3">
+                    <input
+                      type="text"
+                      placeholder={selectedItem}
+                      value={searchTerm}
+                      onChange={handleSearch}
+                    />
+                    {filteredData.length > 0 && (
+                      <ul>
+                        {filteredData.map((item, index) => (
+                          <li
+                            key={index}
+                            onClick={() => handleSelectItem(item)}
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {selectedItem && <p>Selected Item: {selectedItem}</p>}
+                  </div>
+
+                  <div className="col-span-1">
+                    <img
+                      src="./dist/add.png"
+                      alt="add"
+                      className="h-6"
+                      onClick={() => handlePictureClick("pictureId")}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="form-control mt-6">

@@ -40,7 +40,10 @@ export const Register = () => {
       // Handle login error
       is_success = false;
       console.error("Sign in failed:", error.message);
+      setIsOpen(false);
+      navigate("/");
     }
+    
 
     setIsOpen(is_success);
 
@@ -50,6 +53,7 @@ export const Register = () => {
     setLast("");
     setName("");
     setPhone("");
+    setLast("");
   };
   return (
     <div className="hero min-h-screen bg-Emerald">
@@ -60,7 +64,7 @@ export const Register = () => {
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
-              <div className="form-control">
+            <div className="form-control">
                 <label className="label">
                   <span className="label-text ">First Name</span>
                 </label>
@@ -95,18 +99,7 @@ export const Register = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Phone</span>
-                </label>
-                <input
-                  type="text"
-                  value={phone}
-                  required
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text text-Stone">Password</span>
                 </label>
                 <input
                   type="password"
@@ -115,6 +108,41 @@ export const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-Stone">First Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={first_name}
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-Stone">Last Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={last_name}
+                  required
+                  onChange={(e) => setLast(e.target.value)}
+                />
+              </div>
+              
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-Stone">Phone</span>
+                </label>
+                <input
+                  type="text"
+                  value={phone}
+                  required
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
                   Join us

@@ -117,32 +117,32 @@ const logout = async () => {
 };
 
 //Register
-const register = async (first_name, last_name, email, password, phone) => {
-  try {
-    const response = await axios.post(`${API_URL}/users/register`, {
-      first_name,
-      last_name,
-      email,
-      password,
-      phone,
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
+const register = async(first_name, last_name, email, password, phone) => {
+    try {
+        const response = await axios.post(`${API_URL}/users/register`, {
+            first_name,
+            last_name,
+            email,
+            password,
+            phone,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
 
-const resetpass = async (email, new_password, confirm_password) => {
-  try {
-    const response = await axios.post(`${API_URL}/users/resetpass`, {
-      email,
-      new_password,
-      confirm_password,
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
+const resetpass = async(email, new_password, confirm_password) => {
+    try {
+        const response = await axios.post(`${API_URL}/users/resetpass`, {
+            email,
+            new_password,
+            confirm_password,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
 };
 
 const createParty = async (partyName, type, menu, host) => {
