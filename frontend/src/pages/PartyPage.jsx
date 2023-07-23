@@ -3,88 +3,76 @@ import api from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
 import "../App.css";
+import AddOrder from "../components/addOrderlist";
+import Memberlist from "../components/memberList";
+import QRCode from "react-qr-code";
+
+const mockPeople = [
+  { id: 1, name: "John", cost: 0 },
+  { id: 2, name: "Jane", cost: 0 },
+  { id: 3, name: "Bob", cost: 0 },
+  { id: 4, name: "Alice", cost: 0 },
+  { id: 5, name: "Mark", cost: 0 },
+];
+
+const data = [
+  "Apple",
+  "Banana",
+  "Orange",
+  "Pineapple",
+  "Mango",
+  "Grapes",
+  "Watermelon",
+];
+
+const order = [
+  { id: 1, name: "Apple", price: 2, cost: 1, pay: ["John", "Jane"] },
+  { id: 2, name: "Banana", price: 1, cost: 0.5, pay: ["John"] },
+  {
+    id: 3,
+    name: "Orange",
+    price: 1.5,
+    cost: 0.7,
+    pay: ["John", "Jane", "Bob", "Alice"],
+  },
+];
 
 export const PartyPage = () => {
   const navigate = useNavigate();
-  const [partyName, setPartyName] = useState("");
-  const [type, setType] = useState("");
-  const [host, setHost] = useState("");
-  const [menu, setMenu] = useState("");
-  const [clickedPicture, setClickedPicture] = useState(null);
-  const [showDataBox, setShowDataBox] = useState(false);
-  const [inputText, setInputText] = useState("");
+  const [partyName, setPartyName] = useState("Jame HBD");
+  const [partyType, setPartyType] = useState("Food&Drink");
+  const [partyHost, setPartyHost] = useState("Mark");
+  const [partyMenu, setPartyMenu] = useState("");
+  const [partyCode, setPartyCode] = useState("Hello");
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [memberlist, setMemberlist] = useState(mockPeople);
 
-  const data = [
-    "Apple",
-    "Banana",
-    "Orange",
-    "Pineapple",
-    "Mango",
-    "Grapes",
-    "Watermelon",
-  ];
+  const [orderList, setOrderlist] = useState(order);
 
-  const handleSearch = (event) => {
-    const searchTerm = event.target.value;
-    setSearchTerm(searchTerm);
+  const [menuName, setName] = useState("");
+  const [menuTap, setMenuTap] = useState(true);
 
-    const filteredData = data.filter((item) =>
-      item.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredData(filteredData);
+  //Add Menu
+  const addMenu = (input_menuName) => {
+    console.log(`Add new menu: ${input_menuName}`);
+  };
+  const handleAddMenu = (e) => {
+    e.preventDefault();
+    addMenu(menuName);
   };
 
-  const handleSelectItem = (item) => {
-    setSelectedItem(item);
-    setSearchTerm("");
-    setFilteredData([]);
+  //Tap
+  const handleMembergroupClick = () => {
+    setMenuTap(false);
+    console.log(`Tap member`);
   };
-
-  const handlePictureClick = (pictureId) => {
-    console.log("Picture clicked!");
-
-    setClickedPicture(pictureId);
-    setShowDataBox(true);
-    setMenu(input);
+  const handleMenulistClick = () => {
+    setMenuTap(true);
+    console.log(`Tap menu`);
   };
-
-  // const handleSearch = (searchTerm) => {
-  //   // Call your backend API with the searchTerm
-  //   fetch(`/api/search?searchTerm=${searchTerm}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setResults(data));
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await api.partyset(partyName, type, menu, host);
-
-      // store user token in local storage or state
-      localStorage.setItem("partyname", response.partyName);
-      localStorage.setItem("type", response.type);
-      localStorage.setItem("menu", response.menu);
-      // localStorage.setItem("host", response.host);
-
-      console.log("Process successfully:", response);
-      navigate("/");
-      window.location.reload();
-    } catch (error) {
-      // Handle error
-      console.error("Process failed:", error.message);
-    }
-
-    // Reset the form
-    setPartyName("");
-    setType("");
-    setMenu("");
-    setInputText("");
-    setHost("");
   };
 
   const token = localStorage.getItem("access_token");
@@ -100,153 +88,125 @@ export const PartyPage = () => {
             Party Group
           </h1>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald">
+
+        <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald">
           <div className="card-body">
-            <form onSubmit={handleSubmit}>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-Stone">Party Name</span>
+            <div className="form-control">
+              <label className="label bg-Emerald2">
+                <span
+                  className="label-text w-1/2 text-center text-white border hover:bg-Green"
+                  onClick={handleMenulistClick}
+                >
+                  Party {partyName}
+                </span>
+                <span
+                  className="label-text w-1/2 text-center text-white border hover:bg-Green"
+                  onClick={handleMembergroupClick}
+                >
+                  Member List
+                </span>
+              </label>
+            </div>
+
+            {menuTap ? (
+              <div className="bg-Emerald2">
+                <label className=" label grid grid-cols-3 gap-2">
+                  <span className="label-text text-white text-left">
+                    Order name
+                  </span>
+                  <span className="label-text text-white text-right">
+                    Price
+                  </span>
+                  <span className="label-text text-white text-right">Cost</span>
+                  {orderList.map((item) => (
+                    <div
+                      key={item.id}
+                      className="grid grid-cols-3 col-span-3 gap-2"
+                    >
+                      <span className="text-white text-left border">
+                        {item.name}
+                      </span>
+                      <span className="text-white text-right border">
+                        {item.price}
+                      </span>
+                      <span className="text-white text-right border">
+                        {item.cost}
+                      </span>
+                    </div>
+                  ))}
                 </label>
-                <input
-                  type="text"
-                  value={partyName}
-                  required
-                  onChange={(e) => setPartyName(e.target.value)}
-                />
-              </div>
-
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-Stone"> Menu </span>
-                </label>
-
-                <div className="grid grid-cols-4 gap-2">
-                  <div className="col-span-3">
-                    <input
-                      type="text"
-                      placeholder={selectedItem}
-                      value={searchTerm}
-                      onChange={handleSearch}
-                    />
-                    {filteredData.length > 0 && (
-                      <ul>
-                        {filteredData.map((item, index) => (
-                          <li
-                            key={index}
-                            onClick={() => handleSelectItem(item)}
-                          >
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    {selectedItem && <p>Selected Item: {selectedItem}</p>}
-                  </div>
-
-                  <div className="col-span-1">
-                    <img
-                      src="./dist/add.png"
-                      alt="add"
-                      className="h-6"
-                      onClick={() => handlePictureClick("pictureId")}
-                    />
-                  </div>
+                <div className="bg-Emerald2">
+                  <form onSubmit={handleAddMenu}>
+                    <div className="form-control">
+                      <div className="grid grid-cols-4 gap-2">
+                        <div className="col-span-3 bg-Emerald2">
+                          <input
+                            type="text"
+                            placeholder="menu name..."
+                            value={menuName}
+                            onChange={(e) => setName(e.target.value)}
+                            list="data"
+                            autoCapitalize="off"
+                          />
+                          <datalist id="data">
+                            {data.map((item) => (
+                              <option key={item} value={item} />
+                            ))}
+                          </datalist>
+                        </div>
+                        <button className="rounded-md text-center text-white bg-Green hover:bg-Emerald2">
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  <span className="text-white w-fit cursor-pointer hover:bg-Green">
+                    Clear list
+                  </span>
                 </div>
               </div>
-
-              <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary">
-                  <Link
-                    to="/"
-                    className="label-text-alt link link-hover text-Stone"
-                  >
-                    Next
-                  </Link>
-                </button>
-                <AddOrder />
+            ) : (
+              <div className="bg-Emerald2">
+                <div className="bg-white flex justify-center">
+                  <QRCode value={partyCode} />
+                </div>
+                <label className=" label grid grid-cols-3 gap-2">
+                  <span className="label-text text-white text-left">
+                    Member name
+                  </span>
+                  <span className="label-text text-white text-right col-span-2">
+                    Cost
+                  </span>
+                  {memberlist.map((item) => (
+                    <div
+                      key={item.id}
+                      className="grid grid-cols-2 col-span-3 gap-2"
+                    >
+                      <span className="text-white text-left border">
+                        {item.name}
+                      </span>
+                      <span className="text-white text-right border">
+                        {item.cost}
+                      </span>
+                    </div>
+                  ))}
+                </label>
               </div>
-            </form>
+            )}
+
+            <div className="form-control mt-6">
+              <button type="submit" className="btn btn-primary">
+                <Link
+                  to="/"
+                  className="label-text-alt link link-hover text-Stone"
+                >
+                  Next
+                </Link>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-const mockPeople = [
-  { id: 1, name: "John" },
-  { id: 2, name: "Jane" },
-  { id: 3, name: "Bob" },
-  { id: 4, name: "Alice" },
-  { id: 5, name: "Mark" },
-];
-
-function AddOrder({ index }) {
-  const [orderName, setOrderName] = useState("");
-  const [orderPrice, setOrderPrice] = useState("");
-  const [selectedPeople, setSelectedPeople] = useState([]);
-  const [count, setCount] = useState(0);
-
-  const handleNameChange = (event) => {
-    setOrderName(event.target.value);
-  };
-
-  const handlePriceChange = (event) => {
-    setOrderPrice(event.target.value);
-  };
-
-  const handlePersonToggle = (personId) => {
-    setSelectedPeople((prevSelectedPeople) => {
-      if (prevSelectedPeople.includes(personId)) {
-        return prevSelectedPeople.filter((id) => id !== personId);
-      } else {
-        return [...prevSelectedPeople, personId];
-      }
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // ทำอะไรก็ตามที่คุณต้องการเมื่อ Form ถูก Submit ตรงนี้
-    console.log("Submitted Order:", {
-      orderName,
-      orderPrice,
-      selectedPeople,
-    });
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Order Name:
-          <input type="text" value={orderName} onChange={handleNameChange} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Order Price:
-          <input
-            type="number"
-            value={orderPrice}
-            onChange={handlePriceChange}
-          />
-        </label>
-      </div>
-      <div>
-        <p>Select People to Pay:</p>
-        {mockPeople.map((person) => (
-          <label key={person.id}>
-            <input
-              type="checkbox"
-              checked={selectedPeople.includes(person.id)}
-              onChange={() => handlePersonToggle(person.id)}
-            />
-            {person.name}
-          </label>
-        ))}
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-  );
-}
