@@ -13,8 +13,7 @@ export const LoginPage = () => {
 
     try {
       const response = await api.login(email, password);
-      console.log("Logged in successfully:", response.status);
-      
+      console.log("Logged in successfully:", response.status, email)
       navigate("/");
       window.location.reload();
     } catch (error) {
