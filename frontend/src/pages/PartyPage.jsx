@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
 import "../App.css";
 import AddOrder from "../components/addOrderlist";
-import Memberlist from "../components/memberList";
 import QRCode from "react-qr-code";
 
 const mockPeople = [
@@ -26,13 +25,13 @@ const data = [
 ];
 
 const order = [
-  { id: 1, name: "Apple", price: 2, cost: 1, pay: ["John", "Jane"] },
-  { id: 2, name: "Banana", price: 1, cost: 0.5, pay: ["John"] },
+  { id: 1, name: "Apple", price: 200, cost: 100, pay: ["John", "Jane"] },
+  { id: 2, name: "Banana", price: 100, cost: 100, pay: ["John"] },
   {
     id: 3,
     name: "Orange",
-    price: 1.5,
-    cost: 0.7,
+    price: 100,
+    cost: 25,
     pay: ["John", "Jane", "Bob", "Alice"],
   },
 ];
@@ -49,17 +48,57 @@ export const PartyPage = () => {
 
   const [orderList, setOrderlist] = useState(order);
 
-  const [menuName, setName] = useState("");
   const [menuTap, setMenuTap] = useState(true);
 
-  //Add Menu
-  const addMenu = (input_menuName) => {
-    console.log(`Add new menu: ${input_menuName}`);
-  };
+  // menu order
+  const [showAddOrder, setShowAddOrder] = useState(false);
+  const [menuID, setMenuID] = useState(0);
+  const [menuName, setName] = useState("");
+  const [menuPrice, setPrice] = useState(0);
+  const [menuPay, setMenuPay] = useState([]);
+
+  //Add&Edit Menu
   const handleAddMenu = (e) => {
     e.preventDefault();
-    addMenu(menuName);
+    if (menuName != "") {
+      setMenuID(orderList.length+1);
+      setPrice(0);
+      setMenuPay([]);
+      console.log(menuID);
+      orderList.push({
+        id: menuID,
+        name: menuName,
+        price: menuPrice,
+        cost: 0,
+        pay: menuPay,
+      });
+      setOrderlist(orderList);
+      openOrder();
+    }
   };
+  const handleEditMenu = (item) => {
+    setMenuID(item.id);
+    setName(item.name);
+    setPrice(item.price);
+    setMenuPay(item.pay);
+    openOrder();
+  };
+
+  //Order open
+  const openOrder = () => {
+    setShowAddOrder(true);
+  };
+  const closeOrder = () => {
+    setShowAddOrder(false);
+  };
+
+  //Remove order
+  const handleCearOrderList = (e) => {
+    e.preventDefault();
+    setOrderlist([]);
+  };
+
+  const partyUpdate = () => {};
 
   //Tap
   const handleMembergroupClick = () => {
@@ -122,6 +161,7 @@ export const PartyPage = () => {
                     <div
                       key={item.id}
                       className="grid grid-cols-3 col-span-3 gap-2"
+                      onClick={() => handleEditMenu(item)}
                     >
                       <span className="text-white text-left border">
                         {item.name}
@@ -160,7 +200,10 @@ export const PartyPage = () => {
                       </div>
                     </div>
                   </form>
-                  <span className="text-white w-fit cursor-pointer hover:bg-Green">
+                  <span
+                    className="text-white w-fit cursor-pointer hover:bg-Green"
+                    onClick={handleCearOrderList}
+                  >
                     Clear list
                   </span>
                 </div>
@@ -192,6 +235,19 @@ export const PartyPage = () => {
                   ))}
                 </label>
               </div>
+            )}
+
+            {showAddOrder && (
+              <AddOrder
+                id={menuID}
+                name={menuName}
+                price={menuPrice}
+                memberpay={menuPay}
+                memberlist={memberlist}
+                close={closeOrder}
+                orderlist={orderList}
+                setOrderlist={setOrderlist}
+              />
             )}
 
             <div className="form-control mt-6">

@@ -1,58 +1,87 @@
 import React, { useState } from "react";
 
-export default function addOrder({name, price, memberlist}) {
-  const [open, setOpen] = useState(false);
-  const [orderName, setorderName] = useState("");
-  const [orderPrice, setorderPrice] = useState(0);
-  const [orderMember, setorderMember] = useState([]);
-  const [count, setcount] = useState(0);
+export default function addOrder({
+  id,
+  name,
+  price,
+  memberpay,
+  memberlist,
+  close,
+  orderlist,
+  setOrderlist,
+}) {
+  const [orderName, setorderName] = useState(name);
+  const [orderPrice, setorderPrice] = useState(price);
+  const [selectedMembers, setSelectedMembers] = useState(memberpay);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleMemberClick = (name) => {
+    if (selectedMembers.includes(name)) {
+      setSelectedMembers(selectedMembers.filter((member) => member !== name));
+    } else {
+      setSelectedMembers([...selectedMembers, name]);
+    }
   };
 
   const handleSubmit = () => {
+    const index = orderlist.findIndex((item) => item.id === id);
+    orderlist[index].name = orderName;
+    orderlist[index].price = orderPrice;
+    orderlist[index].cost = orderPrice/selectedMembers.length;
+    orderlist[index].pay = selectedMembers;
+    setOrderlist(orderlist);
     console.log(orderName);
     console.log(orderPrice);
-    console.log(orderMember);
+    console.log(selectedMembers);
     console.log();
+    close();
   };
 
   return (
     <div>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={handleOpen}
-      >
-        เปิด Popup
-      </button>
-      {open && (
-        <div className="fixed inset-0 flex items-center justify-center z-10">
-          <div className="bg-white w-1/2 p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Menu List</h2>
-            <p>Menu Name</p>
-            <input type="text" defaultValue={orderName} />
-            <p>Price</p>
-            <input type="number" defaultValue={0} />
-            <br />
-            <button className="mt-4 bg-red-500 hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
-              onClick={handleClose}
+      <div className="fixed inset-0 flex items-center justify-center z-10">
+        <div className="bg-white w-1/2 p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-semibold mb-4">Menu List</h2>
+          <p>Menu Name</p>
+          <input
+            type="text"
+            value={orderName}
+            onChange={(e) => setorderName(e.target.value)}
+          />
+          <p>Price</p>
+          <input
+            type="number"
+            value={orderPrice}
+            onChange={(e) => setorderPrice(e.target.value)}
+          />
+          <br />
+          <div className="grid grid-cols-5 col-span-2 gap-2">
+            {memberlist.map((item) => (
+              <span
+                key={item.id}
+                className={`text-Stone text-left border ${
+                  selectedMembers.includes(item.name) ? "bg-Green" : ""
+                }`}
+                onClick={() => handleMemberClick(item.name)}
               >
-                Ok
-              </button>
-            <button
-              className="mt-4 bg-red-500 hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
-              onClick={handleClose}
-            >
-              ปิด
-            </button>
+                {item.name}
+              </span>
+            ))}
           </div>
+
+          <button
+            className="mt-4 bg-red-500 hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
+            onClick={handleSubmit}
+          >
+            Ok
+          </button>
+          <button
+            className="mt-4 bg-red-500 hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
+            onClick={close}
+          >
+            ปิด
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
