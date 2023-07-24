@@ -52,7 +52,7 @@ export const PartyPage = () => {
 
   // menu order
   const [showAddOrder, setShowAddOrder] = useState(false);
-  const [menuID, setMenuID] = useState(0);
+  const [menuID, setMenuID] = useState();
   const [menuName, setName] = useState("");
   const [menuPrice, setPrice] = useState(0);
   const [menuPay, setMenuPay] = useState([]);
@@ -61,12 +61,12 @@ export const PartyPage = () => {
   const handleAddMenu = (e) => {
     e.preventDefault();
     if (menuName != "") {
-      setMenuID(orderList.length+1);
+      const index = orderList.length + 1;
+      setMenuID(index);
       setPrice(0);
       setMenuPay([]);
-      console.log(menuID);
       orderList.push({
-        id: menuID,
+        id: index,
         name: menuName,
         price: menuPrice,
         cost: 0,
@@ -89,6 +89,10 @@ export const PartyPage = () => {
     setShowAddOrder(true);
   };
   const closeOrder = () => {
+    setMenuID();
+    setName("");
+    setPrice(0);
+    setMenuPay([]);
     setShowAddOrder(false);
   };
 
