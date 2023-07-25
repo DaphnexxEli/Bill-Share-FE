@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
-import { Link } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
+import { useNavigate } from "react-router-dom";
 
 export const CreateParty = () => {
   const [partyName, setPartyName] = useState("");
   const [billType, setBillType] = useState("");
   const [menu, setMenu] = useState("");
-  const [host, setHost] = useState("");
   const [restaurantslist, setRestaurantslist] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRestaurantsList = async () => {
@@ -53,7 +53,6 @@ export const CreateParty = () => {
 
       console.log("Create successfully:", response);
       navigate("/partyPage");
-      window.location.reload();
     } catch (error) {
       // Handle login error
       console.error("Create failed:", error.message);
@@ -63,7 +62,6 @@ export const CreateParty = () => {
     setPartyName("");
     setBillType("");
     setMenu("");
-    setHost("");
   };
 
   const token = localStorage.getItem("access_token");

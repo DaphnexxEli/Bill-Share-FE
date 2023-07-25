@@ -117,41 +117,41 @@ const logout = async () => {
 };
 
 //Register
-const register = async(first_name, last_name, email, password, phone) => {
-    try {
-        const response = await axios.post(`${API_URL}/users/register`, {
-            first_name,
-            last_name,
-            email,
-            password,
-            phone,
-        });
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
+const register = async (first_name, last_name, email, password, phone) => {
+  try {
+    const response = await axios.post(`${API_URL}/users/register`, {
+      first_name,
+      last_name,
+      email,
+      password,
+      phone,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
 };
 
-const resetpass = async(email, new_password, confirm_password) => {
-    try {
-        const response = await axios.post(`${API_URL}/users/resetpass`, {
-            email,
-            new_password,
-            confirm_password,
-        });
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
+const resetpass = async (email, new_password, confirm_password) => {
+  try {
+    const response = await axios.post(`${API_URL}/users/resetpass`, {
+      email,
+      new_password,
+      confirm_password,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
 };
 
 const createParty = async (partyName, type, menu, host) => {
   const access_token = localStorage.getItem("access_token");
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let code = "";
+  let Code = "";
   for (let i = 0; i < 5; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
-    code += characters[randomIndex];
+    Code += characters[randomIndex];
   }
   try {
     const response = await axios.post(
@@ -161,7 +161,7 @@ const createParty = async (partyName, type, menu, host) => {
         type,
         menu,
         host,
-        code,
+        Code,
       },
       {
         headers: {
@@ -173,7 +173,8 @@ const createParty = async (partyName, type, menu, host) => {
     console.log("Bill Type:", type);
     console.log("Menu:", menu);
     console.log("host:", host);
-    console.log("code:", code);
+    console.log("code:", Code);
+    localStorage.setItem("code", Code);
     return response.data;
   } catch (error) {
     if (error.response.status === 401) {
@@ -186,7 +187,7 @@ const createParty = async (partyName, type, menu, host) => {
           type,
           menu,
           host,
-          code,
+          Code,
         },
         {
           headers: {
@@ -198,7 +199,8 @@ const createParty = async (partyName, type, menu, host) => {
       console.log("Bill Type:", type);
       console.log("Menu:", menu);
       console.log("host:", host);
-      console.log("code:", code);
+      console.log("code:", Code);
+      localStorage.setItem("code", Code);
       return response.data;
     } else {
       console.error(error);
@@ -239,6 +241,44 @@ const memberset = async (first_name, cost) => {
         }
       );
       return response.data;
+    } else {
+      console.error(error);
+    }
+  }
+};
+
+export const getParty = async () => {
+  const access_token = localStorage.getItem("access_token");
+  const partyCode = localStorage.getItem("code");
+  try {
+    const response = await axios.get(`${API_URL}/api/partyset/`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    const index = response.data.findIndex((item) => item.Code === partyCode);
+    if (index !== -1) {
+      return response.data[index];
+    } else {
+      console.log("Party Not exist!!");
+    }
+  } catch (error) {
+    if (error.status === 401) {
+      refreshToken();
+
+      const response = await axios.get(`${API_URL}/api/partyset/`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+
+      const index = response.data.findIndex((item) => item.Code === partyCode);
+      if (index !== -1) {
+        return response.data[index];
+      } else {
+        console.log("Party Not exist!!");
+      }
     } else {
       console.error(error);
     }
@@ -347,6 +387,31 @@ export const getRestaurantsList = async () => {
   }
 };
 
+export const getMenuList = async (resId) => {
+  const access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.get(`${API_URL}/api/restaurants/`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (error.status === 401) {
+      refreshToken();
+
+      const response = await axios.get(`${API_URL}/api/restaurants/`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+      return response.data;
+    } else {
+      console.error(error);
+    }
+  }
+};
+
 export default {
   login,
   logout,
@@ -357,6 +422,7 @@ export default {
   menuset,
   restaurantset,
   getRestaurantsList,
+  getParty,
 };
 
 // import axios from 'axios';

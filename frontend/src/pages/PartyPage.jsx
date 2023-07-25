@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
@@ -38,11 +38,34 @@ const order = [
 
 export const PartyPage = () => {
   const navigate = useNavigate();
-  const [partyName, setPartyName] = useState("Jame HBD");
-  const [partyType, setPartyType] = useState("Food&Drink");
-  const [partyHost, setPartyHost] = useState("Mark");
+  const [partyName, setPartyName] = useState("");
+  const [partyType, setPartyType] = useState("");
+  const [partyHost, setPartyHost] = useState("");
   const [partyMenu, setPartyMenu] = useState("");
-  const [partyCode, setPartyCode] = useState("Hello");
+  const partyCode = localStorage.getItem("code");
+
+  useEffect(() => {
+    const fetchOrderList = async () => {
+      try {
+        const data = await api.getParty();
+        setPartyName(data.partyName);
+        setPartyType(data.type);
+        setPartyHost(data.host);
+        setPartyMenu(data.menu);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    // const fetchMenuRestaurants = async () => {
+    //   try {
+    //     const data = await api.get
+    //   } catch (error) {
+
+    //   }
+    // }
+
+    fetchOrderList();
+  }, []);
 
   const [memberlist, setMemberlist] = useState(mockPeople);
 
@@ -132,6 +155,15 @@ export const PartyPage = () => {
           </h1>
         </div>
 
+        <h2 className="text-xl font-bold text-Stone">{partyName}</h2>
+        {partyType === "Food&Drink" ? (
+          <h2 className="text-md text-Stone">Restaurant: {partyMenu}</h2>
+        ) : partyType === "Home&Hotel" ? (
+          <h2 className="text-md text-Stone">Home&Hotel</h2>
+        ) : (
+          <h2 className="text-md text-Stone">Subscribe&Service</h2>
+        )}
+
         <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald">
           <div className="card-body">
             <div className="form-control">
@@ -140,7 +172,7 @@ export const PartyPage = () => {
                   className="label-text w-1/2 text-center text-white border hover:bg-Green"
                   onClick={handleMenulistClick}
                 >
-                  Party {partyName}
+                  Party
                 </span>
                 <span
                   className="label-text w-1/2 text-center text-white border hover:bg-Green"
