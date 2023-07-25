@@ -18,16 +18,16 @@ export const ResetPassword = () => {
   };
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-Green">
       {/* {resetSent ? ( */}
       <div className="hero-content flex-col lg:flex-row-reverse">
         <h1 className="text-5xl font-bold">Forgot password</h1>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
           <div className="card-body">
             <form onSubmit={handleResetPassword}>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text text-white">Email</span>
                 </label>
                 <input
                   type="text"
@@ -38,7 +38,7 @@ export const ResetPassword = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">New Password</span>
+                  <span className="label-text text-white">New Password</span>
                 </label>
                 <input
                   type="password"
@@ -49,7 +49,7 @@ export const ResetPassword = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Confirmed Password</span>
+                  <span className="label-text text-white">Confirmed Password</span>
                 </label>
                 <input
                   type="password"
