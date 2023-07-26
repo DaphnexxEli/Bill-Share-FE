@@ -78,7 +78,7 @@ export default function addOrder({
             className="mt-4 bg-red-500 hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
             onClick={close}
           >
-            ปิด
+            Close
           </button>
         </div>
       </div>
