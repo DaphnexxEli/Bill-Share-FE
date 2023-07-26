@@ -208,14 +208,18 @@ const createParty = async (partyName, type, menu, host) => {
   }
 };
 
-const memberset = async (first_name, cost) => {
+const memberset = async (first_name, cost, code) => {
   const access_token = localStorage.getItem("access_token");
+  if (code === "") {
+    code = localStorage.getItem("code");
+  }
   try {
     const response = await axios.post(
-      `${API_URL}/parties/memberset`,
+      `${API_URL}/api/memberset`,
       {
         first_name,
         cost,
+        code,
       },
       {
         headers: {
@@ -264,7 +268,7 @@ export const getParty = async () => {
       console.log("Party Not exist!!");
     }
   } catch (error) {
-    if (error.status === 401) {
+    if (error.response.status === 401) {
       refreshToken();
 
       const response = await axios.get(`${API_URL}/api/partyset/`, {
@@ -272,7 +276,6 @@ export const getParty = async () => {
           Authorization: `Bearer ${access_token}`,
         },
       });
-
       const index = response.data.findIndex((item) => item.Code === partyCode);
       if (index !== -1) {
         return response.data[index];

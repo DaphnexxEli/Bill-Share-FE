@@ -41,7 +41,7 @@ export const ResetPassword = () => {
                   <span className="label-text text-white">New Password</span>
                 </label>
                 <input
-                  type="password"
+                  type="text"
                   value={password}
                   required
                   onChange={(e) => setPassword(e.target.value)}
@@ -52,7 +52,7 @@ export const ResetPassword = () => {
                   <span className="label-text text-white">Confirmed Password</span>
                 </label>
                 <input
-                  type="password"
+                  type="text"
                   value={password}
                   required
                   onChange={(e) => setPassword(e.target.value)}

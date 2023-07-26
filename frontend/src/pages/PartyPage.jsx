@@ -44,28 +44,28 @@ export const PartyPage = () => {
   const [partyMenu, setPartyMenu] = useState("");
   const partyCode = localStorage.getItem("code");
 
-  useEffect(() => {
-    const fetchOrderList = async () => {
-      try {
-        const data = await api.getParty();
-        setPartyName(data.partyName);
-        setPartyType(data.type);
-        setPartyHost(data.host);
-        setPartyMenu(data.menu);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    // const fetchMenuRestaurants = async () => {
-    //   try {
-    //     const data = await api.get
-    //   } catch (error) {
+  // useEffect(() => {
+  //   const fetchOrderList = async () => {
+  //     try {
+  //       const data = await api.getParty();
+  //       setPartyName(data.partyName);
+  //       setPartyType(data.type);
+  //       setPartyHost(data.host);
+  //       setPartyMenu(data.menu);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   const fetchMenuRestaurants = async () => {
+  //     try {
+  //       const data = await api.get
+  //     } catch (error) {
 
-    //   }
-    // }
+  //     }
+  //   }
 
-    fetchOrderList();
-  }, []);
+  //   fetchOrderList();
+  // }, []);
 
   const [memberlist, setMemberlist] = useState(mockPeople);
 
@@ -246,7 +246,7 @@ export const PartyPage = () => {
               </div>
             ) : (
               <div className="bg-Emerald2">
-                <div className="bg-white flex justify-center">
+                <div className="bg-white flex justify-center ">
                   <QRCode value={partyCode} />
                 </div>
                 <label className=" label grid grid-cols-3 gap-2">

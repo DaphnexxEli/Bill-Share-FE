@@ -36,7 +36,7 @@ export const JoinByCodeOrQRCode = () => {
     const joinCode = scannedCode || code;
     // Perform join logic using the joinCode
     console.log("Joining with code:", joinCode);
-    api.memberset(localStorage.getItem("first_name"), 0);
+    api.memberset(localStorage.getItem("first_name"), 0, joinCode);
 
     // Reset code and scannedCode after joining
     setCode("");
