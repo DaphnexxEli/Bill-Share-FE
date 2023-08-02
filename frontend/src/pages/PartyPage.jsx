@@ -6,36 +6,6 @@ import "../App.css";
 import AddOrder from "../components/addOrderlist";
 import QRCode from "react-qr-code";
 
-const mockPeople = [
-  { id: 1, name: "John", cost: 0 },
-  { id: 2, name: "Jane", cost: 0 },
-  { id: 3, name: "Bob", cost: 0 },
-  { id: 4, name: "Alice", cost: 0 },
-  { id: 5, name: "Mark", cost: 0 },
-];
-
-const data = [
-  "Apple",
-  "Banana",
-  "Orange",
-  "Pineapple",
-  "Mango",
-  "Grapes",
-  "Watermelon",
-];
-
-const order = [
-  { id: 1, name: "Apple", price: 200, cost: 100, pay: ["John", "Jane"] },
-  { id: 2, name: "Banana", price: 100, cost: 100, pay: ["John"] },
-  {
-    id: 3,
-    name: "Orange",
-    price: 100,
-    cost: 25,
-    pay: ["John", "Jane", "Bob", "Alice"],
-  },
-];
-
 export const PartyPage = () => {
   const navigate = useNavigate();
   const [partyName, setPartyName] = useState("");
@@ -44,34 +14,41 @@ export const PartyPage = () => {
   const [partyMenu, setPartyMenu] = useState("");
   const partyCode = localStorage.getItem("code");
 
-  // useEffect(() => {
-  //   const fetchOrderList = async () => {
-  //     try {
-  //       const data = await api.getParty();
-  //       setPartyName(data.partyName);
-  //       setPartyType(data.type);
-  //       setPartyHost(data.host);
-  //       setPartyMenu(data.menu);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   const fetchMenuRestaurants = async () => {
-  //     try {
-  //       const data = await api.get
-  //     } catch (error) {
-
-  //     }
-  //   }
-
-  //   fetchOrderList();
-  // }, []);
-
-  const [memberlist, setMemberlist] = useState(mockPeople);
-
-  const [orderList, setOrderlist] = useState(order);
-
+  const [memberlist, setMemberlist] = useState([]);
+  const [orderList, setOrderlist] = useState([]);
+  const [menulist, setMenuList] = useState([]);
   const [menuTap, setMenuTap] = useState(true);
+
+  useEffect(() => {
+    const fetchPartyDetail = async () => {
+      try {
+        //Set party detail
+        const data = await api.getParty(partyCode);
+        setPartyName(data.partyName);
+        setPartyType(data.type);
+        setPartyHost(data.host);
+        setPartyMenu(data.menu);
+        setOrderlist(data.orderList);
+        console.log(data);
+
+        //Set menu list
+        const menu = await api.getMenuList(data.menu);
+        setMenuList(menu);
+        console.log(menu);
+
+        //Set member list
+        const member = await api.getMemberList(data.id);
+        setMemberlist(member);
+        console.log(member);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (partyCode) {
+      fetchPartyDetail();
+    }
+  }, []);
 
   // menu order
   const [showAddOrder, setShowAddOrder] = useState(false);
@@ -221,12 +198,12 @@ export const PartyPage = () => {
                             placeholder="menu name..."
                             value={menuName}
                             onChange={(e) => setName(e.target.value)}
-                            list="data"
+                            list="menulist"
                             autoCapitalize="off"
                           />
-                          <datalist id="data">
-                            {data.map((item) => (
-                              <option key={item} value={item} />
+                          <datalist id="menulist">
+                            {menulist.map((item) => (
+                              <option key={item.id} value={item.name} />
                             ))}
                           </datalist>
                         </div>

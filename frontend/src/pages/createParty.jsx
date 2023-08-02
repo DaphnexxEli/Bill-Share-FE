@@ -20,7 +20,9 @@ export const CreateParty = () => {
       }
     };
 
-    fetchRestaurantsList();
+    if(restaurantslist) {
+      fetchRestaurantsList();
+    }
   }, []);
 
   const handlePartyNameChange = (event) => {
@@ -118,7 +120,7 @@ export const CreateParty = () => {
               >
                 <option value="">-- Select an option --</option>
                 {restaurantslist.map((restaurant) => (
-                  <option key={restaurant.id} value={restaurant.name}>
+                  <option key={restaurant.id} value={restaurant.id}>
                     {restaurant.name}
                   </option>
                 ))}
