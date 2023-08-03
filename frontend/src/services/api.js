@@ -36,7 +36,7 @@ const setUser = async () => {
     localStorage.setItem("phone", response.data.phone);
     localStorage.setItem("is_staff", response.data.is_staff);
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       // Access Token หมดอายุหรือไม่ถูกต้อง
       await refreshToken();
       return setUser();
@@ -78,7 +78,7 @@ const logout = async () => {
     localStorage.clear();
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       await refreshToken();
       return logout();
     } else {
@@ -151,7 +151,7 @@ const createParty = async (partyName, type, menu, host) => {
     localStorage.setItem("code", Code);
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       await refreshToken();
       return createParty();
     } else {
@@ -161,18 +161,15 @@ const createParty = async (partyName, type, menu, host) => {
 };
 
 //Join Party
-const memberset = async (first_name, cost, code) => {
+const memberset = async (name, cost, party) => {
   const access_token = localStorage.getItem("access_token");
-  if (code === "") {
-    code = localStorage.getItem("code");
-  }
   try {
     const response = await axios.post(
-      `${API_URL}/api/memberset`,
+      `${API_URL}/api/memberset/`,
       {
-        first_name,
+        party,
+        name,
         cost,
-        code,
       },
       {
         headers: {
@@ -182,9 +179,9 @@ const memberset = async (first_name, cost, code) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
-      refreshToken();
-      memberset();
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return memberset();
     } else {
       console.error(error);
     }
@@ -202,7 +199,7 @@ export const getParty = async (partyCode) => {
     });
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       try {
         await refreshToken();
         return getParty(partyCode);
@@ -231,7 +228,7 @@ const restaurantset = async (name) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       await refreshToken();
       return restaurantset(name);
     } else {
@@ -257,7 +254,7 @@ const menuset = async (restaurantID, name, price) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       await refreshToken();
       return menuset();
     } else {
@@ -276,7 +273,7 @@ export const getRestaurantsList = async () => {
     });
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       await refreshToken();
       return getRestaurantsList();
     } else {
@@ -298,7 +295,7 @@ export const getMenuList = async (restaurantID) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       await refreshToken();
       return getMenuList(restaurantID);
     } else {
@@ -320,7 +317,7 @@ export const getMemberList = async (partyID) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && access_token) {
       await refreshToken();
       return getMenuList(restaurantID);
     } else {

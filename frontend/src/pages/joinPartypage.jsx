@@ -32,15 +32,24 @@ export const JoinByCodeOrQRCode = () => {
     setShowQRScanner(false);
   };
 
-  const handleJoin = () => {
+  const handleJoin = async () => {
     const joinCode = scannedCode || code;
-    // Perform join logic using the joinCode
-    console.log("Joining with code:", joinCode);
-    api.memberset(localStorage.getItem("first_name"), 0, joinCode);
+    const uppercaseJoinCode = joinCode.toUpperCase();
 
-    // Reset code and scannedCode after joining
-    setCode("");
-    setScannedCode("");
+    try {
+      const party = await api.getParty(uppercaseJoinCode);
+      const name = localStorage.getItem("first_name");
+      await api.memberset(name, 0, party.id);
+      console.log("Joining with code:", uppercaseJoinCode);
+      console.log("Name:", name);
+      console.log("PartyID:", party.id);
+      localStorage.setItem("code", uppercaseJoinCode);
+      navigate("/partyPage");
+      setCode("");
+      setScannedCode("");
+    } catch (error) {
+      console.error("Error joining party:", error);
+    }
   };
 
   const token = localStorage.getItem("access_token");

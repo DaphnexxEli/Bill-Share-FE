@@ -29,17 +29,14 @@ export const PartyPage = () => {
         setPartyHost(data.host);
         setPartyMenu(data.menu);
         setOrderlist(data.orderList);
-        console.log(data);
 
         //Set menu list
         const menu = await api.getMenuList(data.menu);
         setMenuList(menu);
-        console.log(menu);
 
         //Set member list
         const member = await api.getMemberList(data.id);
         setMemberlist(member);
-        console.log(member);
       } catch (error) {
         console.error(error);
       }
@@ -53,7 +50,7 @@ export const PartyPage = () => {
   // menu order
   const [showAddOrder, setShowAddOrder] = useState(false);
   const [menuID, setMenuID] = useState();
-  const [menuName, setName] = useState("");
+  const [menuName, setMenuName] = useState("");
   const [menuPrice, setPrice] = useState(0);
   const [menuPay, setMenuPay] = useState([]);
 
@@ -61,14 +58,15 @@ export const PartyPage = () => {
   const handleAddMenu = (e) => {
     e.preventDefault();
     if (menuName != "") {
+      const menuItem = menulist?.find((item) => item.name === menuName);
       const index = orderList.length + 1;
       setMenuID(index);
-      setPrice(0);
+      setPrice(!menuItem ? 0 : menuItem.price ? menuItem.price : 0);
       setMenuPay([]);
       orderList.push({
         id: index,
         name: menuName,
-        price: menuPrice,
+        price: menuItem.price,
         cost: 0,
         pay: menuPay,
       });
@@ -76,11 +74,11 @@ export const PartyPage = () => {
       openOrder();
     }
   };
-  const handleEditMenu = (item) => {
-    setMenuID(item.id);
-    setName(item.name);
-    setPrice(item.price);
-    setMenuPay(item.pay);
+  const handleEditMenu = (selectedMenu) => {
+    setMenuID(selectedMenu.id);
+    setMenuName(selectedMenu.name);
+    setPrice(selectedMenu.price);
+    setMenuPay(selectedMenu.pay);
     openOrder();
   };
 
@@ -89,33 +87,58 @@ export const PartyPage = () => {
     setShowAddOrder(true);
   };
   const closeOrder = () => {
+    if (orderList.length > 0) {
+      const memberCosts = [];
+
+      orderList.forEach((order) => {
+        const { pay, cost } = order;
+
+        pay.forEach((payer) => {
+          memberCosts[payer] = (memberCosts[payer] || 0) + cost;
+        });
+      });
+
+      const updatedMemberlist = memberlist.map((member) => ({
+        ...member,
+        cost: memberCosts[member.name] || 0,
+      }));
+
+      setMemberlist(updatedMemberlist);
+      console.log(updatedMemberlist);
+    }
     setMenuID();
-    setName("");
+    setMenuName("");
     setPrice(0);
     setMenuPay([]);
     setShowAddOrder(false);
   };
 
   //Remove order
-  const handleCearOrderList = (e) => {
+  const handleClearOrderList = (e) => {
     e.preventDefault();
     setOrderlist([]);
   };
 
-  const partyUpdate = () => {};
-
   //Tap
   const handleMembergroupClick = () => {
     setMenuTap(false);
-    console.log(`Tap member`);
+    //console.log(`Tap member`);
   };
   const handleMenulistClick = () => {
     setMenuTap(true);
-    console.log(`Tap menu`);
+    //console.log(`Tap menu`);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(orderList);
+    console.log(memberlist);
+    navigate('/');
+  };
+
+  window.onbeforeunload = function (event) {
+    event.preventDefault();
+    event.returnValue = "";
   };
 
   const token = localStorage.getItem("access_token");
@@ -197,7 +220,7 @@ export const PartyPage = () => {
                             type="text"
                             placeholder="menu name..."
                             value={menuName}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => setMenuName(e.target.value)}
                             list="menulist"
                             autoCapitalize="off"
                           />
@@ -215,7 +238,7 @@ export const PartyPage = () => {
                   </form>
                   <span
                     className="text-white w-fit cursor-pointer hover:bg-Green"
-                    onClick={handleCearOrderList}
+                    onClick={handleClearOrderList}
                   >
                     Clear list
                   </span>
@@ -267,6 +290,7 @@ export const PartyPage = () => {
               <button type="submit" className="btn btn-primary">
                 <Link
                   to="/"
+                  onClick={handleSubmit}
                   className="label-text-alt link link-hover text-Stone"
                 >
                   Next
