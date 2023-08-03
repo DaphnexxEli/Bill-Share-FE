@@ -27,7 +27,9 @@ export const PartyPage = () => {
         setPartyName(data.partyName);
         setPartyType(data.type);
         setPartyHost(data.host);
-        setPartyMenu(data.menu);
+        if (data.type === "Food&Drink") {
+          setPartyMenu(data.menu);
+        }
         setOrderlist(data.orderList);
 
         //Set menu list
@@ -57,21 +59,37 @@ export const PartyPage = () => {
   //Add&Edit Menu
   const handleAddMenu = (e) => {
     e.preventDefault();
-    if (menuName != "") {
-      const menuItem = menulist?.find((item) => item.name === menuName);
+    if (partyType === "Food&Drink") {
+      if (menuName != "") {
+        const menuItem = menulist?.find((item) => item.name === menuName);
+        const index = orderList.length + 1;
+        setMenuID(index);
+        setPrice(!menuItem ? 0 : menuItem.price ? menuItem.price : 0);
+        setMenuPay([]);
+        orderList.push({
+          id: index,
+          name: menuName,
+          price: menuItem.price,
+          cost: 0,
+          pay: menuPay,
+        });
+        setOrderlist(orderList);
+        openOrder();
+      }
+    } else {
       const index = orderList.length + 1;
-      setMenuID(index);
-      setPrice(!menuItem ? 0 : menuItem.price ? menuItem.price : 0);
-      setMenuPay([]);
-      orderList.push({
-        id: index,
-        name: menuName,
-        price: menuItem.price,
-        cost: 0,
-        pay: menuPay,
-      });
-      setOrderlist(orderList);
-      openOrder();
+        setMenuID(index);
+        setPrice(0);
+        setMenuPay([]);
+        orderList.push({
+          id: index,
+          name: menuName,
+          price: 0,
+          cost: 0,
+          pay: menuPay,
+        });
+        setOrderlist(orderList);
+        openOrder();
     }
   };
   const handleEditMenu = (selectedMenu) => {
@@ -133,7 +151,7 @@ export const PartyPage = () => {
     e.preventDefault();
     console.log(orderList);
     console.log(memberlist);
-    navigate('/');
+    navigate("/");
   };
 
   window.onbeforeunload = function (event) {
@@ -186,8 +204,12 @@ export const PartyPage = () => {
             {menuTap ? (
               <div className="bg-Emerald2">
                 <label className=" label grid grid-cols-3 gap-2">
-                  <span className="label-text text-white text-left">Order name </span>
-                  <span className="label-text text-white text-right">Price </span>
+                  <span className="label-text text-white text-left">
+                    Order name{" "}
+                  </span>
+                  <span className="label-text text-white text-right">
+                    Price{" "}
+                  </span>
                   <span className="label-text text-white text-right">Cost</span>
                   {orderList.map((item) => (
                     <div
@@ -217,14 +239,38 @@ export const PartyPage = () => {
                             placeholder="menu name..."
                             value={menuName}
                             onChange={(e) => setMenuName(e.target.value)}
-                            list="menulist"
+                            list="list"
                             autoCapitalize="off"
                           />
-                          <datalist id="menulist">
-                            {menulist.map((item) => (
-                              <option key={item.id} value={item.name} />
-                            ))}
-                          </datalist>
+                          {partyType === "Food&Drink" ? (
+                            <datalist id="list">
+                              {menulist.map((item) => (
+                                <option key={item.id} value={item.name} />
+                              ))}
+                            </datalist>
+                          ) : partyType === "Home&Hotel" ? (
+                            <datalist id="list">
+                              <option value="Rent" />
+                              <option value="Electricity" />
+                              <option value="Water" />
+                              <option value="Internet" />
+                              <option value="Other" />
+                            </datalist>
+                          ) : partyType === "Subscribe&Service" ? (
+                            <datalist id="list">
+                              <option value="Youtube Premium " />
+                              <option value="Netflix" />
+                              <option value="HBO" />
+                              <option value="Disney+" />
+                              <option value="Amazon Prime Video" />
+                              <option value="Spotify" />
+                              <option value="Apple Music" />
+                            </datalist>
+                          ) : (
+                            <datalist id="list">
+                              <option value="" />
+                            </datalist>
+                          )}
                         </div>
                         <button className="rounded-md text-center text-white bg-Green hover:bg-Emerald2">
                           Add
