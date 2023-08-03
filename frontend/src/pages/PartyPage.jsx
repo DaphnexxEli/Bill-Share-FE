@@ -186,12 +186,8 @@ export const PartyPage = () => {
             {menuTap ? (
               <div className="bg-Emerald2">
                 <label className=" label grid grid-cols-3 gap-2">
-                  <span className="label-text text-white text-left">
-                    Order name
-                  </span>
-                  <span className="label-text text-white text-right">
-                    Price
-                  </span>
+                  <span className="label-text text-white text-left">Order name </span>
+                  <span className="label-text text-white text-right">Price </span>
                   <span className="label-text text-white text-right">Cost</span>
                   {orderList.map((item) => (
                     <div
