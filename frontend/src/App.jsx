@@ -11,6 +11,7 @@ import { NewMenu } from "./pages/AddMenu";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import { Restaurant } from "./pages/Restaurant";
+import EditMenuList from "./pages/editRestaurant";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/SplitBillPage" element={<SplitBillPage />} />
             <Route path="/addMenu" element={<NewMenu />} />
             <Route path="/restaurant" element={<Restaurant />} />
+            <Route path="/restaurant/:id" element={<EditMenuList />} />
           </Routes>
         </div>
       </div>

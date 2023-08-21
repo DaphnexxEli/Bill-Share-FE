@@ -38,7 +38,7 @@ export const ForAdmin = () => {
             <div className="card-body">
               <div className="card w-96 bg-base-100 shadow-xl image-full">
                 <div className="card-body">
-                  <h2 className="card-title">All data</h2>
+                  <h2 className="card-title">Restarant list</h2>
                   <img
                     src="../public/opinion.png"
                     alt="opinion"

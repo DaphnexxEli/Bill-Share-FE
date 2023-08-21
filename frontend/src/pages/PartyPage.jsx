@@ -64,32 +64,40 @@ export const PartyPage = () => {
         const menuItem = menulist?.find((item) => item.name === menuName);
         const index = orderList.length + 1;
         setMenuID(index);
-        setPrice(!menuItem ? 0 : menuItem.price ? menuItem.price : 0);
+
+        if (menuItem) {
+          setPrice(menuItem.price || 0);
+        } else {
+          setPrice(0);
+        }
+
         setMenuPay([]);
+
         orderList.push({
           id: index,
           name: menuName,
-          price: menuItem.price,
+          price: menuItem ? menuItem.price : 0,
           cost: 0,
           pay: menuPay,
         });
+
         setOrderlist(orderList);
         openOrder();
       }
     } else {
       const index = orderList.length + 1;
-        setMenuID(index);
-        setPrice(0);
-        setMenuPay([]);
-        orderList.push({
-          id: index,
-          name: menuName,
-          price: 0,
-          cost: 0,
-          pay: menuPay,
-        });
-        setOrderlist(orderList);
-        openOrder();
+      setMenuID(index);
+      setPrice(0);
+      setMenuPay([]);
+      orderList.push({
+        id: index,
+        name: menuName,
+        price: 0,
+        cost: 0,
+        pay: menuPay,
+      });
+      setOrderlist(orderList);
+      openOrder();
     }
   };
   const handleEditMenu = (selectedMenu) => {
