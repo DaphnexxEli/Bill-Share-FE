@@ -10,7 +10,7 @@ export const CardContainer = () => {
       <nav className="flex items-center justify-between px-6">
       <div className="text-Stone font-bold-sans text-xl"> Welcome back! </div></nav> 
       <nav className="flex items-center justify-between">
-       <div className="text-grey font-bold-sans text-m px-6"> Hello, {localStorage.getItem("first_name")}{" "}</div>
+       <div className="text-semiblack font-bold-sans text-m px-6"> Hello, {localStorage.getItem("first_name")}{" "}</div>
          
           </nav>
         </div>

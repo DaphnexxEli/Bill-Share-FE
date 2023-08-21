@@ -165,21 +165,18 @@ export const PartyPage = () => {
   }
 
   return (
-    <div className="hero min-h-screen bg-Green">
+    <div className="hero min-h-screen bg-base">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className="text-2xl font-bold card-body text-Stone">
-            Party Group
-          </h1>
         </div>
 
         <h2 className="text-xl font-bold text-Stone">{partyName}</h2>
         {partyType === "Food&Drink" ? (
           <h2 className="text-md text-Stone">Restaurant: {partyMenu}</h2>
         ) : partyType === "Home&Hotel" ? (
-          <h2 className="text-md text-Stone">Home&Hotel</h2>
+          <h2 className="text-md text-Stone">Home&Rental</h2>
         ) : (
-          <h2 className="text-md text-Stone">Subscribe&Service</h2>
+          <h2 className="text-md text-Stone">Subscribtion&Service</h2>
         )}
 
         <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald">
@@ -190,13 +187,13 @@ export const PartyPage = () => {
                   className="label-text w-1/2 text-center text-white border hover:bg-Green"
                   onClick={handleMenulistClick}
                 >
-                  Party
+                  Ongoing
                 </span>
                 <span
                   className="label-text w-1/2 text-center text-white border hover:bg-Green"
                   onClick={handleMembergroupClick}
                 >
-                  Member List
+                  Member 
                 </span>
               </label>
             </div>
@@ -205,7 +202,7 @@ export const PartyPage = () => {
               <div className="bg-Emerald2">
                 <label className=" label grid grid-cols-3 gap-2">
                   <span className="label-text text-white text-left">
-                    Order name{" "}
+                    List {" "}
                   </span>
                   <span className="label-text text-white text-right">
                     Price{" "}
@@ -272,7 +269,7 @@ export const PartyPage = () => {
                             </datalist>
                           )}
                         </div>
-                        <button className="rounded-md text-center text-white bg-Green hover:bg-Emerald2">
+                        <button className="rounded-md text-center text-Stone bg-Amber ">
                           Add
                         </button>
                       </div>
@@ -282,7 +279,7 @@ export const PartyPage = () => {
                     className="text-white w-fit cursor-pointer hover:bg-Green"
                     onClick={handleClearOrderList}
                   >
-                    Clear list
+                    Clear 
                   </span>
                 </div>
               </div>
@@ -329,11 +326,11 @@ export const PartyPage = () => {
             )}
 
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary bg-Emerald2">
                 <Link
                   to="/"
                   onClick={handleSubmit}
-                  className="label-text-alt link link-hover text-Stone"
+                  className="label-text-alt link link-hover text-white"
                 >
                   Next
                 </Link>

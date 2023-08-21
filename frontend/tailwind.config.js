@@ -12,7 +12,8 @@ module.exports = {
             'Emerald2': '#022c22',
             'Nature': '#d4d4d4',
             'Stone': '#0c0a09',
-            'base': '#FAEDCD'
+            'base': '#FAEDCD',
+            'semiblack': '#6b7280'
         },
         screens: {
             'tablet': '1024px'

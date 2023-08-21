@@ -14,13 +14,13 @@ export const CreateParty = () => {
     const fetchRestaurantsList = async () => {
       try {
         const data = await api.getRestaurantsList();
-        setRestaurantslist(data);   
+        setRestaurantslist(data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    if(restaurantslist) {
+    if (restaurantslist) {
       fetchRestaurantsList();
     }
   }, []);
@@ -31,8 +31,8 @@ export const CreateParty = () => {
 
   const handleBillTypeChange = (event) => {
     setBillType(event.target.value);
-    if(event.target.value !== "Food&Drink"){
-      setMenu("")
+    if (event.target.value !== "Food&Drink") {
+      setMenu("");
     }
   };
 
@@ -46,12 +46,7 @@ export const CreateParty = () => {
     const host = localStorage.getItem("email");
 
     try {
-      const response = await api.createParty(
-        partyName,
-        billType,
-        menu,
-        host
-      );
+      const response = await api.createParty(partyName, billType, menu, host);
 
       console.log("Create successfully:", response);
       navigate("/partyPage");
@@ -72,15 +67,19 @@ export const CreateParty = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base flex justify-center items-center">
-    <div className="text-Stone font-sans-bold  justify-center mb-1">
-          Create Party Group
-        </div>
-      <div className="w-full max-w-sm shadow-2xl bg-Emerald2 rounded-3xl p-8">
-        
+    
+    <div className="items-center bg-base">
+      <div class=" flex justify-center text-Stone mb-6">
+        Create Party Group
+      </div>
+      <div className="flex justify-center">
+        <div className="w-64 shadow-2xl bg-Emerald2 rounded-3xl p-8">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="partyName" className="block text-white font-sans mb-1">
+            <label
+              htmlFor="partyName"
+              className="block text-white font-sans mb-1"
+            >
               Party Name
             </label>
             <input
@@ -93,7 +92,10 @@ export const CreateParty = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="billType" className="block text-white font-sans mb-1">
+            <label
+              htmlFor="billType"
+              className="block text-white font-sans mb-1"
+            >
               Categories
             </label>
             <select
@@ -104,8 +106,8 @@ export const CreateParty = () => {
             >
               <option value="">None</option>
               <option value="Food&Drink">Food & Drink</option>
-              <option value="Home&Hotel">Home & Hotel</option>
-              <option value="Subscribe&Service">Subscribe & Service</option>
+              <option value="Home&Hotel">Home & Rental</option>
+              <option value="Subscribe&Service">Subscribion & Service</option>
             </select>
           </div>
           {billType === "Food&Drink" && (
@@ -134,6 +136,7 @@ export const CreateParty = () => {
             </button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );
