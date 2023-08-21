@@ -30,12 +30,9 @@ export const LoginPage = () => {
     <div className="hero min-h-screen bg-Green">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold text-Stone">Login now!</h1>
-          <p className="py-6 text-Stone">
-            A web app for sharing expenses simplifies the process of managing
-            shared financial responsibilities, promotes fairness, and enhances
-            collaboration among individuals involved in shared expenses
-            scenarios.
+          <h1 className="text-5xl font-bold-sans text-Stone">Login now!</h1>
+          <p className="py-6 text-Stone font-sans">
+            Sharing the expenses with your friends!
           </p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald">

@@ -12,16 +12,13 @@ export default function Navbar() {
 
   return (
     <div className="navbar bg-Emerald2 ">
-      <div className="flex-1">
-        <Link
-          to="/"
-          className="btn btn-ghost normal-case text-xs sm:text-xl text-white"
-        >
-          Bill share-Sharing Expenses
-        </Link>
-      </div>
+     <div className="navbar bg-Emerald2">
+     <Link to="/">
+  <a className="btn btn-ghost normal-case text-xl text-white">Bill-Share</a>
+  </Link>
+</div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1 text-white">
+        <ul className="menu menu-horizontal px-1 text-white font-sans">
           <li>{is_staff && <a>Admin</a>}</li>
           <li>
             {token && (

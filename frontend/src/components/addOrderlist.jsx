@@ -41,15 +41,15 @@ export default function addOrder({
   return (
     <div>
       <div className="fixed inset-0 flex items-center justify-center z-10">
-        <div className="bg-white w-1/2 p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Menu List</h2>
-          <p>Menu Name</p>
+        <div className="bg-Amber w-1/2 p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-bold mb-4 text-Stone">New List</h2>
+          <p className="text-semiblack">List </p>
           <input
             type="text"
             value={orderName}
             onChange={(e) => setorderName(e.target.value)}
           />
-          <p>Price</p>
+          <p className="text-semiblack">Price</p>
           <input
             type="number"
             value={orderPrice}
@@ -71,13 +71,13 @@ export default function addOrder({
           </div>
 
           <button
-            className="mt-4 bg-red-500 hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
+            className="mt-4 bg-Emerald hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleSubmit}
           >
-            Ok
+            OK
           </button>
           <button
-            className="mt-4 bg-red-500 hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
+            className="mt-4 bg-Nature hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
             onClick={close}
           >
             Close
