@@ -22,7 +22,7 @@ export const ForAdmin = () => {
                     style={{ width: "100px", height: "100px" }}
                   />
                   <div className="card-actions justify-end">
-                    <Link to="/newMenu">
+                    <Link to="/addMenu">
                       <button className="btn btn-primary bg-Emerald">
                         Apply
                       </button>
