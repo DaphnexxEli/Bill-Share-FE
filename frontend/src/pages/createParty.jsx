@@ -72,14 +72,15 @@ export const CreateParty = () => {
   }
 
   return (
-    <div className="min-h-screen bg-Green flex justify-center items-center">
-      <div className="w-full max-w-sm shadow-2xl bg-Emerald2 rounded-3xl p-8">
-        <h1 className="text-2xl font-bold text-white mb-6 text-center">
+    <div className="min-h-screen bg-base flex justify-center items-center">
+    <div className="text-Stone font-sans-bold  justify-center mb-1">
           Create Party Group
-        </h1>
+        </div>
+      <div className="w-full max-w-sm shadow-2xl bg-Emerald2 rounded-3xl p-8">
+        
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="partyName" className="block text-white mb-1">
+            <label htmlFor="partyName" className="block text-white font-sans mb-1">
               Party Name
             </label>
             <input
@@ -92,8 +93,8 @@ export const CreateParty = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="billType" className="block text-white mb-1">
-              Select Bill Type
+            <label htmlFor="billType" className="block text-white font-sans mb-1">
+              Categories
             </label>
             <select
               id="billType"
@@ -110,7 +111,7 @@ export const CreateParty = () => {
           {billType === "Food&Drink" && (
             <div className="mb-4">
               <label htmlFor="menu" className="block text-white mb-1">
-                Select Menu
+                Select Restaurant
               </label>
               <select
                 id="menu"
@@ -128,7 +129,7 @@ export const CreateParty = () => {
             </div>
           )}
           <div className="mt-6 text-center">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary bg-Emerald">
               Submit
             </button>
           </div>

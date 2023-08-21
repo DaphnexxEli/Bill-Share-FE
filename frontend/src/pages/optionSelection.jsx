@@ -3,31 +3,35 @@ import { Link } from "react-router-dom";
 
 export const CardContainer = () => {
   return (
-    <div className="container bg-Green flex justify-center">
+    <div className="container bg-base flex justify-center">
       <div className="row">
-        <div className="col-md-6">
-          <h1 className="text-Stone">
-            {" "}
-            Let's figure out a fair way to divide the costs for the expenses
-          </h1>
+      <header className="bg-base p-4">
+      <div className="container mx-auto">
+      <nav className="flex items-center justify-between px-6">
+      <div className="text-Stone font-bold-sans text-xl"> Welcome back! </div></nav> 
+      <nav className="flex items-center justify-between">
+       <div className="text-grey font-bold-sans text-m px-6"> Hello, {localStorage.getItem("first_name")}{" "}</div>
+         
+          </nav>
+        </div>
+        </header>
 
-          <div className="card">
-            <div className="card-body">
-              <div className="card w-96 bg-base-100 shadow-xl image-full">
-                <div className="card-body">
-                  <h2 className="card-title">Create a party</h2>
-                  <img
-                    src="../public/team.png"
-                    alt="team"
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="card-actions justify-end">
-                    <Link to="/createParty">
-                      <button className="btn btn-primary bg-Emerald">
-                        Apply
-                      </button>
-                    </Link>
-                  </div>
+        <div className="card">
+          <div className="card-body">
+            <div className="card w-96 bg-Emerald2">
+              <div className="card-body">
+                <h2 className="card-title font-sans text-white">Create a party</h2>
+                <img
+                  src="../public/team.png"
+                  alt="team"
+                  style={{ width: "100px", height: "100px" }}
+                />
+                <div className="card-actions justify-end">
+                  <Link to="/createParty">
+                    <button className="btn btn-primary bg-Emerald">
+                      Apply
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -36,9 +40,9 @@ export const CardContainer = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <div className="card w-96 bg-base-100 shadow-xl image-full">
+              <div className="card w-96 bg-Emerald2">
                 <div className="card-body">
-                  <h2 className="card-title">Join a group</h2>
+                  <h2 className="card-title font-sans text-white">Join a group</h2>
                   <img
                     src="../public/add-group.png"
                     alt="team"

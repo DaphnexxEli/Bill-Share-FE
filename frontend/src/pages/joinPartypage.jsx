@@ -58,13 +58,13 @@ export const JoinByCodeOrQRCode = () => {
   }
 
   return (
-    <div className="hero min-h-screen bg-Green">
+    <div className="hero min-h-screen bg-base">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
-          <h1 className="text-2xl font-bold card-body text-white">
+          <h1 className="text-2xl font-bold-san card-body text-white">
             Join by Code or QR Code
           </h1>
-          <div className="card-body">
+          <div className="card-body font-san">
             <input
               type="text"
               placeholder="Enter code"
@@ -73,17 +73,17 @@ export const JoinByCodeOrQRCode = () => {
               onChange={handleCodeChange}
               className="form-control"
             />
-            <button onClick={handleJoin} className="btn btn-primary">
+            <button onClick={handleJoin} className="btn btn-primary bg-Emerald">
               Join
             </button>
           </div>
-          <div className="card-body">
-            <button onClick={handleQRScannerClick} className="btn btn-primary">
+          <div className="card-body font-san">
+            <button onClick={handleQRScannerClick} className="btn btn-primary bg-Emerald">
               Scan QR Code
             </button>
           </div>
           {showQRScanner && (
-            <div className="card-body">
+            <div className="card-body ">
               <QrReader
                 delay={300}
                 onError={handleError}
@@ -92,7 +92,7 @@ export const JoinByCodeOrQRCode = () => {
               />
               <button
                 onClick={handleQRScannerClose}
-                className="btn btn-primary"
+                className="btn btn-primary bg-Emerald"
               >
                 Close Scanner
               </button>
@@ -101,7 +101,7 @@ export const JoinByCodeOrQRCode = () => {
           {scannedCode && (
             <div>
               <p>Scanned code: {scannedCode}</p>
-              <button onClick={handleJoin} className="btn btn-primary">
+              <button onClick={handleJoin} className="btn btn-primary bg-Emerald">
                 Join with Scanned Code
               </button>
             </div>
