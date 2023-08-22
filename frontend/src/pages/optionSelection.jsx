@@ -20,7 +20,7 @@ export const CardContainer = () => {
           <div className="card-body">
             <div className="card w-96 bg-Emerald2">
               <div className="card-body">
-                <h2 className="card-title font-sans text-white">Create a party</h2>
+                <h2 className="card-title font-bold text-white">Create a party</h2>
                 <img
                   src="../public/team.png"
                   alt="team"
@@ -42,7 +42,7 @@ export const CardContainer = () => {
             <div className="card-body">
               <div className="card w-96 bg-Emerald2">
                 <div className="card-body">
-                  <h2 className="card-title font-sans text-white">Join a group</h2>
+                  <h2 className="card-title font-bold text-white">Join a group</h2>
                   <img
                     src="../public/add-group.png"
                     alt="team"
