@@ -27,7 +27,7 @@ export const LoginPage = () => {
     setPassword("");
   };
   return (
-    <div className="hero min-h-screen bg-Green">
+    <div className="hero min-h-screen bg-base">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold-sans text-Stone">Login now!</h1>
