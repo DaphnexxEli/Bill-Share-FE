@@ -38,7 +38,7 @@ export const JoinByCodeOrQRCode = () => {
 
     try {
       const party = await api.getParty(uppercaseJoinCode);
-      const name = localStorage.getItem("first_name");
+      const name = localStorage.getItem("userID");
       await api.memberset(name, 0, party.id);
       console.log("Joining with code:", uppercaseJoinCode);
       console.log("Name:", name);

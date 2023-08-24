@@ -30,6 +30,7 @@ const setUser = async () => {
     });
 
     // store user data in local storage
+    localStorage.setItem("userID", response.data.userID);
     localStorage.setItem("first_name", response.data.first_name);
     localStorage.setItem("last_name", response.data.last_name);
     localStorage.setItem("email", response.data.email);
@@ -117,7 +118,7 @@ const resetpass = async (email, new_password) => {
 };
 
 // Create new party
-const createParty = async (partyName, type, menu, host) => {
+const createParty = async (partyName, type, menu, hostID, promptPay) => {
   const access_token = localStorage.getItem("access_token");
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let Code = "";
@@ -133,9 +134,10 @@ const createParty = async (partyName, type, menu, host) => {
         partyName,
         type,
         menu,
-        host,
+        hostID,
         Code,
         orderList,
+        promptPay,
       },
       {
         headers: {
@@ -161,14 +163,14 @@ const createParty = async (partyName, type, menu, host) => {
 };
 
 //Join Party
-const memberset = async (name, cost, party) => {
+const memberset = async (userID, cost, party) => {
   const access_token = localStorage.getItem("access_token");
   try {
     const response = await axios.post(
       `${API_URL}/api/memberset/`,
       {
         party,
-        name,
+        userID,
         cost,
       },
       {

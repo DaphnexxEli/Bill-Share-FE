@@ -12,6 +12,7 @@ import "./App.css";
 import EditMenuList from "./pages/editRestaurant";
 import { NotFound } from "./pages/Notfound";
 import { NetworkError } from "./pages/NetworkError";
+import { SummarizeBill } from "./pages/Summarize";
 
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
             <Route path="/partyPage" element={<PartyPage />} />
             <Route path="/addMenu" element={<NewMenu />} />
             <Route path="/restaurant/:id" element={<EditMenuList />} />
-            <Route path="/network-error" element={<NetworkError />} />
+            <Route path="/summarizeBill" element={<SummarizeBill />} />
+            <Route path="/networkError" element={<NetworkError />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
