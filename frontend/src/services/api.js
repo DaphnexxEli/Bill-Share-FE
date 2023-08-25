@@ -30,6 +30,7 @@ const setUser = async () => {
     });
 
     // store user data in local storage
+    localStorage.setItem("userID", response.data.userID);
     localStorage.setItem("first_name", response.data.first_name);
     localStorage.setItem("last_name", response.data.last_name);
     localStorage.setItem("email", response.data.email);
@@ -117,7 +118,7 @@ const resetpass = async (email, new_password) => {
 };
 
 // Create new party
-const createParty = async (partyName, type, menu, host) => {
+const createParty = async (partyName, type, menu, hostID, promptPay) => {
   const access_token = localStorage.getItem("access_token");
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let Code = "";
@@ -133,9 +134,10 @@ const createParty = async (partyName, type, menu, host) => {
         partyName,
         type,
         menu,
-        host,
+        hostID,
         Code,
         orderList,
+        promptPay,
       },
       {
         headers: {
@@ -161,14 +163,14 @@ const createParty = async (partyName, type, menu, host) => {
 };
 
 //Join Party
-const memberset = async (name, cost, party) => {
+const memberset = async (userID, cost, party) => {
   const access_token = localStorage.getItem("access_token");
   try {
     const response = await axios.post(
       `${API_URL}/api/memberset/`,
       {
         party,
-        name,
+        userID,
         cost,
       },
       {
@@ -212,7 +214,7 @@ export const getParty = async (partyCode) => {
   }
 };
 
-const restaurantset = async (name) => {
+const addRestaurant = async (name) => {
   const access_token = localStorage.getItem("access_token");
   try {
     const response = await axios.post(
@@ -230,19 +232,20 @@ const restaurantset = async (name) => {
   } catch (error) {
     if (error.response.status === 401 && access_token) {
       await refreshToken();
-      return restaurantset(name);
+      return addRestaurant(name);
     } else {
       console.error(error);
     }
   }
 };
 
-const menuset = async (restaurantID, name, price) => {
+const addMenu = async (restaurant, name, price) => {
+  const access_token = localStorage.getItem("access_token");
   try {
     const response = await axios.post(
-      `${API_URL}/api/menus/menuset`,
+      `${API_URL}/api/menuitems/`,
       {
-        restaurantID,
+        restaurant,
         name,
         price,
       },
@@ -256,7 +259,7 @@ const menuset = async (restaurantID, name, price) => {
   } catch (error) {
     if (error.response.status === 401 && access_token) {
       await refreshToken();
-      return menuset();
+      return addMenu();
     } else {
       console.error(error);
     }
@@ -282,6 +285,25 @@ export const getRestaurantsList = async () => {
   }
 };
 
+export const getRestaurant = async (id) => {
+  const access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.get(`${API_URL}/api/restaurants/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return getRestaurant(id);
+    } else {
+      console.error(error);
+    }
+  }
+};
+
 export const getMenuList = async (restaurantID) => {
   const access_token = localStorage.getItem("access_token");
   try {
@@ -300,6 +322,54 @@ export const getMenuList = async (restaurantID) => {
       return getMenuList(restaurantID);
     } else {
       console.error(error);
+    }
+  }
+};
+
+export const setMenu = async (id, name, price, restaurant) => {
+  const access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.put(
+      `${API_URL}/api/menuitems/${id}/`,
+      {
+        name,
+        price,
+        restaurant,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return setMenu(restaurantID, name, price);
+    } else {
+      console.error(error);
+      throw error;
+    }
+  }
+};
+
+export const deleteMenu = async (id) => {
+  const access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.delete(`${API_URL}/api/menuitems/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return deleteMenu(id);
+    } else {
+      console.error(error);
+      throw error;
     }
   }
 };
@@ -333,9 +403,12 @@ export default {
   resetpass,
   createParty,
   memberset,
-  menuset,
-  restaurantset,
+  addMenu,
+  setMenu,
+  deleteMenu,
+  addRestaurant,
   getRestaurantsList,
+  getRestaurant,
   getParty,
   getMenuList,
   getMemberList,

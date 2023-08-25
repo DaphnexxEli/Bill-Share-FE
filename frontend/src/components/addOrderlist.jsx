@@ -26,13 +26,15 @@ export default function addOrder({
     const index = orderlist.findIndex((item) => item.id === id);
     orderlist[index].name = orderName;
     orderlist[index].price = orderPrice;
-    orderlist[index].cost = orderPrice/selectedMembers.length;
+    if (selectedMembers.length !== 0) {
+      orderlist[index].cost = orderPrice/selectedMembers.length;
+    }
     orderlist[index].pay = selectedMembers;
     setOrderlist(orderlist);
-    console.log(orderName);
-    console.log(orderPrice);
-    console.log(selectedMembers);
-    console.log();
+    // console.log(orderName);
+    // console.log(orderPrice);
+    // console.log(selectedMembers);
+    // console.log();
     close();
   };
 

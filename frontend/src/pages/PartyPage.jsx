@@ -14,6 +14,7 @@ export const PartyPage = () => {
   const [partyMenu, setPartyMenu] = useState("");
   const partyCode = localStorage.getItem("code");
 
+  const [resName, setResName] = useState("");
   const [memberlist, setMemberlist] = useState([]);
   const [orderList, setOrderlist] = useState([]);
   const [menulist, setMenuList] = useState([]);
@@ -27,14 +28,20 @@ export const PartyPage = () => {
         setPartyName(data.partyName);
         setPartyType(data.type);
         setPartyHost(data.host);
-        if (data.type === "Food&Drink") {
+        if (data.type === "F") {
           setPartyMenu(data.menu);
         }
-        setOrderlist(data.orderList);
+        if (data.orderList) {
+          setOrderlist(data.orderList);
+        }
 
         //Set menu list
-        const menu = await api.getMenuList(data.menu);
-        setMenuList(menu);
+        if (data.type === "F") {
+          const menu = await api.getMenuList(data.menu);
+          setMenuList(menu);
+          const restaurant = await api.getRestaurant(data.menu);
+          setResName(restaurant.name);
+        }
 
         //Set member list
         const member = await api.getMemberList(data.id);
@@ -64,32 +71,40 @@ export const PartyPage = () => {
         const menuItem = menulist?.find((item) => item.name === menuName);
         const index = orderList.length + 1;
         setMenuID(index);
-        setPrice(!menuItem ? 0 : menuItem.price ? menuItem.price : 0);
+
+        if (menuItem) {
+          setPrice(menuItem.price || 0);
+        } else {
+          setPrice(0);
+        }
+
         setMenuPay([]);
+
         orderList.push({
           id: index,
           name: menuName,
-          price: menuItem.price,
+          price: menuItem ? menuItem.price : 0,
           cost: 0,
           pay: menuPay,
         });
+
         setOrderlist(orderList);
         openOrder();
       }
     } else {
       const index = orderList.length + 1;
-        setMenuID(index);
-        setPrice(0);
-        setMenuPay([]);
-        orderList.push({
-          id: index,
-          name: menuName,
-          price: 0,
-          cost: 0,
-          pay: menuPay,
-        });
-        setOrderlist(orderList);
-        openOrder();
+      setMenuID(index);
+      setPrice(0);
+      setMenuPay([]);
+      orderList.push({
+        id: index,
+        name: menuName,
+        price: 0,
+        cost: 0,
+        pay: menuPay,
+      });
+      setOrderlist(orderList);
+      openOrder();
     }
   };
   const handleEditMenu = (selectedMenu) => {
@@ -147,6 +162,11 @@ export const PartyPage = () => {
     //console.log(`Tap menu`);
   };
 
+  const copyCode = () => {
+    navigator.clipboard.writeText(partyCode);
+    alert(`Code ${partyCode} copied to clipboard`);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(orderList);
@@ -167,13 +187,12 @@ export const PartyPage = () => {
   return (
     <div className="hero min-h-screen bg-base">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-        </div>
+        <div className="text-center lg:text-left"></div>
 
         <h2 className="text-xl font-bold text-Stone">{partyName}</h2>
-        {partyType === "Food&Drink" ? (
-          <h2 className="text-md text-Stone">Restaurant: {partyMenu}</h2>
-        ) : partyType === "Home&Hotel" ? (
+        {partyType === "F" ? (
+          <h2 className="text-md text-Stone">Restaurant: {resName}</h2>
+        ) : partyType === "H" ? (
           <h2 className="text-md text-Stone">Home&Rental</h2>
         ) : (
           <h2 className="text-md text-Stone">Subscribtion&Service</h2>
@@ -193,7 +212,7 @@ export const PartyPage = () => {
                   className="label-text w-1/2 text-center text-white border hover:bg-Green"
                   onClick={handleMembergroupClick}
                 >
-                  Member 
+                  Member
                 </span>
               </label>
             </div>
@@ -201,9 +220,7 @@ export const PartyPage = () => {
             {menuTap ? (
               <div className="bg-Emerald2">
                 <label className=" label grid grid-cols-3 gap-2">
-                  <span className="label-text text-white text-left">
-                    List {" "}
-                  </span>
+                  <span className="label-text text-white text-left">List </span>
                   <span className="label-text text-white text-right">
                     Price{" "}
                   </span>
@@ -239,13 +256,13 @@ export const PartyPage = () => {
                             list="list"
                             autoCapitalize="off"
                           />
-                          {partyType === "Food&Drink" ? (
+                          {partyType === "F" ? (
                             <datalist id="list">
                               {menulist.map((item) => (
                                 <option key={item.id} value={item.name} />
                               ))}
                             </datalist>
-                          ) : partyType === "Home&Hotel" ? (
+                          ) : partyType === "H" ? (
                             <datalist id="list">
                               <option value="Rent" />
                               <option value="Electricity" />
@@ -253,7 +270,7 @@ export const PartyPage = () => {
                               <option value="Internet" />
                               <option value="Other" />
                             </datalist>
-                          ) : partyType === "Subscribe&Service" ? (
+                          ) : partyType === "S" ? (
                             <datalist id="list">
                               <option value="Youtube Premium " />
                               <option value="Netflix" />
@@ -279,14 +296,22 @@ export const PartyPage = () => {
                     className="text-white w-fit cursor-pointer hover:bg-Green"
                     onClick={handleClearOrderList}
                   >
-                    Clear 
+                    Clear
                   </span>
                 </div>
               </div>
             ) : (
               <div className="bg-Emerald2">
-                <div className="bg-white flex justify-center ">
-                  <QRCode value={partyCode} />
+                <div className="bg-white flex justify-center">
+                  <QRCode className="my-5" value={partyCode} />
+                </div>
+                <div className="bg-Green my-4 mx-auto rounded-md w-1/2">
+                  <h3
+                    className="w-full text-center text-Stone"
+                    onClick={copyCode}
+                  >
+                    Code: {partyCode}
+                  </h3>
                 </div>
                 <label className=" label grid grid-cols-3 gap-2">
                   <span className="label-text text-white text-left">
@@ -301,7 +326,7 @@ export const PartyPage = () => {
                       className="grid grid-cols-2 col-span-3 gap-2"
                     >
                       <span className="text-white text-left border">
-                        {item.name}
+                        {item.userID.first_name}
                       </span>
                       <span className="text-white text-right border">
                         {item.cost}

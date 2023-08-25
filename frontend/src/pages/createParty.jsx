@@ -43,12 +43,14 @@ export const CreateParty = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Perform submit logic using the input value and selected options
-    const host = localStorage.getItem("email");
+    const host = localStorage.getItem("userID");
+    const phone = localStorage.getItem("phone");
 
     try {
-      const response = await api.createParty(partyName, billType, menu, host);
-
+      const response = await api.createParty(partyName, billType, menu, host, phone);
       console.log("Create successfully:", response);
+      const party = await api.getParty(localStorage.getItem("code"));
+      await api.memberset(host, 0, party.id);
       navigate("/partyPage");
     } catch (error) {
       // Handle login error
@@ -105,12 +107,12 @@ export const CreateParty = () => {
               className="select-field rounded-md"
             >
               <option value="">None</option>
-              <option value="Food&Drink">Food & Drink</option>
-              <option value="Home&Hotel">Home & Rental</option>
-              <option value="Subscribe&Service">Subscribion & Service</option>
+              <option value="F">Food & Drink</option>
+              <option value="H">Home & Rental</option>
+              <option value="S">Subscribion & Service</option>
             </select>
           </div>
-          {billType === "Food&Drink" && (
+          {billType === "F" && (
             <div className="mb-4">
               <label htmlFor="menu" className="block text-white mb-1">
                 Select Restaurant
