@@ -109,7 +109,7 @@ export const CreateParty = () => {
               <option value="">None</option>
               <option value="F">Food & Drink</option>
               <option value="H">Home & Rental</option>
-              <option value="S">Subscribion & Service</option>
+              <option value="S">Subscripion & Service</option>
             </select>
           </div>
           {billType === "F" && (

@@ -195,7 +195,7 @@ export const PartyPage = () => {
         ) : partyType === "H" ? (
           <h2 className="text-md text-Stone">Home&Rental</h2>
         ) : (
-          <h2 className="text-md text-Stone">Subscribtion&Service</h2>
+          <h2 className="text-md text-Stone">Subscription&Service</h2>
         )}
 
         <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald">
