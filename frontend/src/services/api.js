@@ -162,6 +162,43 @@ const createParty = async (partyName, type, menu, hostID, promptPay) => {
   }
 };
 
+const updateParty = async (
+  partyID,
+  partyName,
+  type,
+  orderList,
+  menu,
+  promptPay
+) => {
+  const access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.put(
+      `${API_URL}/api/partyset/${partyID}/`,
+      {
+        partyName,
+        type,
+        menu,
+        orderList,
+        promptPay,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return updateParty();
+    } else {
+      console.error(error);
+    }
+  }
+};
+
 //Join Party
 const memberset = async (userID, cost, party) => {
   const access_token = localStorage.getItem("access_token");
@@ -184,6 +221,32 @@ const memberset = async (userID, cost, party) => {
     if (error.response.status === 401 && access_token) {
       await refreshToken();
       return memberset();
+    } else {
+      console.error(error);
+    }
+  }
+};
+
+const updateMember = async (memberID, cost, slipImage) => {
+  const access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.put(
+      `${API_URL}/api/memberset/${memberID}/`,
+      {
+        cost,
+        slipImage,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return updateMember();
     } else {
       console.error(error);
     }
@@ -402,7 +465,9 @@ export default {
   register,
   resetpass,
   createParty,
+  updateParty,
   memberset,
+  updateMember,
   addMenu,
   setMenu,
   deleteMenu,
