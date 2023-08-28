@@ -8,10 +8,11 @@ import QRCode from "react-qr-code";
 
 export const PartyPage = () => {
   const navigate = useNavigate();
+  const [partyID, setPertyID] = useState();
   const [partyName, setPartyName] = useState("");
   const [partyType, setPartyType] = useState("");
-  const [partyHost, setPartyHost] = useState("");
-  const [partyMenu, setPartyMenu] = useState("");
+  const [partyHost, setPartyHost] = useState();
+  const [partyMenu, setPartyMenu] = useState();
   const partyCode = localStorage.getItem("code");
 
   const [resName, setResName] = useState("");
@@ -25,6 +26,7 @@ export const PartyPage = () => {
       try {
         //Set party detail
         const data = await api.getParty(partyCode);
+        setPertyID(data.id);
         setPartyName(data.partyName);
         setPartyType(data.type);
         setPartyHost(data.host);
@@ -66,7 +68,7 @@ export const PartyPage = () => {
   //Add&Edit Menu
   const handleAddMenu = (e) => {
     e.preventDefault();
-    if (partyType === "Food&Drink") {
+    if (partyType === "F") {
       if (menuName != "") {
         const menuItem = menulist?.find((item) => item.name === menuName);
         const index = orderList.length + 1;
@@ -133,11 +135,10 @@ export const PartyPage = () => {
 
       const updatedMemberlist = memberlist.map((member) => ({
         ...member,
-        cost: memberCosts[member.name] || 0,
+        cost: memberCosts[member.userID.first_name] || 0,
       }));
 
       setMemberlist(updatedMemberlist);
-      console.log(updatedMemberlist);
     }
     setMenuID();
     setMenuName("");
@@ -146,7 +147,19 @@ export const PartyPage = () => {
     setShowAddOrder(false);
   };
 
-  //Remove order
+  const removeOrder = (itemId) => {
+    const updatedOrderList = [...orderList];
+
+    const indexToRemove = updatedOrderList.findIndex(
+      (item) => item.id === itemId
+    );
+
+    if (indexToRemove !== -1) {
+      updatedOrderList.splice(indexToRemove, 1);
+
+      setOrderlist(updatedOrderList);
+    }
+  };
   const handleClearOrderList = (e) => {
     e.preventDefault();
     setOrderlist([]);
@@ -169,9 +182,31 @@ export const PartyPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await api.updateParty(
+        partyID,
+        partyName,
+        partyType,
+        orderList,
+        partyMenu,
+      );
+      console.log("Update party success:", response);
+    } catch (error) {
+      console.error("Error updating party:", error);
+    }
+
+    for (const member of memberlist) {
+      try {
+        await api.updateMember(member.id, member.cost, member.slipImage);
+        console.log("Update member list success for:", member.id);
+      } catch (error) {
+        console.error(`Error updating member for ${member.id}:`, error);
+      }
+    }
+
     console.log(orderList);
     console.log(memberlist);
-    navigate("/");
+    navigate("/summarizeBill");
   };
 
   window.onbeforeunload = function (event) {
@@ -219,31 +254,57 @@ export const PartyPage = () => {
 
             {menuTap ? (
               <div className="bg-Emerald2">
-                <label className=" label grid grid-cols-3 gap-2">
-                  <span className="label-text text-white text-left">List </span>
+                <label className=" label grid grid-cols-5 gap-2">
+                  <span className="label-text text-white text-left col-span-3">
+                    List{" "}
+                  </span>
                   <span className="label-text text-white text-right">
                     Price{" "}
                   </span>
                   <span className="label-text text-white text-right">Cost</span>
                   {orderList.map((item) => (
                     <div
-                      key={item.id}
-                      className="grid grid-cols-3 col-span-3 gap-2"
-                      onClick={() => handleEditMenu(item)}
+                      key={item.index}
+                      className="grid grid-cols-5 col-span-5 gap-2 bg-neutral"
                     >
-                      <span className="text-white text-left border">
-                        {item.name}
-                      </span>
-                      <span className="text-white text-right border">
-                        {item.price}
-                      </span>
-                      <span className="text-white text-right border">
-                        {item.cost}
-                      </span>
+                      <div
+                        className="col-span-5 grid grid-cols-5 cursor-pointer"
+                        onClick={() => handleEditMenu(item)}
+                      >
+                        <div className="text-white text-left border col-span-3">
+                          {item.name}
+                        </div>
+                        <div className="text-white text-right border">
+                          {item.price}
+                        </div>
+                        <div className="text-white text-right border">
+                          {item.cost}
+                        </div>
+                      </div>
+
+                      <div className="col-span-5">
+                        {item.pay.length !== 0 ? (
+                          item.pay.map((member) => (
+                            <div className="avatar placeholder" key={member}>
+                              <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
+                                <span className="text-xs">
+                                  {member ? member.charAt(0) : ""}
+                                </span>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="avatar placeholder">
+                            <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
+                              <span className="text-xs">None</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </label>
-                <div className="bg-Emerald2">
+                <div className="bg-Emerald2 mt-5">
                   <form onSubmit={handleAddMenu}>
                     <div className="form-control">
                       <div className="grid grid-cols-4 gap-2">
@@ -347,6 +408,7 @@ export const PartyPage = () => {
                 close={closeOrder}
                 orderlist={orderList}
                 setOrderlist={setOrderlist}
+                removeOrder={removeOrder}
               />
             )}
 

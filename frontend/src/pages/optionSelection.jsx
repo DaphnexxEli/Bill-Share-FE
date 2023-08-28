@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const CardContainer = () => {
   return (
-    <div className="container bg-base flex justify-center">
+    <div className="container bg-base flex justify-center h-screen">
       <div className="row">
       <header className="bg-base p-4">
       <div className="container mx-auto">

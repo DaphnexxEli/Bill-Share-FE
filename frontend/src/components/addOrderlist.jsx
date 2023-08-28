@@ -9,6 +9,7 @@ export default function addOrder({
   close,
   orderlist,
   setOrderlist,
+  removeOrder,
 }) {
   const [orderName, setorderName] = useState(name);
   const [orderPrice, setorderPrice] = useState(price);
@@ -22,19 +23,20 @@ export default function addOrder({
     }
   };
 
+  const handleDelete = () => {
+    removeOrder(id);
+    close();
+  };
+
   const handleSubmit = () => {
     const index = orderlist.findIndex((item) => item.id === id);
     orderlist[index].name = orderName;
     orderlist[index].price = orderPrice;
     if (selectedMembers.length !== 0) {
-      orderlist[index].cost = orderPrice/selectedMembers.length;
+      orderlist[index].cost = orderPrice / selectedMembers.length;
     }
     orderlist[index].pay = selectedMembers;
     setOrderlist(orderlist);
-    // console.log(orderName);
-    // console.log(orderPrice);
-    // console.log(selectedMembers);
-    // console.log();
     close();
   };
 
@@ -61,26 +63,31 @@ export default function addOrder({
               <span
                 key={item.id}
                 className={`text-Stone text-left border ${
-                  selectedMembers.includes(item.name) ? "bg-Green" : ""
+                  selectedMembers.includes(item.userID.first_name)
+                    ? "bg-Green"
+                    : ""
                 }`}
-                onClick={() => handleMemberClick(item.name)}
+                onClick={() => handleMemberClick(item.userID.first_name)}
               >
-                {item.name}
+                {item.userID.first_name}
               </span>
             ))}
           </div>
 
           <button
-            className="mt-4 bg-Emerald hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            className="mt-4 bg-Emerald text-white font-bold py-2 px-4 rounded"
             onClick={handleSubmit}
           >
             OK
           </button>
           <button
-            className="mt-4 bg-Nature hover:bg-red-700 text-Emerald font-bold py-2 px-4 rounded"
+            className="mt-4 bg-Nature text-Emerald font-bold py-2 px-4 rounded"
             onClick={close}
           >
             Close
+          </button>
+          <button className="btn btn-outline btn-error" onClick={handleDelete}>
+            Delete
           </button>
         </div>
       </div>
