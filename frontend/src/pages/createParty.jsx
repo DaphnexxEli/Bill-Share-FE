@@ -70,7 +70,7 @@ export const CreateParty = () => {
 
   return (
     
-    <div className="items-center bg-base">
+    <div className="items-center bg-base h-screen">
       <div class=" flex justify-center text-Stone mb-6">
         Create Party Group
       </div>
