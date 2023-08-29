@@ -13,10 +13,8 @@ export default function Navbar() {
   return (
     <div className="navbar bg-Emerald2 ">
       <div className="navbar bg-Emerald2">
-        <Link to="/">
-          <a className="btn btn-ghost normal-case text-xl text-white">
-            Bill-Share
-          </a>
+        <Link to="/" className="btn btn-ghost normal-case text-xl text-white">
+          Bill-Share
         </Link>
       </div>
       <div className="flex-none">

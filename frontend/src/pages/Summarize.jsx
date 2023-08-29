@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
 import generatePayload from "promptpay-qr";
 import api from "../services/api";
 
 export function SummarizeBill() {
+  const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const [orderList, setOrderlist] = useState([]);
   const [memberList, setMemberlist] = useState([]);
-  const [amount, setAmount] = useState(1.0);
+  // const [amount, setAmount] = useState(10);
   const [phoneNumber, setPhoneNumber] = useState("0972627764");
   const [qrCode, setqrCode] = useState("sample");
 
   const partyCode = localStorage.getItem("code");
   const [partyName, setPartyName] = useState("Name");
   const [partyDate, setPartyDate] = useState("01-01-2022");
+  const [partyHost, setPartyHost] = useState();
 
   useEffect(() => {
     const fetchBillDetail = async () => {
@@ -25,22 +27,28 @@ export function SummarizeBill() {
         setPartyDate(party.timeCreate);
         setPhoneNumber(party.promptPay);
         setOrderlist(party.orderList);
-        let sum  = 0;
-        
+        setPartyHost(party.hostID);
+        const sum = party.orderList.reduce(
+          (accumulator, order) => accumulator + parseFloat(order.price),
+          0
+        );
+        setTotal(sum);
 
         const members = await api.getMemberList(party.id);
         setMemberlist(members);
       } catch (error) {
         console.error(error);
+        alert("An error occurred while fetching data. Please try again later.");
+        navigate("/");
       }
     };
 
     if (partyCode) {
       fetchBillDetail();
     }
-  }, []);
+  }, [partyCode]);
 
-  function handleQR() {
+  function handleQR(amount) {
     setqrCode(generatePayload(phoneNumber, { amount }));
   }
 
@@ -62,60 +70,88 @@ export function SummarizeBill() {
             <div className="ml-5">Member name</div>
             <div className="mr-10">Pay</div>
           </div>
-          <div
-            className="collapse collapse-arrow bg-base-200"
-            onClick={handleQR}
-          >
-            <input type="checkbox" name="my-accordion-3" />
-            <div className="collapse-title text-xl font-medium flex">
-              <div className="flex w-5/6">
-                <div className="avatar online placeholder">
-                  <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
-                    <span>M</span>
+          {memberList.map((member) => (
+            <div
+              key={member.id}
+              className="collapse collapse-arrow bg-base-200"
+              onClick={() => handleQR(parseFloat(member.cost))}
+            >
+              <input type="radio" name="my-accordion-3" />
+              <div className="collapse-title text-xl font-medium flex h-18">
+                <div className="flex w-5/6">
+                  <div
+                    className={
+                      member.imageSlip
+                        ? "avatar online placeholder"
+                        : "avatar offline placeholder"
+                    }
+                  >
+                    <div className={member.userID.id === partyHost ? "bg-neutral-focus text-neutral-content rounded-full h-12 w-12 ring ring-primary ring-offset-base-100 ring-offset-2" : "bg-neutral-focus text-neutral-content rounded-full h-12 w-12"}>
+                      <span>{member.userID.first_name.charAt(0)}</span>
+                    </div>
                   </div>
+                  <div className="pl-6">{member.userID.first_name}</div>
                 </div>
-                <div className="pl-6">Member name</div>
+                <div className="pl-14">{member.cost}฿</div>
               </div>
-              <div className="pl-14">-- ฿</div>
+              <div className="collapse-content bg-base-100">
+                <div className="overflow-x-auto">
+                  <table className="table">
+                    {/* head */}
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Order Name</th>
+                        <th></th>
+                        <th>Price</th>
+                        <th>Pay</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* row */}
+                      {orderList
+                        .filter((id) => id.userID)
+                        .sort((a, b) => a.id - b.id)
+                        .map((order) => (
+                          <tr key={order.id}>
+                            <th>{order.id}</th>
+                            <td>{order.name}</td>
+                            <td></td>
+                            <td>{parseFloat(order.price).toFixed(2)}</td>
+                            <td>{parseFloat(order.cost).toFixed(2)}</td>
+                          </tr>
+                        ))}
+                      <tr>
+                        <th></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="flex justify-center">
+                  <QRCode className="my-3 p-3 bg-white" value={qrCode} />
+                </div>
+                <div className="flex justify-center">
+                  <h3
+                    className="w-1/3 rounded-md text-center text-white cursor-pointer bg-Emerald"
+                    onClick={copyPhone}
+                  >
+                    {phoneNumber} ↀ
+                  </h3>
+                </div>
+
+                <div className="flex justify-center my-3">
+                  <input
+                    type="file"
+                    className="file-input file-input-bordered w-full max-w-xs"
+                  />
+                  <button className="btn mx-2">upload</button>
+                </div>
+              </div>
             </div>
-            <div className="collapse-content bg-base-100">
-              <div className="overflow-x-auto">
-                <table className="table">
-                  {/* head */}
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Order Name</th>
-                      <th></th>
-                      <th>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* row */}
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td></td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="flex justify-center">
-                <QRCode className="my-3 p-3 bg-white" value={qrCode} />
-              </div>
-              <h3 className="w-full text-center text-white" onClick={copyPhone}>
-                {phoneNumber}
-              </h3>
-              <div className="flex justify-center my-3">
-                <input
-                  type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
-                />
-                <button className="btn mx-2">upload</button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="mt-6">
