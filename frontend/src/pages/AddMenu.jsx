@@ -1,32 +1,38 @@
 import React, { useState } from "react";
 
 export const NewMenu = () => {
-  const [newRestaurant, setNewRestaurant] = useState('');
-  const [newMenu, setNewMenu] = useState('');
-  const [newPrice, setNewPrice] = useState('');
+  const [newRestaurant, setNewRestaurant] = useState("");
+  const [newMenu, setNewMenu] = useState("");
+  const [newPrice, setNewPrice] = useState("");
   const [menuList, setMenuList] = useState([]);
+  const [menuId, setMenuID] = useState();
 
   const handleEditMenu = (item) => {
     setNewRestaurant(item.restaurant);
     setNewMenu(item.menu);
     setNewPrice(item.price);
-    // Assuming there's an 'id' property on the item, you might use it for better tracking or updating the item.
+    setMenuID(item.id);
   };
 
-  const handleAddMenu = (event) => {
-    event.preventDefault();
-    if (newMenu.trim() !== '' && newRestaurant.trim() !== '' && newPrice.trim() !== '') {
+  const handleAddMenu = (e) => {
+    e.preventDefault();
+    if (
+      newMenu.trim() !== "" &&
+      newRestaurant.trim() !== "" &&
+      newPrice.trim() !== ""
+    ) {
       const newMenuItem = {
         restaurant: newRestaurant,
         menu: newMenu,
         price: newPrice,
-        id: Date.now() // Adding a unique ID to the new menu item for better tracking.
+        id: menuId,
       };
 
       setMenuList([...menuList, newMenuItem]);
-      setNewRestaurant('');
-      setNewMenu('');
+      setNewRestaurant("");
+      setNewMenu("");
       setNewPrice(0);
+      setMenuID();
     }
   };
 
@@ -35,14 +41,15 @@ export const NewMenu = () => {
   };
 
   return (
-    <div className="hero min-h-screen bg-Green">
+    <div className="hero min-h-screen bg-base">
       <div className="hero-content flex-col lg:flex-row-reverse">
-      <input
-        type="text"
-        value={setNewRestaurant}
-        onChange={handleEditMenu}
-        placeholder="Restaurant."
-      />
+        <input
+          type="text"
+          value={newRestaurant}
+          onChange={(e) => setNewRestaurant(e.target.value)}
+          placeholder="Restaurant's name"
+        />
+
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
           <label className="label grid grid-cols-3 gap-2">
             <span className="label-text text-white text-left">Menu</span>
@@ -51,16 +58,13 @@ export const NewMenu = () => {
             {menuList.map((item) => (
               <div
                 key={item.id}
-                className="grid grid-cols-3 col-span-3 gap-2"
+                className="grid grid-cols-2 col-span-2 gap-2 items-center"
                 onClick={() => handleEditMenu(item)}
               >
-                <span className="text-white text-left border">
-                  {item.setNewMenu}
-                </span>
+                <span className="text-white text-left border">{item.menu}</span>
                 <span className="text-white text-right border">
-                  {item.setNewPrice}
+                  {item.price}
                 </span>
-              
               </div>
             ))}
           </label>
@@ -76,22 +80,33 @@ export const NewMenu = () => {
                     value={newMenu}
                     onChange={(e) => setNewMenu(e.target.value)}
                   />
-                  
+
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Price..."
                     value={newPrice}
-                    onChange={(e) => setNewPrice(e.target.value)}
+                    onChange={(e) => setNewPrice(parseFloat(e.target.value))}
                   />
                 </div>
                 <div className="col-span-1 bg-Emerald text-white px-1 py-1 rounded">
-                  <button onClick={handleClicked}>+</button>
+                  <button
+                    type="submit"
+                    className="col-span-1 bg-Emerald text-white px-1 py-1 rounded"
+                  >
+                    +
+                  </button>
                 </div>
-                <div className="form-control" style={{ display: "flex", justifyContent: "center" }}>
-                <button type="submit" className="col-span-1 bg-Green text-white px-4 py-1 rounded hover:bg-Green">
-                  DONE
-                </button>
-              </div>
+                <div
+                  className="form-control"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <button
+                    type="submit"
+                    className="col-span-1 bg-Green text-white px-4 py-1 rounded hover:bg-Green"
+                  >
+                    DONE
+                  </button>
+                </div>
               </div>
             </div>
           </form>
@@ -100,5 +115,3 @@ export const NewMenu = () => {
     </div>
   );
 };
-
-

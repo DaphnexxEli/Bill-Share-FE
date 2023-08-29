@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 export const ForAdmin = () => {
   return (
-    <div className="container bg-Green flex justify-center">
+    <div className="container bg-base flex justify-center h-screen">
       <div className="row">
         <div className="col-md-6">
           <h1 className="text-Stone">
             {" "}
-            For admin to add new menu and see lists{" "}
+          For admin to add new menu and see lists{" "}
           </h1>
 
           <div className="card">
