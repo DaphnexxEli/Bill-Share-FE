@@ -14,7 +14,8 @@ import { NotFound } from "./pages/Notfound";
 import { NetworkError } from "./pages/NetworkError";
 import { SummarizeBill } from "./pages/Summarize";
 import { History } from "./pages/HistoryPage";
-import Footer from "./components/footer";
+import Footer from "./components/footerNav";
+import { Static } from "./pages/StaticPage";
 
 function App() {
   const token = localStorage.getItem("access_token");
@@ -38,6 +39,7 @@ function App() {
             <Route path="/addMenu" element={<NewMenu />} />
             <Route path="/restaurant/:id" element={<EditMenuList />} />
             <Route path="/summarizeBill" element={<SummarizeBill />} />
+            <Route path="/static" element={<Static />} />
             <Route path="/history" element={<History />} />
             <Route path="/networkError" element={<NetworkError />} />
             <Route path="*" element={<NotFound />} />
