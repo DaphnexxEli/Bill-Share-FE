@@ -17,6 +17,7 @@ export function SummarizeBill() {
   const [partyName, setPartyName] = useState("Name");
   const [partyDate, setPartyDate] = useState("01-01-2022");
   const [partyHost, setPartyHost] = useState();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const fetchBillDetail = async () => {
@@ -57,6 +58,16 @@ export function SummarizeBill() {
     alert(`Code ${phoneNumber} copied to clipboard`);
   };
 
+  const handleUploadImage = async (memberID, slipImage) => {
+    try {
+      const response = await api.uploadImage(memberID, slipImage);
+
+      console.log("Upload image success:", response);
+    } catch (error) {
+      console.error("Upload image fail:", error);
+    }
+  };
+
   return (
     <div className="container flex justify-center bg-Green h-screen">
       <div className="w-2/3">
@@ -81,12 +92,18 @@ export function SummarizeBill() {
                 <div className="flex w-5/6">
                   <div
                     className={
-                      member.imageSlip
+                      member.slipImage
                         ? "avatar online placeholder"
                         : "avatar offline placeholder"
                     }
                   >
-                    <div className={member.userID.id === partyHost ? "bg-neutral-focus text-neutral-content rounded-full h-12 w-12 ring ring-primary ring-offset-base-100 ring-offset-2" : "bg-neutral-focus text-neutral-content rounded-full h-12 w-12"}>
+                    <div
+                      className={
+                        member.userID.id === partyHost
+                          ? "bg-neutral-focus text-neutral-content rounded-full h-12 w-12 ring ring-primary ring-offset-base-100 ring-offset-2"
+                          : "bg-neutral-focus text-neutral-content rounded-full h-12 w-12"
+                      }
+                    >
                       <span>{member.userID.first_name.charAt(0)}</span>
                     </div>
                   </div>
@@ -110,7 +127,9 @@ export function SummarizeBill() {
                     <tbody>
                       {/* row */}
                       {orderList
-                        .filter((id) => id.userID)
+                        .filter((id) =>
+                          id.pay.includes(member.userID.first_name)
+                        )
                         .sort((a, b) => a.id - b.id)
                         .map((order) => (
                           <tr key={order.id}>
@@ -130,25 +149,43 @@ export function SummarizeBill() {
                     </tbody>
                   </table>
                 </div>
-                <div className="flex justify-center">
-                  <QRCode className="my-3 p-3 bg-white" value={qrCode} />
-                </div>
-                <div className="flex justify-center">
-                  <h3
-                    className="w-1/3 rounded-md text-center text-white cursor-pointer bg-Emerald"
-                    onClick={copyPhone}
-                  >
-                    {phoneNumber} ↀ
-                  </h3>
-                </div>
 
-                <div className="flex justify-center my-3">
-                  <input
-                    type="file"
-                    className="file-input file-input-bordered w-full max-w-xs"
-                  />
-                  <button className="btn mx-2">upload</button>
-                </div>
+                {member.slipImage ? (
+                  <div className="flex justify-center my-3">
+                    
+                  </div>
+                ) : (
+                  <div>
+                    <div className="flex justify-center">
+                      <QRCode className="my-3 p-3 bg-white" value={qrCode} />
+                    </div>
+                    <div className="flex justify-center">
+                      <h3
+                        className="w-1/3 rounded-md text-center text-white cursor-pointer bg-Emerald"
+                        onClick={copyPhone}
+                      >
+                        {phoneNumber} ↀ
+                      </h3>
+                    </div>
+                    <div className="flex justify-center my-3">
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png"
+                        className="file-input file-input-bordered w-full max-w-xs"
+                        onChange={(e) => setSelectedImage(e.target.files[0])}
+                      />
+                      <button
+                        className="btn mx-2"
+                        onClick={() =>
+                          selectedImage &&
+                          handleUploadImage(member.id, selectedImage)
+                        }
+                      >
+                        Upload
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
