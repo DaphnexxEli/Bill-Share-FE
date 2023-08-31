@@ -192,7 +192,7 @@ const updateParty = async (
   } catch (error) {
     if (error.response.status === 401 && access_token) {
       await refreshToken();
-      return updateParty();
+      return updateParty(partyID, partyName, type, orderList, menu, promptPay);
     } else {
       console.error(error);
     }
@@ -220,7 +220,7 @@ const memberset = async (userID, cost, party) => {
   } catch (error) {
     if (error.response.status === 401 && access_token) {
       await refreshToken();
-      return memberset();
+      return memberset(userID, cost, party);
     } else {
       console.error(error);
     }
@@ -246,7 +246,7 @@ const updateMember = async (memberID, cost, slipImage) => {
   } catch (error) {
     if (error.response.status === 401 && access_token) {
       await refreshToken();
-      return updateMember();
+      return updateMember(memberID, cost, slipImage);
     } else {
       console.error(error);
     }
@@ -436,7 +436,7 @@ export const setMenu = async (id, name, price, restaurant) => {
   } catch (error) {
     if (error.response.status === 401 && access_token) {
       await refreshToken();
-      return setMenu(restaurantID, name, price);
+      return setMenu(id, name, price, restaurant);
     } else {
       console.error(error);
       throw error;
@@ -479,12 +479,35 @@ export const getMemberList = async (partyID) => {
   } catch (error) {
     if (error.response.status === 401 && access_token) {
       await refreshToken();
-      return getMenuList(restaurantID);
+      return getMemberList(partyID);
     } else {
       console.error(error);
     }
   }
 };
+
+export const getHistory = async () => {
+  const access_token = localStorage.getItem("access_token");
+  const userID = localStorage.getItem("userID");
+  try {
+    const response = await axios.get(
+      `${API_URL}/parties/history/${userID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return getHistory();
+    } else {
+      console.error(error);
+    }
+  }
+}
 
 export default {
   login,
@@ -505,4 +528,5 @@ export default {
   getParty,
   getMenuList,
   getMemberList,
+  getHistory,
 };

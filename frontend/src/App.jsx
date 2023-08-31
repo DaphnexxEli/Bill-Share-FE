@@ -13,9 +13,12 @@ import EditMenuList from "./pages/editRestaurant";
 import { NotFound } from "./pages/Notfound";
 import { NetworkError } from "./pages/NetworkError";
 import { SummarizeBill } from "./pages/Summarize";
-
+import { History } from "./pages/HistoryPage";
+import Footer from "./components/footer";
 
 function App() {
+  const token = localStorage.getItem("access_token");
+
   return (
     <>
       <div className="flex justify-center">
@@ -26,15 +29,20 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/reset" element={<ResetPassword />} />
             <Route path="/createParty" element={<CreateParty />} />
-            <Route path="/joinByCodeOrQRCode" element={<JoinByCodeOrQRCode />} />
+            <Route
+              path="/joinByCodeOrQRCode"
+              element={<JoinByCodeOrQRCode />}
+            />
             <Route path="/data" element={<Data />} />
             <Route path="/partyPage" element={<PartyPage />} />
             <Route path="/addMenu" element={<NewMenu />} />
             <Route path="/restaurant/:id" element={<EditMenuList />} />
             <Route path="/summarizeBill" element={<SummarizeBill />} />
+            <Route path="/history" element={<History />} />
             <Route path="/networkError" element={<NetworkError />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {token && <Footer />}
         </div>
       </div>
     </>
