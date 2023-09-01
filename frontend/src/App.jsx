@@ -15,10 +15,11 @@ import { NetworkError } from "./pages/NetworkError";
 import { SummarizeBill } from "./pages/Summarize";
 import { History } from "./pages/HistoryPage";
 import Footer from "./components/footerNav";
-import { Static } from "./pages/StaticPage";
+import { Static } from "./pages/StatisticsPage";
 
 function App() {
   const token = localStorage.getItem("access_token");
+  const is_staff = localStorage.getItem("is_staff");
 
   return (
     <>
@@ -44,7 +45,7 @@ function App() {
             <Route path="/networkError" element={<NetworkError />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          {token && <Footer />}
+          {is_staff && <Footer />}
         </div>
       </div>
     </>

@@ -83,17 +83,36 @@ export default function EditMenuList() {
         <div className="join h-14 w-full">
           <input
             className="input input-bordered join-item w-full"
-            placeholder="Search name . . ."
+            placeholder="Search menu . . ."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+        </div>
+        <div className="mt-3">
+          <input
+            type="text"
+            value={menuName}
+            onChange={(e) => setMenuName(e.target.value)}
+            placeholder="name"
+            className="input input-bordered w-2/3"
+          />
+          <input
+            type="number"
+            value={menuPrice}
+            onChange={(e) => setMenuPrice(e.target.value)}
+            placeholder="price"
+            className="input input-bordered w-1/4"
+          />
+          <button className="btn btn-primary w-full my-2" onClick={handleAdd}>
+            Add New
+          </button>
         </div>
         <div className="overflow-x-auto h-2/3">
           <table className="table table-pin-rows h-full w-full bg-neutral">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Menus</th>
                 <th>Price</th>
               </tr>
             </thead>
@@ -119,25 +138,7 @@ export default function EditMenuList() {
             </tbody>
           </table>
         </div>
-        <div className="mt-3">
-          <input
-            type="text"
-            value={menuName}
-            onChange={(e) => setMenuName(e.target.value)}
-            placeholder="name"
-            className="input input-bordered w-2/3"
-          />
-          <input
-            type="number"
-            value={menuPrice}
-            onChange={(e) => setMenuPrice(e.target.value)}
-            placeholder="price"
-            className="input input-bordered ml-3"
-          />
-          <button className="btn btn-primary w-full my-2" onClick={handleAdd}>
-            Add New
-          </button>
-        </div>
+        
         <dialog id="my_modal_1" className="modal">
           <form method="dialog" className="modal-box">
             <h3 className="font-bold text-lg">Menu ID : {menuId}</h3>

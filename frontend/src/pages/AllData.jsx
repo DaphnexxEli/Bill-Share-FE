@@ -38,21 +38,21 @@ export const Data = () => {
         <h1 className="text-center text-xl font-medium text-Nature my-5">
           Lists of restaurant
         </h1>
-        <div className="join h-14 w-full">
+        <div className="h-14 w-full">
           <input
             className="input input-bordered join-item w-full"
             placeholder="Search name . . ."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          {/* <button className="btn join-item w-1/5" onClick={(e) => setSearchTerm(e.target.value)}>🔍</button> */}
         </div>
-        <div className="overflow-x-auto h-2/3">
+        <div><button className="btn w-full bg-Green text-neutral" onClick={(e) => setSearchTerm(e.target.value)}>Add New Restaurant</button></div>
+        <div className="overflow-x-auto h-2/3 mt-3">
           <table className="table table-pin-rows h-full w-full bg-neutral">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Restaurants</th>
               </tr>
             </thead>
             <tbody>

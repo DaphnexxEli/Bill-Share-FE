@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-import { RadialChart } from "react-vis";
+import { LoginPage } from "./LoginPage";
+import ReactApexChart from "react-apexcharts";
 
 export const Static = () => {
   const [partylist, setpartylist] = useState([]);
   const navigate = useNavigate();
-  const myData = [
-    { angle: 100, innerRadius: 0.8, color: 1 },
-    { angle: 70, innerRadius: 0.8, color:2 },
-    { angle: 50, innerRadius: 0.8, color:3 },
-  ];
 
   useEffect(() => {
     const fetchPartyList = async () => {
@@ -38,14 +34,44 @@ export const Static = () => {
     return <LoginPage />;
   }
 
+  const donutOptions = {
+    labels: ["Apple", "Banana", "Cherry"],
+    title: {
+      text: "hello",
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '14px',
+        fontWeight:  'bold',
+        fontFamily:  undefined,
+        color:  '#263238'
+      },
+  }
+  };
+
+  const donutSeries = [44, 55, 13];
+
   return (
     <div className="container flex justify-center bg-Emerald h-screen">
       <div className="w-2/3 mt-10 bg-Emerald2 rounded-2xl p-10">
-        <h1 className="text-left text-4xl font-medium text-Nature">Static</h1>
+        <h1 className="text-left text-4xl font-medium text-Nature">Monthly Report</h1>
         <div className="divider"></div>
-        <div className="h-5/6 mt-10 p-10">
-          <RadialChart className={"bg-white"} data={myData} width={300} height={300} showLabels={true} />
+        <div className="bg-Amber w-full my-5">
+          <input type="month" />
         </div>
+        <div className="h-5/6 mt-10 p-10">
+          <ReactApexChart
+            className={"bg-white rounded-lg"}
+            options={donutOptions}
+            series={donutSeries}
+            type="donut"
+            width="380"
+          />
+        </div>
+        <div></div>
       </div>
     </div>
   );

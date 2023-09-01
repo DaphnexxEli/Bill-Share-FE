@@ -11,27 +11,6 @@ export const ForAdmin = () => {
             For admin to add new menu and see lists{" "}
           </h1>
 
-          <div className="card">
-            <div className="card-body">
-              <div className="card w-96 bg-base-100 shadow-xl image-full">
-                <div className="card-body">
-                  <h2 className="card-title">Add new menu</h2>
-                  <img
-                    src="../public/add-menu.png"
-                    alt="add"
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                  <div className="card-actions justify-end">
-                    <Link to="/addMenu">
-                      <button className="btn btn-primary bg-Emerald">
-                        Apply
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div className="col-md-6">
           <div className="card">
