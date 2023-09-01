@@ -4,6 +4,7 @@ import api from "../services/api";
 export default function Navbar() {
   const token = localStorage.getItem("access_token");
   const is_staff = JSON.parse(localStorage.getItem("is_staff"));
+  const name = localStorage.getItem("first_name");
 
   const handleLogout = async () => {
     await api.logout();
@@ -26,7 +27,7 @@ export default function Navbar() {
                 tabIndex={0}
                 className="btn btn-ghost rounded-btn flex w-32"
               >
-                {localStorage.getItem("first_name")}{" "}
+                {name ? name : "user"}{" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

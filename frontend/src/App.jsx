@@ -19,7 +19,7 @@ import { Static } from "./pages/StatisticsPage";
 
 function App() {
   const token = localStorage.getItem("access_token");
-  const is_staff = localStorage.getItem("is_staff");
+  const is_staff = JSON.parse(localStorage.getItem("is_staff"));
 
   return (
     <>
@@ -45,7 +45,7 @@ function App() {
             <Route path="/networkError" element={<NetworkError />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          {is_staff && <Footer />}
+          {!token ? <></> : is_staff===true ? <></> : <Footer />}
         </div>
       </div>
     </>
