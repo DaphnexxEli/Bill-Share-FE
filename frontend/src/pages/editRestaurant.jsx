@@ -77,7 +77,7 @@ export default function EditMenuList() {
   return (
     <div className="container flex justify-center bg-Emerald h-screen">
       <div className="w-2/3 mt-10">
-        <h1 className="text-center text-xl font-medium text-Nature my-5">
+        <h1 className="text-center text-xl font-medium text-Nature my-5 text-white">
           {resName}
         </h1>
         <div className="join h-14 w-full">
@@ -88,12 +88,12 @@ export default function EditMenuList() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="mt-3">
+        <div className="mt-1">
           <input
             type="text"
             value={menuName}
             onChange={(e) => setMenuName(e.target.value)}
-            placeholder="name"
+            placeholder="Menu's name"
             className="input input-bordered w-2/3"
           />
           <input
@@ -101,19 +101,19 @@ export default function EditMenuList() {
             value={menuPrice}
             onChange={(e) => setMenuPrice(e.target.value)}
             placeholder="price"
-            className="input input-bordered w-1/4"
+            className="input input-bordered w-1/3"
           />
-          <button className="btn btn-primary w-full my-2" onClick={handleAdd}>
-            Add New
+          <button className="btn btn-primary w-full my-2 bg-Amber text-Stone" onClick={handleAdd}>
+            Add New Menu
           </button>
         </div>
         <div className="overflow-x-auto h-2/3">
-          <table className="table table-pin-rows h-full w-full bg-neutral">
+          <table className="table table-pin-rows h-full w-full bg-neutral text-white">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Menus</th>
-                <th>Price</th>
+                <th className="text-white">ID</th>
+                <th className="text-white">Menus</th>
+                <th className="text-white">Price</th>
               </tr>
             </thead>
             <tbody>
