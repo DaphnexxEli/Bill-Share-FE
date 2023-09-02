@@ -35,7 +35,7 @@ export const Data = () => {
   return (
     <div className="container flex justify-center bg-Emerald h-screen">
       <div className="w-2/3 mt-10">
-        <h1 className="text-center text-xl font-medium text-Nature my-5">
+        <h1 className="text-center text-2xl font-medium text-white my-5">
           Lists of restaurant
         </h1>
         <div className="h-14 w-full">
@@ -48,11 +48,11 @@ export const Data = () => {
         </div>
         <div><button className="btn w-full bg-Green text-neutral" onClick={(e) => setSearchTerm(e.target.value)}>Add New Restaurant</button></div>
         <div className="overflow-x-auto h-2/3 mt-3">
-          <table className="table table-pin-rows h-full w-full bg-neutral">
+          <table className="table table-pin-rows h-full w-full bg-neutral text-white">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Restaurants</th>
+                <th className="text-white">ID</th>
+                <th className="text-white">Restaurants</th>
               </tr>
             </thead>
             <tbody>
