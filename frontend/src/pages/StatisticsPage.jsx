@@ -8,30 +8,75 @@ import { YearPicker, MonthPicker } from "react-dropdown-date";
 export const Static = () => {
   const [partylist, setpartylist] = useState([]);
   const navigate = useNavigate();
-  const [date, setDate] = useState({ year: "", month: "" });
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
 
-  const [monthError, setMonthError] = useState(false);
-  const [yearError, setYearError] = useState(false);
+  const [date, setDate] = useState({
+    year: currentYear.toString(),
+    month: currentMonth.toString(),
+  });
+
+  const [foodData, setFoodData] = useState({ number: 0, total: 0 });
+  const [rantalData, setRentalData] = useState({ number: 0, total: 0 });
+  const [serviceData, setServiceData] = useState({ number: 0, total: 0 });
 
   useEffect(() => {
     const fetchPartyList = async () => {
       try {
         const data = await api.getHistory();
-        setpartylist(data);
         console.log(data);
+
+        if (data) {
+          // Filter
+          const filteredData = data.filter((party) => {
+            const partyDate = new Date(party.party.timeCreate);
+            const partyYear = partyDate.getFullYear();
+            const partyMonth = partyDate.getMonth();
+
+            return (
+              partyYear.toString() === date.year &&
+              partyMonth.toString() === date.month
+            );
+          });
+
+          const sumFood = filteredData.reduce((accumulator, party) => {
+            const cost = parseFloat(party.cost);
+            return party.party.type === "F" ? accumulator + cost : accumulator;
+          }, 0);
+          const countFood = filteredData.reduce((count, party) => {
+            return party.party.type === "F" ? count + 1 : count;
+          }, 0);
+          setFoodData({ number: countFood, total: sumFood });
+
+          const sumRental = filteredData.reduce((accumulator, party) => {
+            const cost = parseFloat(party.cost);
+            return party.party.type === "H" ? accumulator + cost : accumulator;
+          }, 0);
+          const countRental = filteredData.reduce((count, party) => {
+            return party.party.type === "H" ? count + 1 : count;
+          }, 0);
+          setRentalData({ number: countRental, total: sumRental });
+
+          const sumService = filteredData.reduce((accumulator, party) => {
+            const cost = parseFloat(party.cost);
+            return party.party.type === "S" ? accumulator + cost : accumulator;
+          }, 0);
+          const countService = filteredData.reduce((count, party) => {
+            return party.party.type === "S" ? count + 1 : count;
+          }, 0);
+          setServiceData({ number: countService, total: sumService });
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
-    if (partylist) {
-      fetchPartyList();
-    }
-  }, []);
+    fetchPartyList();
+  }, [date]);
 
-  function handleOnclick(partyCode) {
-    localStorage.setItem("code", partyCode);
-    navigate("/summarizeBill");
+  function handleOnclick() {
+    navigate("/history");
   }
 
   const token = localStorage.getItem("access_token");
@@ -41,12 +86,12 @@ export const Static = () => {
 
   const donutOptions = {
     labels: ["Food & Drink", "Home & Rental", "Subscribion & Service"],
-    dataLabels: {
-      enabled: true,
-      dropShadow: {
-        enabled: false,
-      },
-    },
+    // dataLabels: {
+    //   enabled: true,
+    //   dropShadow: {
+    //     enabled: false,
+    //   },
+    // },
     plotOptions: {
       pie: {
         customScale: 0.8,
@@ -66,7 +111,7 @@ export const Static = () => {
     colors: ["#FF7F50", "#66DA26", "#6495ED"],
   };
 
-  const donutSeries = [44, 55, 13];
+  const donutSeries = [foodData.total, rantalData.total, serviceData.total];
 
   return (
     <div className="container flex justify-center bg-Emerald h-screen">
@@ -75,9 +120,8 @@ export const Static = () => {
           Monthly Report
         </h1>
         <div className="divider"></div>
-        <div className="w-full my-5">
+        <div className="w-full my-5 ml-10">
           <MonthPicker
-            defaultValue={"-select month-"}
             numeric={false} // to get months as numbers
             endYearGiven // mandatory if end={} is given in YearPicker
             year={date.year} // mandatory
@@ -85,14 +129,12 @@ export const Static = () => {
             onChange={(month) => {
               // mandatory
               setDate((prev) => ({ ...prev, month }));
-              setMonthError(false);
             }}
             id={"month"}
-            classes={`dropdown ${monthError ? "error" : ""}`}
+            classes={"select select-bordered"}
             optionClasses={"option"}
           />
           <YearPicker
-            defaultValue={"-select year-"}
             start={2000} // default is 1900
             reverse // default is ASCENDING
             value={date.year} // mandatory
@@ -101,7 +143,7 @@ export const Static = () => {
               setDate((prev) => ({ ...prev, year }));
             }}
             id={"year"}
-            classes={`dropdown ${yearError ? "error" : ""}`}
+            classes={"ml-1 select select-bordered"}
             optionClasses={"option"}
           />
         </div>
@@ -134,12 +176,12 @@ export const Static = () => {
                 </div>
                 <div className="col-span-1">
                   <p className="text-white font-normal">Food</p>
-                  <p>{50} payments</p>
+                  <p>{foodData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">
-                <button className="btn btn-sm">
-                  {1000}
+                <button className="btn btn-sm" onClick={() => handleOnclick()}>
+                  {foodData.total}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -171,13 +213,13 @@ export const Static = () => {
                   </div>
                 </div>
                 <div className="col-span-1">
-                  <p className="text-white font-normal">Home Rental</p>
-                  <p>{50} payments</p>
+                  <p className="text-white font-normal">Rental</p>
+                  <p>{rantalData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">
-                <button className="btn btn-sm">
-                  {1000}
+                <button className="btn btn-sm" onClick={() => handleOnclick()}>
+                  {rantalData.total}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -212,13 +254,13 @@ export const Static = () => {
                   </div>
                 </div>
                 <div className="col-span-1">
-                  <p className="text-white font-normal">Home Rental</p>
-                  <p>{50} payments</p>
+                  <p className="text-white font-normal">Service</p>
+                  <p>{serviceData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">
-                <button className="btn btn-sm">
-                  {1000}
+                <button className="btn btn-sm" onClick={() => handleOnclick()}>
+                  {serviceData.total}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
