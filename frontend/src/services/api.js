@@ -394,6 +394,52 @@ export const getRestaurant = async (id) => {
   }
 };
 
+export const setRestaurant = async (id, name) => {
+  const access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.put(
+      `${API_URL}/api/restaurants/${id}/`,
+      {
+        name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return setRestaurant(id, name);
+    } else {
+      console.error(error);
+      throw error;
+    }
+  }
+};
+
+export const deleteRestaurant = async (id) => {
+  const access_token = localStorage.getItem("access_token");
+  try {
+    const response = await axios.delete(`${API_URL}/api/restaurants/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    if (error.response.status === 401 && access_token) {
+      await refreshToken();
+      return deleteRestaurant(id);
+    } else {
+      console.error(error);
+      throw error;
+    }
+  }
+};
+
 export const getMenuList = async (restaurantID) => {
   const access_token = localStorage.getItem("access_token");
   try {

@@ -20,7 +20,7 @@ export default function Navbar() {
       </div>
       <div className="flex justify-end flex-1 px-2">
         <div className="flex items-stretch">
-          {is_staff && <a className="btn btn-ghost rounded-btn">Admin</a>}
+          {is_staff && <h1 className="text-white text-center m-auto font-bold">Admin</h1>}
           {token && (
             <div className="dropdown dropdown-end text-white">
               <label

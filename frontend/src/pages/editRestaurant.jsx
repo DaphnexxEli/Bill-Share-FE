@@ -26,7 +26,7 @@ export default function EditMenuList() {
     };
 
     fetchRestaurantDetail();
-  }, []);
+  }, [id, menuName, menuPrice, menuId]);
 
   const filtered = menuList.filter((menu) =>
     menu.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -77,7 +77,7 @@ export default function EditMenuList() {
   return (
     <div className="container flex justify-center bg-Emerald h-screen">
       <div className="w-2/3 mt-10">
-        <h1 className="text-center text-xl font-medium text-Nature my-5 text-white">
+        <h1 className="text-center text-xl font-bold text-nature my-5 text-white">
           {resName}
         </h1>
         <div className="join h-14 w-full">
