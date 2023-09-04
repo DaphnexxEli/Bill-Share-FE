@@ -65,8 +65,8 @@ export function SummarizeBill() {
   const handleUploadImage = async (memberID, slipImage) => {
     try {
       const response = await api.uploadImage(memberID, slipImage);
-
       console.log("Upload image success:", response);
+      selectedImage(null);
     } catch (error) {
       console.error("Upload image fail:", error);
     }
@@ -172,7 +172,12 @@ export function SummarizeBill() {
                 </div>
 
                 {member.slipImage ? (
-                  <div className="flex justify-center my-3"></div>
+                  <div className="flex justify-center my-3">
+                    <img
+                      src={"http://localhost:8000" + member.slipImage}
+                      alt={"Receipt for" + member.userID.first_name}
+                    />
+                  </div>
                 ) : (
                   <div>
                     <div className="flex justify-center">
@@ -224,7 +229,9 @@ export function SummarizeBill() {
 
         <div className="mt-6">
           <Link to="/history" className="">
-            <button className="btn btn-primary bg-Emerald2 w-full">view All history</button>{" "}
+            <button className="btn btn-primary bg-Emerald2 w-full">
+              view All history
+            </button>{" "}
           </Link>
         </div>
       </div>

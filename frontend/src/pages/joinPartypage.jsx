@@ -44,7 +44,7 @@ export const JoinByCodeOrQRCode = () => {
       console.log("Name:", name);
       console.log("PartyID:", party.id);
       localStorage.setItem("code", uppercaseJoinCode);
-      navigate("/partyPage");
+      navigate("/summarizeBill");
       setCode("");
       setScannedCode("");
     } catch (error) {
