@@ -26,7 +26,7 @@ export default function EditMenuList() {
     };
 
     fetchRestaurantDetail();
-  }, []);
+  }, [id, menuName, menuPrice, menuId]);
 
   const filtered = menuList.filter((menu) =>
     menu.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -70,31 +70,50 @@ export default function EditMenuList() {
       setMenuName("");
       setMenuPrice(0);
     } catch (error) {
-      console.error("Error save menu:", error);
+      console.error("Error delete menu:", error);
     }
   };
 
   return (
     <div className="container flex justify-center bg-Emerald h-screen">
       <div className="w-2/3 mt-10">
-        <h1 className="text-center text-xl font-medium text-Nature my-5">
+        <h1 className="text-center text-xl font-bold text-nature my-5 text-white">
           {resName}
         </h1>
         <div className="join h-14 w-full">
           <input
             className="input input-bordered join-item w-full"
-            placeholder="Search name . . ."
+            placeholder="Search menu . . ."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+        <div className="mt-1">
+          <input
+            type="text"
+            value={menuName}
+            onChange={(e) => setMenuName(e.target.value)}
+            placeholder="Menu's name"
+            className="input input-bordered w-2/3"
+          />
+          <input
+            type="number"
+            value={menuPrice}
+            onChange={(e) => setMenuPrice(e.target.value)}
+            placeholder="price"
+            className="input input-bordered w-1/3"
+          />
+          <button className="btn btn-primary w-full my-2 bg-Amber text-Stone" onClick={handleAdd}>
+            Add New Menu
+          </button>
+        </div>
         <div className="overflow-x-auto h-2/3">
-          <table className="table table-pin-rows h-full w-full bg-neutral">
+          <table className="table table-pin-rows h-full w-full bg-neutral text-white">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
+                <th className="text-white">ID</th>
+                <th className="text-white">Menus</th>
+                <th className="text-white">Price</th>
               </tr>
             </thead>
             <tbody>
@@ -119,25 +138,7 @@ export default function EditMenuList() {
             </tbody>
           </table>
         </div>
-        <div className="mt-3">
-          <input
-            type="text"
-            value={menuName}
-            onChange={(e) => setMenuName(e.target.value)}
-            placeholder="name"
-            className="input input-bordered w-2/3"
-          />
-          <input
-            type="number"
-            value={menuPrice}
-            onChange={(e) => setMenuPrice(e.target.value)}
-            placeholder="price"
-            className="input input-bordered ml-3"
-          />
-          <button className="btn btn-primary w-full my-2" onClick={handleAdd}>
-            Add New
-          </button>
-        </div>
+        
         <dialog id="my_modal_1" className="modal">
           <form method="dialog" className="modal-box">
             <h3 className="font-bold text-lg">Menu ID : {menuId}</h3>

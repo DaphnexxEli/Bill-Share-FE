@@ -13,11 +13,14 @@ import EditMenuList from "./pages/editRestaurant";
 import { NotFound } from "./pages/Notfound";
 import { NetworkError } from "./pages/NetworkError";
 import { SummarizeBill } from "./pages/Summarize";
-import Page1 from "./components/ImageNavigation";
-import Page2 from "./components/ImageNavigation";
-import Page3 from "./components/ImageNavigation";
+import { History } from "./pages/HistoryPage";
+import Footer from "./components/footerNav";
+import { Static } from "./pages/StatisticsPage";
 
 function App() {
+  const token = localStorage.getItem("access_token");
+  const is_staff = JSON.parse(localStorage.getItem("is_staff"));
+
   return (
     <>
       <div className="flex justify-center">
@@ -37,13 +40,12 @@ function App() {
             <Route path="/addMenu" element={<NewMenu />} />
             <Route path="/restaurant/:id" element={<EditMenuList />} />
             <Route path="/summarizeBill" element={<SummarizeBill />} />
+            <Route path="/static" element={<Static />} />
+            <Route path="/history" element={<History />} />
             <Route path="/networkError" element={<NetworkError />} />
             <Route path="*" element={<NotFound />} />
-            {/* <Route path="/" exact component={ImageNavigation} /> */}
-            <Route path="./assets/home.png" component={Page1} />
-            <Route path="./assets/home.png" component={Page2} />
-            <Route path="./assets/home.png" component={Page3} />
           </Routes>
+          {!token ? <></> : is_staff===true ? <></> : <Footer />}
         </div>
       </div>
     </>
