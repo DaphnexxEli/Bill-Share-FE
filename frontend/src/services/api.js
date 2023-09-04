@@ -308,7 +308,7 @@ const addRestaurant = async (name) => {
   const access_token = localStorage.getItem("access_token");
   try {
     const response = await axios.post(
-      `${API_URL}/menus/restaurantset`,
+      `${API_URL}/api/restaurants/`,
       {
         name,
       },
@@ -569,6 +569,8 @@ export default {
   setMenu,
   deleteMenu,
   addRestaurant,
+  setRestaurant,
+  deleteRestaurant,
   getRestaurantsList,
   getRestaurant,
   getParty,

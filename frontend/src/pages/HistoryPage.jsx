@@ -12,7 +12,7 @@ export const History = () => {
       try {
         const data = await api.getHistory();
         setpartylist(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error(error);
       }

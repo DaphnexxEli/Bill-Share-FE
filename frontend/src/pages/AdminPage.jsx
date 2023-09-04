@@ -6,11 +6,7 @@ export const ForAdmin = () => {
     <div className="container bg-Green flex justify-center h-screen">
       <div className="row">
         <div className="col-md-6">
-       
-
-        </div>
-        <div className="col-md-6">
-          <div className="card">
+          <div className="card mt-24">
             <div className="card-body">
               <div className="card w-96 bg-base-100 shadow-xl image-full">
                 <div className="card-body">

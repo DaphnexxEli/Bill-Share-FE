@@ -70,7 +70,7 @@ export default function EditMenuList() {
       setMenuName("");
       setMenuPrice(0);
     } catch (error) {
-      console.error("Error save menu:", error);
+      console.error("Error delete menu:", error);
     }
   };
 

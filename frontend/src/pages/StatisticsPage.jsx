@@ -25,7 +25,7 @@ export const Static = () => {
     const fetchPartyList = async () => {
       try {
         const data = await api.getHistory();
-        console.log(data);
+        // console.log(data);
 
         if (data) {
           // Filter
