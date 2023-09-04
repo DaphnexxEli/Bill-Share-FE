@@ -5,7 +5,7 @@ function Footer() {
   const navigate = useNavigate();
 
   return (
-    <div className="btm-nav sticky">
+    <div className="btm-nav sticky bg-Emerald2">
       <button className="hover:active hover:bg-neutral-focus" onClick={() => navigate("/")}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
