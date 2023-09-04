@@ -176,7 +176,7 @@ export const Static = () => {
                 </div>
                 <div className="col-span-1">
                   <p className="text-Stone font-normal">Food</p>
-                  <p>{foodData.number} payments</p>
+                  <p className="text-white">{foodData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">
@@ -214,7 +214,7 @@ export const Static = () => {
                 </div>
                 <div className="col-span-1">
                   <p className="text-Stone font-normal">Rental</p>
-                  <p>{rantalData.number} payments</p>
+                  <p className="text-white">{rantalData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">
@@ -255,7 +255,7 @@ export const Static = () => {
                 </div>
                 <div className="col-span-1">
                   <p className="text-Stone font-normal">Service</p>
-                  <p>{serviceData.number} payments</p>
+                  <p className="text-white" >{serviceData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">
