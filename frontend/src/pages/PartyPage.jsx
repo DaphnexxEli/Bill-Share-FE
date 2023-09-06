@@ -188,7 +188,7 @@ export const PartyPage = () => {
         partyName,
         partyType,
         orderList,
-        partyMenu,
+        partyMenu
       );
       console.log("Update party success:", response);
     } catch (error) {
@@ -217,6 +217,10 @@ export const PartyPage = () => {
   const token = localStorage.getItem("access_token");
   if (!token) {
     return <LoginPage />;
+  }
+
+  if (!partyCode || partyCode === null) {
+    navigate("/networkError");
   }
 
   return (

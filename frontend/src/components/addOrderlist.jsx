@@ -55,6 +55,7 @@ export default function addOrder({
           <input
             type="number"
             value={orderPrice}
+            min={0}
             onChange={(e) => setorderPrice(e.target.value)}
           />
           <br />

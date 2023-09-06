@@ -99,6 +99,7 @@ export default function EditMenuList() {
           <input
             type="number"
             value={menuPrice}
+            min={0}
             onChange={(e) => setMenuPrice(e.target.value)}
             placeholder="price"
             className="input input-bordered w-1/3"
@@ -152,6 +153,7 @@ export default function EditMenuList() {
             <input
               type="number"
               value={menuPrice}
+              min={0}
               onChange={(e) => setMenuPrice(e.target.value)}
             />
             <div className="modal-action">
