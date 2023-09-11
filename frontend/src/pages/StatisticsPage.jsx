@@ -161,7 +161,7 @@ export const Static = () => {
               Sort by catagories
             </h1>
             <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
-              <div className="h-full col-span-4 grid grid-cols-4 ">
+              <div className="h-full col-span-4 grid grid-cols-4 justify-items-center">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">
                     <svg
@@ -198,7 +198,7 @@ export const Static = () => {
               </div>
             </div>
             <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
-              <div className="h-full col-span-4 grid grid-cols-4 ">
+              <div className="h-full col-span-4 grid grid-cols-4 justify-items-center">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">
                     <svg
@@ -236,7 +236,7 @@ export const Static = () => {
               </div>
             </div>
             <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
-              <div className="h-full col-span-4 grid grid-cols-4 ">
+              <div className="h-full col-span-4 grid grid-cols-4 justify-items-center">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">
                     <svg

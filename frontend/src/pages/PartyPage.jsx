@@ -240,15 +240,15 @@ export const PartyPage = () => {
         <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald">
           <div className="card-body">
             <div className="form-control">
-              <label className="label bg-Emerald2">
+              <label className="label bg-Emerald2 rounded-lg">
                 <span
-                  className="label-text w-1/2 text-center text-white border hover:bg-Green"
+                  className="label-text w-1/2 text-center text-white rounded-l-md hover:bg-Green"
                   onClick={handleMenulistClick}
                 >
-                  Ongoing
+                  Order List
                 </span>
                 <span
-                  className="label-text w-1/2 text-center text-white border hover:bg-Green"
+                  className="label-text w-1/2 text-center text-white rounded-r-md hover:bg-Green"
                   onClick={handleMembergroupClick}
                 >
                   Member
@@ -257,7 +257,7 @@ export const PartyPage = () => {
             </div>
 
             {menuTap ? (
-              <div className="bg-Emerald2">
+              <div className="bg-Emerald2 rounded-t-lg">
                 <label className=" label grid grid-cols-5 gap-2">
                   <span className="label-text text-white text-left col-span-3">
                     List{" "}
@@ -358,7 +358,7 @@ export const PartyPage = () => {
                     </div>
                   </form>
                   <span
-                    className="text-white w-fit cursor-pointer hover:bg-Green"
+                    className="text-white w-fit cursor-pointer hover:bg-Green rounded-md"
                     onClick={handleClearOrderList}
                   >
                     Clear
@@ -372,7 +372,7 @@ export const PartyPage = () => {
                 </div>
                 <div className="bg-Green my-4 mx-auto rounded-md w-1/2">
                   <h3
-                    className="w-full text-center text-Stone"
+                    className="w-full text-center select-none cursor-pointer text-Stone"
                     onClick={copyCode}
                   >
                     Code: {partyCode}
@@ -390,10 +390,10 @@ export const PartyPage = () => {
                       key={item.id}
                       className="grid grid-cols-2 col-span-3 gap-2"
                     >
-                      <span className="text-white text-left border">
+                      <span className="text-white text-left bg-neutral-focus rounded-l-md pl-2">
                         {item.userID.first_name}
                       </span>
-                      <span className="text-white text-right border">
+                      <span className="text-white text-right bg-neutral-focus rounded-r-md pr-2">
                         {item.cost}
                       </span>
                     </div>
