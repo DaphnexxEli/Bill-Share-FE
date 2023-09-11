@@ -114,7 +114,7 @@ export const Static = () => {
   const donutSeries = [foodData.total, rantalData.total, serviceData.total];
 
   return (
-    <div className="container flex justify-center bg-Emerald h-screen">
+    <div className="container flex justify-center bg-Amber h-screen">
       <div className="w-2/3 mt-10 bg-Emerald2 rounded-2xl p-10">
         <h1 className="text-left text-4xl font-medium text-Nature">
           Monthly Report
@@ -158,9 +158,9 @@ export const Static = () => {
           />
           <div className="rounded-lg mt-28">
             <h1 className="my-3 text-white font-semibold">
-              Spends by catagory
+              Sort by catagories
             </h1>
-            <div className="my-1 h-20 bg-neutral rounded-lg grid grid-cols-5 justify-items-center content-center">
+            <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
               <div className="h-full col-span-4 grid grid-cols-4 ">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">
@@ -175,8 +175,8 @@ export const Static = () => {
                   </div>
                 </div>
                 <div className="col-span-1">
-                  <p className="text-white font-normal">Food</p>
-                  <p>{foodData.number} payments</p>
+                  <p className="text-Stone font-normal">Food</p>
+                  <p className="text-white">{foodData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">
@@ -197,7 +197,7 @@ export const Static = () => {
                 </button>
               </div>
             </div>
-            <div className="my-1 h-20 bg-neutral rounded-lg grid grid-cols-5 justify-items-center content-center">
+            <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
               <div className="h-full col-span-4 grid grid-cols-4 ">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">
@@ -213,8 +213,8 @@ export const Static = () => {
                   </div>
                 </div>
                 <div className="col-span-1">
-                  <p className="text-white font-normal">Rental</p>
-                  <p>{rantalData.number} payments</p>
+                  <p className="text-Stone font-normal">Rental</p>
+                  <p className="text-white">{rantalData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">
@@ -235,7 +235,7 @@ export const Static = () => {
                 </button>
               </div>
             </div>
-            <div className="my-1 h-20 bg-neutral rounded-lg grid grid-cols-5 justify-items-center content-center">
+            <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
               <div className="h-full col-span-4 grid grid-cols-4 ">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">
@@ -254,8 +254,8 @@ export const Static = () => {
                   </div>
                 </div>
                 <div className="col-span-1">
-                  <p className="text-white font-normal">Service</p>
-                  <p>{serviceData.number} payments</p>
+                  <p className="text-Stone font-normal">Service</p>
+                  <p className="text-white" >{serviceData.number} payments</p>
                 </div>
               </div>
               <div className="col-span-1">

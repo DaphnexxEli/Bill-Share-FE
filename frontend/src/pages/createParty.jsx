@@ -71,8 +71,8 @@ export const CreateParty = () => {
   return (
     
     <div className="items-center bg-base h-screen">
-      <div class=" flex justify-center text-Stone mb-6">
-        Create Party Group
+      <div class=" flex justify-center text-2xl font-bold text-Stone pt-24 py-6">
+        Create A Party
       </div>
       <div className="flex justify-center">
         <div className="w-64 shadow-2xl bg-Emerald2 rounded-3xl p-8">
@@ -109,7 +109,7 @@ export const CreateParty = () => {
               <option value="">None</option>
               <option value="F">Food & Drink</option>
               <option value="H">Home & Rental</option>
-              <option value="S">Subscribion & Service</option>
+              <option value="S">Subscripion & Service</option>
             </select>
           </div>
           {billType === "F" && (

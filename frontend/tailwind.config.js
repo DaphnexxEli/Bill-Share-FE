@@ -16,7 +16,7 @@ module.exports = {
             'semiblack': '#6b7280'
         },
         screens: {
-            'tablet': '1024px'
+            // 'tablet': '1024px'
         },
 
         fontFamily: {

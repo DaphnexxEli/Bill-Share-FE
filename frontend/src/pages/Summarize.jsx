@@ -81,13 +81,13 @@ export function SummarizeBill() {
     <div className="container flex justify-center bg-Green h-screen">
       <div className="w-2/3">
         <h1 className=" text-center text-4xl mt-10">Summarize</h1>
-        <h3 className=" text-center text-2xl text-Stone mt-10">{partyName}</h3>
-        <h3 className=" text-center text-md text-Stone">{partyDate}</h3>
-        <h3 className=" text-center text-2xl text-Stone my-3">{total}฿</h3>
+        <h3 className=" text-left text-2xl text-Stone mt-10">{partyName}</h3>
+        <h3 className=" text-left text-md text-Stone">{partyDate}</h3>
+        <h3 className=" text-left text-2xl text-Stone my-3"> Total {total} ฿</h3>
 
         <div className="bg-neutral rounded-xl h-auto">
-          <div className="flex justify-between p-5">
-            <div className="ml-5">Member name</div>
+          <div className="flex justify-between p-5 text-white">
+            <div className="ml-5 ">Member name</div>
             <div className="mr-10">Pay</div>
           </div>
           {memberList.map((member) => (
@@ -97,7 +97,7 @@ export function SummarizeBill() {
               onClick={() => handleQR(parseFloat(member.cost))}
             >
               <input type="radio" name="my-accordion-3" />
-              <div className="collapse-title text-xl font-medium flex h-18">
+              <div className="collapse-title text-xl font-medium flex h-18 text-white" >
                 <div className="flex w-5/6">
                   <div
                     className={
@@ -107,10 +107,10 @@ export function SummarizeBill() {
                     }
                   >
                     <div
-                      className={
+                      className={ 
                         member.userID.id === parseInt(userID)
-                          ? "bg-neutral-focus text-neutral-content rounded-full h-12 w-12 ring ring-primary ring-offset-base-100 ring-offset-2"
-                          : "bg-neutral-focus text-neutral-content rounded-full h-12 w-12"
+                          ? "bg-neutral-focus text-white-content rounded-full h-12 w-12 ring ring-primary ring-offset-base-100 ring-offset-2"
+                          : "bg-neutral-focus text-white-content rounded-full h-12 w-12"
                       }
                     >
                       <span>{member.userID.first_name.charAt(0)}</span>
@@ -131,17 +131,17 @@ export function SummarizeBill() {
                 </div>
                 <div className="pl-14">{member.cost}฿</div>
               </div>
-              <div className="collapse-content bg-base-100">
+              <div className="collapse-content bg-base-100 text-white">
                 <div className="overflow-x-auto">
                   <table className="table">
                     {/* head */}
                     <thead>
                       <tr>
                         <th></th>
-                        <th>Order Name</th>
+                        <th className="text-white">Order Name</th>
                         <th></th>
-                        <th>Price</th>
-                        <th>Pay</th>
+                        <th className="text-white">Price</th>
+                        <th className="text-white">Pay</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -154,10 +154,10 @@ export function SummarizeBill() {
                           .sort((a, b) => a.id - b.id)
                           .map((order) => (
                             <tr key={order.id}>
-                              <th>{order.id}</th>
+                              <th className="text-white">{order.id}</th>
                               <td>{order.name}</td>
                               <td></td>
-                              <td>{parseFloat(order.price).toFixed(2)}</td>
+                              <td className="text-white">{parseFloat(order.price).toFixed(2)}</td>
                               <td>{parseFloat(order.cost).toFixed(2)}</td>
                             </tr>
                           ))}
