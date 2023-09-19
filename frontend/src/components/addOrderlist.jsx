@@ -30,14 +30,16 @@ export default function addOrder({
 
   const handleSubmit = () => {
     const index = orderlist.findIndex((item) => item.id === id);
-    orderlist[index].name = orderName;
-    orderlist[index].price = orderPrice;
-    if (selectedMembers.length !== 0) {
-      orderlist[index].cost = orderPrice / selectedMembers.length;
+    if (orderlist[index].name != "" && orderlist[index].price >= 0) {
+      orderlist[index].name = orderName;
+      orderlist[index].price = orderPrice;
+      if (selectedMembers.length !== 0) {
+        orderlist[index].cost = orderPrice / selectedMembers.length;
+      }
+      orderlist[index].pay = selectedMembers;
+      setOrderlist(orderlist);
+      close();
     }
-    orderlist[index].pay = selectedMembers;
-    setOrderlist(orderlist);
-    close();
   };
 
   return (

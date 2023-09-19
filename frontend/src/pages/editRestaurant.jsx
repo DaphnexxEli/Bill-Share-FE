@@ -40,9 +40,16 @@ export default function EditMenuList() {
   };
 
   const handleAdd = async () => {
+    if (menuPrice < 0) {
+      console.error("Warning the price lower then 0 !!");
+      setMenuPrice(0);
+    }
     try {
       await api.addMenu(id, menuName, menuPrice);
       console.log("Add success");
+      console.log("menu name: ", menuName);
+      console.log("price: ", menuPrice);
+      console.log("restaurant ID: ", id);
       setMenuName("");
       setMenuPrice(0);
     } catch (error) {
@@ -51,9 +58,16 @@ export default function EditMenuList() {
   };
 
   const handleSave = async () => {
+    if (menuPrice < 0) {
+      console.error("Warning the price lower then 0 !!");
+      setMenuPrice(0);
+    }
     try {
       await api.setMenu(menuId, menuName, menuPrice, id);
       console.log("Save success");
+      console.log("menu name: ", menuName);
+      console.log("price: ", menuPrice);
+      console.log("restaurant ID: ", id);
       setMenuID();
       setMenuName("");
       setMenuPrice(0);
@@ -66,6 +80,7 @@ export default function EditMenuList() {
     try {
       await api.deleteMenu(menuId);
       console.log("Delete success");
+      console.log("menu ID: ", menuId);
       setMenuID();
       setMenuName("");
       setMenuPrice(0);
@@ -100,11 +115,20 @@ export default function EditMenuList() {
             type="number"
             value={menuPrice}
             min={0}
-            onChange={(e) => setMenuPrice(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value < 0) {
+                setMenuPrice(0);
+              } else {
+                setMenuPrice(e.target.value);
+              }
+            }}
             placeholder="price"
             className="input input-bordered w-1/3"
           />
-          <button className="btn btn-primary w-full my-2 bg-Amber text-Stone" onClick={handleAdd}>
+          <button
+            className="btn btn-primary w-full my-2 bg-Amber text-Stone"
+            onClick={handleAdd}
+          >
             Add New Menu
           </button>
         </div>
@@ -139,7 +163,7 @@ export default function EditMenuList() {
             </tbody>
           </table>
         </div>
-        
+
         <dialog id="my_modal_1" className="modal">
           <form method="dialog" className="modal-box">
             <h3 className="font-bold text-lg">Menu ID : {menuId}</h3>
@@ -154,7 +178,13 @@ export default function EditMenuList() {
               type="number"
               value={menuPrice}
               min={0}
-              onChange={(e) => setMenuPrice(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value < 0) {
+                  setMenuPrice(0);
+                } else {
+                  setMenuPrice(e.target.value);
+                }
+              }}
             />
             <div className="modal-action">
               {/* if there is a button in form, it will close the modal */}

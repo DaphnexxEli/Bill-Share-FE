@@ -84,6 +84,7 @@ export const NewMenu = () => {
                   <input
                     type="number"
                     placeholder="Price..."
+                    min={0}
                     value={newPrice}
                     onChange={(e) => setNewPrice(parseFloat(e.target.value))}
                   />
