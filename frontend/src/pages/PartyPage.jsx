@@ -225,17 +225,17 @@ export const PartyPage = () => {
 
   return (
     <div className="container flex justify-center place-items-center min-h-screen bg-Green">
-      <div className="w-2/3">
-        <h2 className="text-xl font-bold text-Stone">{partyName}</h2>
+      <div className="w-2/3 flex flex-col place-items-center">
+        <h2 className="text-5xl font-bold text-Stone mb-2">{partyName}</h2>
         {partyType === "F" ? (
-          <h2 className="text-md text-Stone">Restaurant: {resName}</h2>
+          <h2 className="text-lg text-Stone">Restaurant: {resName}</h2>
         ) : partyType === "H" ? (
-          <h2 className="text-md text-Stone">Home&Rental</h2>
+          <h2 className="text-lg text-Stone">Home&Rental</h2>
         ) : (
-          <h2 className="text-md text-Stone">Subscription&Service</h2>
+          <h2 className="text-lg text-Stone">Subscription&Service</h2>
         )}
 
-        <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald mt-3">
+        <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald mt-16">
           <div className="card-body">
             <div className="form-control">
               <label className="tabs tabs-boxed label bg-Emerald2 rounded-lg">
@@ -289,10 +289,10 @@ export const PartyPage = () => {
                           {item.cost}
                         </div>
                       </div>
-                      <div className="col-span-5 border-t">
+                      <div className="col-span-5 border-t pt-2 pb-1">
                         {item.pay.length !== 0 ? (
                           item.pay.map((member) => (
-                            <div className="avatar placeholder" key={member}>
+                            <div className="avatar placeholder mx-1" key={member}>
                               <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
                                 <span className="text-xs">
                                   {member ? member.charAt(0) : ""}
