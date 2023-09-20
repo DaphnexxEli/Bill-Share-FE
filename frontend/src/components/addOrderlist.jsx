@@ -61,11 +61,11 @@ export default function addOrder({
             onChange={(e) => setorderPrice(e.target.value)}
           />
           <br />
-          <div className="grid grid-cols-5 col-span-2 gap-2">
+          <div className="grid grid-cols-5 col-span-2 gap-2 mt-2">
             {memberlist.map((item) => (
               <span
                 key={item.id}
-                className={`text-Stone text-left border ${
+                className={`text-Stone text-left border rounded-md p-1 ${
                   selectedMembers.includes(item.userID.first_name)
                     ? "bg-Green"
                     : ""
@@ -78,18 +78,18 @@ export default function addOrder({
           </div>
 
           <button
-            className="mt-4 bg-Emerald text-white font-bold py-2 px-4 rounded"
+            className="mt-4 btn btn-sm bg-Emerald text-white font-bold py-2 px-4 rounded"
             onClick={handleSubmit}
           >
             OK
           </button>
           <button
-            className="mt-4 bg-Nature text-Emerald font-bold py-2 px-4 rounded"
+            className="mt-4 mx-2 btn btn-sm bg-neutral text-white font-bold py-2 px-4 rounded"
             onClick={close}
           >
             Close
           </button>
-          <button className="btn btn-outline btn-error" onClick={handleDelete}>
+          <button className="btn btn-error btn-sm hover:btn-outline text-white" onClick={handleDelete}>
             Delete
           </button>
         </div>

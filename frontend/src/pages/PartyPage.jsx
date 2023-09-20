@@ -224,10 +224,8 @@ export const PartyPage = () => {
   }
 
   return (
-    <div className="hero min-h-screen bg-base">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left"></div>
-
+    <div className="container flex justify-center place-items-center min-h-screen bg-Green">
+      <div className="w-2/3">
         <h2 className="text-xl font-bold text-Stone">{partyName}</h2>
         {partyType === "F" ? (
           <h2 className="text-md text-Stone">Restaurant: {resName}</h2>
@@ -237,18 +235,22 @@ export const PartyPage = () => {
           <h2 className="text-md text-Stone">Subscription&Service</h2>
         )}
 
-        <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald">
+        <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-Emerald mt-3">
           <div className="card-body">
             <div className="form-control">
-              <label className="label bg-Emerald2 rounded-lg">
+              <label className="tabs tabs-boxed label bg-Emerald2 rounded-lg">
                 <span
-                  className="label-text w-1/2 text-center text-white rounded-l-md hover:bg-Green"
+                  className={`label-text w-1/2 text-center text-white rounded-l-md tab ${
+                    menuTap ? "tab-active" : ""
+                  }`}
                   onClick={handleMenulistClick}
                 >
                   Order List
                 </span>
                 <span
-                  className="label-text w-1/2 text-center text-white rounded-r-md hover:bg-Green"
+                  className={`label-text w-1/2 text-center text-white rounded-r-md tab ${
+                    !menuTap ? "tab-active" : ""
+                  }`}
                   onClick={handleMembergroupClick}
                 >
                   Member
@@ -257,15 +259,17 @@ export const PartyPage = () => {
             </div>
 
             {menuTap ? (
-              <div className="bg-Emerald2 rounded-t-lg">
+              <div className="bg-Emerald2 rounded-lg">
                 <label className=" label grid grid-cols-5 gap-2">
                   <span className="label-text text-white text-left col-span-3">
                     List{" "}
                   </span>
-                  <span className="label-text text-white text-right">
+                  <span className="label-text text-white text-center">
                     Price{" "}
                   </span>
-                  <span className="label-text text-white text-right">Cost</span>
+                  <span className="label-text text-white text-right">
+                    Cost/Person
+                  </span>
                   {orderList.map((item) => (
                     <div
                       key={item.index}
@@ -275,18 +279,17 @@ export const PartyPage = () => {
                         className="col-span-5 grid grid-cols-5 cursor-pointer"
                         onClick={() => handleEditMenu(item)}
                       >
-                        <div className="text-white text-left border col-span-3">
+                        <div className="text-white text-left bg-neutral-focus col-span-3">
                           {item.name}
                         </div>
-                        <div className="text-white text-right border">
+                        <div className="text-white text-center ">
                           {item.price}
                         </div>
-                        <div className="text-white text-right border">
+                        <div className="text-white text-center bg-neutral-focus">
                           {item.cost}
                         </div>
                       </div>
-
-                      <div className="col-span-5">
+                      <div className="col-span-5 border-t">
                         {item.pay.length !== 0 ? (
                           item.pay.map((member) => (
                             <div className="avatar placeholder" key={member}>
@@ -308,7 +311,7 @@ export const PartyPage = () => {
                     </div>
                   ))}
                 </label>
-                <div className="bg-Emerald2 mt-5">
+                <div className="bg-Emerald2 my-5 rounded-b-lg">
                   <form onSubmit={handleAddMenu}>
                     <div className="form-control">
                       <div className="grid grid-cols-4 gap-2">
@@ -357,17 +360,18 @@ export const PartyPage = () => {
                       </div>
                     </div>
                   </form>
-                  <span
-                    className="text-white w-fit cursor-pointer hover:bg-Green rounded-md"
+
+                  <button
+                    className="btn btn-error btn-sm mt-4 text-white hover:btn-outline"
                     onClick={handleClearOrderList}
                   >
                     Clear
-                  </span>
+                  </button>
                 </div>
               </div>
             ) : (
-              <div className="bg-Emerald2">
-                <div className="bg-white flex justify-center">
+              <div className="bg-Emerald2 rounded-lg">
+                <div className="bg-white flex justify-center rounded-t-lg">
                   <QRCode className="my-5" value={partyCode} />
                 </div>
                 <div className="bg-Green my-4 mx-auto rounded-md w-1/2">

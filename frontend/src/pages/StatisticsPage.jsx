@@ -114,8 +114,8 @@ export const Static = () => {
   const donutSeries = [foodData.total, rantalData.total, serviceData.total];
 
   return (
-    <div className="container flex justify-center bg-Amber h-screen">
-      <div className="w-2/3 mt-10 bg-Emerald2 rounded-2xl p-10">
+    <div className="container flex justify-center bg-Green h-screen">
+      <div className="w-2/3 h-4/5 my-10 bg-Emerald2 rounded-2xl p-10">
         <h1 className="text-left text-4xl font-medium text-Nature">
           Monthly Report
         </h1>
@@ -147,20 +147,20 @@ export const Static = () => {
             optionClasses={"option"}
           />
         </div>
-        <div className="h-5/6 mt-10 p-10">
+        <div className=" my-10 p-auto">
           <ReactApexChart
-            className={"bg-white rounded-lg"}
+            className={"bg-white rounded-lg w-full"}
             options={donutOptions}
             series={donutSeries}
             type="donut"
             width={400}
             height={300}
           />
-          <div className="rounded-lg mt-28">
+          <div className="rounded-lg my-14 h-1/2">
             <h1 className="my-3 text-white font-semibold">
               Sort by catagories
             </h1>
-            <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
+            <div className="my-1 h-1/3 min-h-16 max-h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
               <div className="h-full col-span-4 grid grid-cols-4 justify-items-center">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">
@@ -197,7 +197,7 @@ export const Static = () => {
                 </button>
               </div>
             </div>
-            <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
+            <div className="my-1 h-1/3 min-h-16 max-h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
               <div className="h-full col-span-4 grid grid-cols-4 justify-items-center">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">
@@ -235,7 +235,7 @@ export const Static = () => {
                 </button>
               </div>
             </div>
-            <div className="my-1 h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
+            <div className="my-1 h-1/3 min-h-16 max-h-20 bg-Green rounded-lg grid grid-cols-5 justify-items-center content-center">
               <div className="h-full col-span-4 grid grid-cols-4 justify-items-center">
                 <div className="avatar placeholder col-span-1">
                   <div className="bg-white text-neutral-content rounded-full w-12">

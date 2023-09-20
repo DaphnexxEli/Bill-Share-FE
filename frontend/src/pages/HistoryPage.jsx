@@ -34,8 +34,8 @@ export const History = () => {
   }
 
   return (
-    <div className="container flex justify-center bg-Amber h-screen">
-      <div className="w-2/3 mt-10 bg-Emerald2 rounded-2xl p-10">
+    <div className="container flex justify-center bg-Green h-screen">
+      <div className="w-2/3 my-10 h-4/5 bg-Emerald2 rounded-2xl p-10">
         <h1 className="text-left text-4xl font-medium text-white">History Record</h1>
         <div className="divider"></div>
         <div className="overflow-x-auto h-5/6 mt-10">
