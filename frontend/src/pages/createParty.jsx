@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import { LoginPage } from "./LoginPage";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../components/backButtom";
 
 export const CreateParty = () => {
   const [partyName, setPartyName] = useState("");
@@ -69,9 +70,9 @@ export const CreateParty = () => {
   }
 
   return (
-    
     <div className="items-center bg-base h-screen">
-      <div class=" flex justify-center text-2xl font-bold text-Stone pt-24 py-6">
+      <BackButton className={"m-10"}/>
+      <div className=" flex justify-center text-2xl font-bold text-Stone pt-24 py-6">
         Create A Party
       </div>
       <div className="flex justify-center">

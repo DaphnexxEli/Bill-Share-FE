@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import { LoginPage } from "./LoginPage";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../components/backButtom";
 
 export const Data = () => {
   const [restaurantslist, setRestaurantslist] = useState([]);
@@ -89,6 +90,7 @@ export const Data = () => {
   return (
     <div className="container flex justify-center bg-Emerald h-screen">
       <div className="w-2/3 mt-10">
+        <BackButton />
         <h1 className="text-center text-2xl font-medium text-white my-5">
           Lists of restaurant
         </h1>

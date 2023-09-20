@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { useParams } from "react-router-dom";
+import BackButton from "../components/backButtom";
 
 export default function EditMenuList() {
   const [menuList, setMenuList] = useState([]);
@@ -92,6 +93,7 @@ export default function EditMenuList() {
   return (
     <div className="container flex justify-center bg-Emerald h-screen">
       <div className="w-2/3 mt-10">
+        <BackButton />
         <h1 className="text-center text-xl font-bold text-nature my-5 text-white">
           {resName}
         </h1>

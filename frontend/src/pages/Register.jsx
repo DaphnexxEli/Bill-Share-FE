@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import api from "../services/api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
+import BackButton from "../components/backButtom";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     let is_success = false;
     try {
       const response = await api.register(
@@ -31,8 +32,7 @@ export const Register = () => {
         phone
       );
 
-      if(response["id"])
-      {
+      if (response["id"]) {
         is_success = true;
       }
       console.log("Signed in successfully:", response);
@@ -43,7 +43,6 @@ export const Register = () => {
       setIsOpen(false);
       navigate("/");
     }
-    
 
     setIsOpen(is_success);
 
@@ -57,13 +56,13 @@ export const Register = () => {
   return (
     <div className="hero min-h-screen bg-Emerald">
       <div className="hero-content flex-col lg:flex-row-reverse">
+        <BackButton className={"place-self-start"}/>
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold text-white">Join us now!</h1>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
-            
               <div className="form-control">
                 <label className="label">
                   <span className="label-text text-white">Email</span>
@@ -107,7 +106,7 @@ export const Register = () => {
                   required
                   onChange={(e) => setLast(e.target.value)}
                 />
-              </div>    
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text text-white">Phone</span>
@@ -119,7 +118,7 @@ export const Register = () => {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-              
+
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
                   Join us

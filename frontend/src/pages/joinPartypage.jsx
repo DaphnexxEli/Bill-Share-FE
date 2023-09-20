@@ -3,6 +3,7 @@ import { QrReader } from "react-qr-reader";
 import { useNavigate } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
 import api from "../services/api";
+import BackButton from "../components/backButtom";
 
 export const JoinByCodeOrQRCode = () => {
   const [code, setCode] = useState("");
@@ -59,6 +60,7 @@ export const JoinByCodeOrQRCode = () => {
 
   return (
     <div className="hero min-h-screen bg-base">
+      <BackButton className="place-self-start m-10"/>
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
           <h1 className="text-2xl font-bold-san card-body text-white">
@@ -78,7 +80,10 @@ export const JoinByCodeOrQRCode = () => {
             </button>
           </div>
           <div className="card-body font-san">
-            <button onClick={handleQRScannerClick} className="btn btn-primary bg-Emerald">
+            <button
+              onClick={handleQRScannerClick}
+              className="btn btn-primary bg-Emerald"
+            >
               Scan QR Code
             </button>
           </div>
@@ -101,7 +106,10 @@ export const JoinByCodeOrQRCode = () => {
           {scannedCode && (
             <div>
               <p>Scanned code: {scannedCode}</p>
-              <button onClick={handleJoin} className="btn btn-primary bg-Emerald">
+              <button
+                onClick={handleJoin}
+                className="btn btn-primary bg-Emerald"
+              >
                 Join with Scanned Code
               </button>
             </div>

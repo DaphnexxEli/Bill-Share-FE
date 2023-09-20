@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import api from "../services/api";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../components/backButtom";
 
 export const ResetPassword = () => {
   const navigate = useNavigate();
@@ -25,19 +26,19 @@ export const ResetPassword = () => {
 
     try {
       await api.resetpass(email, password);
-      setIsOpen(true)
+      setIsOpen(true);
       setEmail("");
       setPassword("");
       setConPassword("");
     } catch (error) {
       setMessage("There was an error resetting the password.");
-
     }
   };
 
   return (
     <div className="hero min-h-screen bg-base">
       <div className="hero-content flex-col lg:flex-row-reverse">
+        <BackButton className={" place-self-start"}/>
         <h1 className="text-3xl font-bold">Forgot password</h1>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
           <div className="card-body">
@@ -66,7 +67,9 @@ export const ResetPassword = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-white">Confirmed Password</span>
+                  <span className="label-text text-white">
+                    Confirmed Password
+                  </span>
                 </label>
                 <input
                   type="password"
@@ -82,30 +85,27 @@ export const ResetPassword = () => {
               </div>
               {message && <p>{message}</p>}
               <Modal
-                  isOpen={isOpen}
-                  onRequestClose={closeModal}
-                  ariaHideApp={false}
-                  className="flex justify-center items-center h-screen"
-                >
-                  <div className="card w-96 bg-neutral text-neutral-content">
-                    <div className="card-body items-center text-center">
-                      <h2 className="card-title">Successful</h2>
-                      <img
-                        src="../public/checked.png"
-                        alt="team"
-                        style={{ width: "100px", height: "100px" }}
-                      />
-                      <div className="card-actions justify-end">
-                        <button
-                          className="btn btn-primary"
-                          onClick={closeModal}
-                        >
-                          Close
-                        </button>
-                      </div>
+                isOpen={isOpen}
+                onRequestClose={closeModal}
+                ariaHideApp={false}
+                className="flex justify-center items-center h-screen"
+              >
+                <div className="card w-96 bg-neutral text-neutral-content">
+                  <div className="card-body items-center text-center">
+                    <h2 className="card-title">Successful</h2>
+                    <img
+                      src="../public/checked.png"
+                      alt="team"
+                      style={{ width: "100px", height: "100px" }}
+                    />
+                    <div className="card-actions justify-end">
+                      <button className="btn btn-primary" onClick={closeModal}>
+                        Close
+                      </button>
                     </div>
                   </div>
-                </Modal>
+                </div>
+              </Modal>
             </form>
           </div>
         </div>
