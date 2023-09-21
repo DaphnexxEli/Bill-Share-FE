@@ -8,13 +8,13 @@ export const CardContainer = () => {
         <header className="bg-Green p-4">
           <div className="container mx-auto">
             <nav className="flex items-center justify-between px-6">
-              <div className="text-Stone font-bold-sans text-xl">
+              <div className="text-Stone font-bold text-2xl">
                 {" "}
                 Welcome back!{" "}
               </div>
             </nav>
             <nav className="flex items-center justify-between">
-              <div className="text-semiblack font-bold-sans text-m px-6">
+              <div className="text-primary-focus font-bold text-lg px-6">
                 {" "}
                 Hello, {localStorage.getItem("first_name")}{" "}
               </div>
@@ -30,7 +30,7 @@ export const CardContainer = () => {
                   Create a party
                 </h2>
                 <img
-                  src="../public/team.png"
+                  src="/team.png"
                   alt="team"
                   style={{ width: "100px", height: "100px" }}
                 />
@@ -54,7 +54,7 @@ export const CardContainer = () => {
                     Join a group
                   </h2>
                   <img
-                    src="../public/add-group.png"
+                    src="/add-group.png"
                     alt="team"
                     style={{ width: "100px", height: "100px" }}
                   />

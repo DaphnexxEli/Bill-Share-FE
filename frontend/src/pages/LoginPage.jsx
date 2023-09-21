@@ -13,7 +13,7 @@ export const LoginPage = () => {
 
     try {
       const response = await api.login(email, password);
-      console.log("Logged in successfully:", response.status, email)
+      console.log("Logged in successfully:", response.status, email);
       navigate("/");
       window.location.reload();
     } catch (error) {
@@ -29,6 +29,7 @@ export const LoginPage = () => {
   return (
     <div className="hero min-h-screen bg-base">
       <div className="hero-content flex-col lg:flex-row-reverse">
+        <img className="mask mask-circle w-48" src="/logo.png" />
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold-sans text-Stone">Login now!</h1>
           <p className="py-6 text-Stone font-sans">
@@ -74,7 +75,9 @@ export const LoginPage = () => {
                 </button>
               </div>
             </form>
-            {auth && <label className="text-rose-500">Email or Password Wrong!!</label>}
+            {auth && (
+              <label className="text-rose-500">Email or Password Wrong!!</label>
+            )}
           </div>
         </div>
         <label className="label">

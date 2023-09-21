@@ -12,7 +12,7 @@ export const ForAdmin = () => {
                 <div className="card-body">
                   <h2 className="card-title text-white ">Restarant list</h2>
                   <img
-                    src="../public/opinion.png"
+                    src="/opinion.png"
                     alt="opinion"
                     style={{ width: "100px", height: "100px"}}
                   />
