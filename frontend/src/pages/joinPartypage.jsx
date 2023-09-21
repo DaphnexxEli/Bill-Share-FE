@@ -49,6 +49,7 @@ export const JoinByCodeOrQRCode = () => {
       setCode("");
       setScannedCode("");
     } catch (error) {
+      window.partyNotFoundDialog.showModal();
       console.error("Error joining party:", error);
     }
   };
@@ -60,7 +61,7 @@ export const JoinByCodeOrQRCode = () => {
 
   return (
     <div className="hero min-h-screen bg-base">
-      <BackButton className="place-self-start m-10"/>
+      <BackButton className="place-self-start m-10" />
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-Emerald2">
           <h1 className="text-2xl font-bold-san card-body text-white">
@@ -116,6 +117,15 @@ export const JoinByCodeOrQRCode = () => {
           )}
         </div>
       </div>
+      <dialog id="partyNotFoundDialog" className="modal">
+        <form method="dialog" className="modal-box">
+          <h3 className="font-bold text-lg">Party Not Found</h3>
+          <p>The requested party does not exist.</p>
+          <div className="modal-action">
+            <button className="btn btn-outline">Close</button>
+          </div>
+        </form>
+      </dialog>
     </div>
   );
 };
