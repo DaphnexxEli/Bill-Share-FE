@@ -132,7 +132,7 @@ export const Register = () => {
                     <div className="card-body items-center text-center">
                       <h2 className="card-title">Successful</h2>
                       <img
-                        src="../public/checked.png"
+                        src="/checked.png"
                         alt="team"
                         style={{ width: "100px", height: "100px" }}
                       />

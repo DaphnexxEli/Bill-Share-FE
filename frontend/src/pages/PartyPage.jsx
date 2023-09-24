@@ -292,7 +292,10 @@ export const PartyPage = () => {
                       <div className="col-span-5 border-t pt-2 pb-1">
                         {item.pay.length !== 0 ? (
                           item.pay.map((member) => (
-                            <div className="avatar placeholder mx-1" key={member}>
+                            <div
+                              className="avatar placeholder mx-1"
+                              key={member}
+                            >
                               <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
                                 <span className="text-xs">
                                   {member ? member.charAt(0) : ""}
@@ -420,16 +423,16 @@ export const PartyPage = () => {
               />
             )}
 
-            <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary bg-Emerald2">
-                <Link
-                  to="/"
-                  onClick={handleSubmit}
-                  className="label-text-alt link link-hover text-white"
-                >
+            <div className="form-control mt-6 self-center">
+              <Link
+                to="/"
+                onClick={handleSubmit}
+                className="label-text-alt link link-hover text-white"
+              >
+                <button type="submit" className="btn btn-wide btn-primary bg-Emerald2">
                   Next
-                </Link>
-              </button>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

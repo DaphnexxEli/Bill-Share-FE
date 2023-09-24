@@ -70,9 +70,9 @@ export const CreateParty = () => {
   }
 
   return (
-    <div className="items-center bg-base h-screen">
+    <div className="items-center bg-Emerald h-screen">
       <BackButton className={"m-10"}/>
-      <div className=" flex justify-center text-2xl font-bold text-Stone pt-24 py-6">
+      <div className=" flex justify-center text-2xl font-bold text-white pt-24 py-6">
         Create A Party
       </div>
       <div className="flex justify-center">
