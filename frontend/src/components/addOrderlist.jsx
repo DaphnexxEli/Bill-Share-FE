@@ -65,7 +65,7 @@ export default function addOrder({
             {memberlist.map((item) => (
               <span
                 key={item.id}
-                className={`text-Stone text-left border rounded-md p-1 ${
+                className={`text-Stone text-left border rounded-md overflow-hidden p-1 ${
                   selectedMembers.includes(item.userID.first_name)
                     ? "bg-Green"
                     : ""

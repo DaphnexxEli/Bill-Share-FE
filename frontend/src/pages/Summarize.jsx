@@ -51,7 +51,7 @@ export function SummarizeBill() {
     if (partyCode) {
       fetchBillDetail();
     }
-  }, [partyCode]);
+  }, [partyCode ,selectedImage]);
 
   function handleQR(amount) {
     setqrCode(generatePayload(phoneNumber, { amount }));
@@ -78,7 +78,7 @@ export function SummarizeBill() {
   }
 
   return (
-    <div className="container flex justify-center bg-Green h-screen">
+    <div className="container flex justify-center bg-Green min-h-screen">
       <div className="w-2/3">
         <h1 className=" text-center text-4xl mt-10">Summarize</h1>
         <h3 className=" text-left text-2xl text-Stone mt-10">{partyName}</h3>

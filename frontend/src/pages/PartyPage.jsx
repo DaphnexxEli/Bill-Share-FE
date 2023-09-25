@@ -282,10 +282,10 @@ export const PartyPage = () => {
                         <div className="text-white text-left bg-neutral-focus col-span-3">
                           {item.name}
                         </div>
-                        <div className="text-white text-center ">
+                        <div className="text-white text-center overflow-hidden">
                           {item.price}
                         </div>
-                        <div className="text-white text-center bg-neutral-focus">
+                        <div className="text-white text-center overflow-hidden bg-neutral-focus">
                           {item.cost}
                         </div>
                       </div>
